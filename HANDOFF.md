@@ -1,5 +1,27 @@
 # HANDOFF — platform-decision-kit
 
+## 2026-08-24 — Session 6 (öffentlich)
+
+_HEAD 9bfcc8a · auf GitHub · gate PASS (15) · fixtures 3/3 · 27 Tests_
+
+- **Gepusht** nach `https://github.com/leonkoellerwirth-arch/platform-decision-kit` (public),
+  93 Dateien. Das Repo war mit einem „Initial commit" (nur `LICENSE`, byte-identisch mit
+  unserer) angelegt; statt ihn zu überschreiben ist er per
+  `merge --allow-unrelated-histories` übernommen — nichts verworfen.
+- **Push-Falle für das nächste Mal:** der SSH-Schlüssel dieser Maschine gehört zum Konto
+  `HamudiLeon`, das Repo dem Konto `leonkoellerwirth-arch`. Über SSH kommt
+  `Permission denied to HamudiLeon`. Lösung ohne globale Konfigänderung: Remote auf HTTPS und
+  `git -c credential.helper='!gh auth git-credential' push`.
+- **Nicht mitgegangen:** `.planning/DECK-REVIEW.md` ist jetzt git-ignoriert, in derselben
+  Kategorie wie `ARCHITECTURE-SPEC.md` („internal blueprint, not a public artifact"). Wenn die
+  Review öffentlich sein soll, ist das eine Zeile in `.gitignore` und ein Commit.
+- **Repo-Beschreibung und Topics gesetzt** (architecture-decision-records, discovery,
+  offline-first, governance) — ein leeres Beschreibungsfeld ist an einem öffentlichen Repo eine
+  kleine Peinlichkeit.
+- **Offen:** Schritt 11 — `v0.1.0` taggen und ein GitHub-Release anlegen. Weiter nicht getan,
+  weil Leon dafür ausdrücklich zustimmen wollte. Der Code ist jetzt oben; der Tag fehlt.
+
+
 Session handoffs, **newest entry first**. Written by `/session-stop` (via
 `scripts/session-snapshot.sh`). Read the top entry at `/session-start`.
 
