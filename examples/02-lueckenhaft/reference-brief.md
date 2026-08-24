@@ -52,6 +52,15 @@ markiert und trägt die blockierende Q-ID. Kostendimensionen sind im Intake nich
 - Die Dauer der Betriebsratskonsultation ist nicht dokumentiert, während ein Entscheidungsziel gesetzt ist [Q3.5] (Aussage · HR-Operations-Lead, Interview 2026-08-19).
 - Die SaaS-first-Vorgabe ist einer Person zugeschrieben, nicht einem Richtliniendokument [Q3.1] (Aussage · IT-Lead, Interview 2026-08-19).
 
+## Team & Verankerung
+
+- Der IT-Lead ist faktischer Eigner; eine schriftliche Eigentümerschaft oder ein Service-Katalog-Eintrag existiert nicht [Q9.1] (Aussage · IT-Lead, Interview 2026-08-19).
+- Anfragen kommen per E-Mail beim IT-Lead an; einen Prüfschritt gibt es nicht [Q9.2] (Aussage · IT-Lead, Interview 2026-08-19).
+- Das Wissen zur Java-Schicht liegt bei einer einzigen Person, zum COBOL-Modul bei niemandem [Q9.3] (Aussage · IT-Lead, Interview 2026-08-19).
+- Der Ruhestand des IT-Leads liegt innerhalb von fünf Jahren, ein Datum ist nicht gesetzt [Q9.4] (Aussage · IT-Lead, Interview 2026-08-19).
+- Der Betriebsrat hält faktische Vetomacht über jede Änderung an HR-Systemen [Q9.5] (Aussage · HR-Operations-Lead, Interview 2026-08-19).
+- Die Dauer der Betriebsratskonsultation ist nicht dokumentiert [Q3.5] (Aussage · HR-Operations-Lead, Interview 2026-08-19).
+
 ## Offene Punkte & Konflikte
 
 Keine Widersprüche im Intake. Die offenen Punkte sind im Register geführt.

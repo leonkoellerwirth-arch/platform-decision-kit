@@ -49,6 +49,15 @@ offen/bedingt markiert und tragen die blockierende Q-ID.
 - Das jährliche Systemaudit im März schränkt Änderungen am Settlement-Pfad zeitlich ein [Q3.4] (Fakt · CMP-2026-09).
 - Das Governance-Verfahren dauert erfahrungsgemäß zehn bis vierzehn Wochen [Q3.5] (Fakt · Governance-Handbuch v6). Ob es in den Entscheidungszeitraum passt, ist von der strittigen Frist abhängig [Q2.5] (Aussage · beide Quellen, siehe Konfliktabschnitt).
 
+## Team & Verankerung
+
+- Das Payments-Platform-Team besitzt PaymentHub; ein verantwortlicher Lead ist benannt [Q9.1] (Fakt · Service-Katalog SVC-031).
+- Änderungen laufen über den Service-Katalog und werden von zwei Ingenieuren sowie einem DBA geprüft, sobald das Settlement-Schema betroffen ist [Q9.2] (Fakt · Governance-Handbuch v6).
+- Das Wissen zum Settlement-Schema ist im DBA-Team konzentriert, das zur Ausnahmezuordnung bei zwei Ingenieuren [Q9.3] (Fakt · ARC-INV-2026-08, Wissenskarte).
+- Innerhalb des Entscheidungszeitraums ist keine Umstrukturierung geplant [Q9.4] (Fakt · Workforce-Plan 2026-H2).
+- Der DBA-Team-Lead hält faktische Vetomacht über Änderungen am Settlement-Schema [Q9.5] (Aussage · ARC-2026-44).
+- Die beiden widersprüchlichen Aussagen stammen aus getrennten Gremien — Architektur-Review und Budget-Review — und sind organisatorisch, nicht technisch begründet [Q2.5] (Aussage · beide Quellen, siehe Konfliktabschnitt).
+
 ## Offene Punkte & Konflikte
 
 ### Konflikt A — Entscheidungsfrist [Q2.5]

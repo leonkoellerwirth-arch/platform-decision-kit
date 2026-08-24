@@ -53,6 +53,15 @@ dieses Briefs.
 - Das Governance-Verfahren dauert erfahrungsgemäß sechs bis acht Wochen und liegt damit innerhalb der Frist, aber ohne Puffer [Q3.5] (Fakt · Governance-Handbuch v4).
 - Der jährliche PCI-nahe Scope-Review im Januar schränkt Änderungen an Auftragsdatensätzen zeitlich ein [Q3.4] (Fakt · CMP-2026-02).
 
+## Team & Verankerung
+
+- Die Plattform gehört dem Platform-Engineering-Team; ein verantwortlicher Lead ist benannt [Q9.1] (Fakt · Org-Chart 2026-07, SVC-014).
+- Arbeit erreicht das Team über den Service-Katalog, wird wöchentlich triagiert und von zwei Plattform-Ingenieuren geprüft; Übergaben stocken am häufigsten am Analytics-Export-Vertrag [Q9.2] (Fakt · Ticket-Flow-Analyse Q2 2026).
+- Das Wissen zur Auftragszustandsmaschine liegt bei drei Ingenieuren; die frühere Einzelkonzentration wurde im Juni-Inventar aufgelöst [Q9.3] (Fakt · ARC-INV-2026-05, Wissenskarte).
+- Eine Umstrukturierung ist nicht geplant; im Oktober 2026 kommt ein Ingenieur hinzu [Q9.4] (Fakt · Workforce-Plan 2026-H2).
+- Der Head of Fulfillment hält informelle Vetomacht [Q9.5] (Aussage · Architektur-Review-Protokoll 2026-08-10).
+- Das Governance-Verfahren verlangt Architektur-Board und CFO-Freigabe, erfahrungsgemäß sechs bis acht Wochen [Q3.5] (Fakt · Governance-Handbuch v4).
+
 ## Offene Punkte & Konflikte
 
 Keine Widersprüche im Intake. Keine offenen Verifikationspunkte.

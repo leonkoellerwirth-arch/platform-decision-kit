@@ -10,6 +10,7 @@ claim_bearing_sections:
   - "## Hypothesen"
   - "## Options-Raum"
   - "## Risiken & Rückweg"
+  - "## Team & Verankerung"
 
 # Complete intake: every item resolved, so the register is empty.
 expected_in_register: []
