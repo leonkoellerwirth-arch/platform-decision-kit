@@ -65,6 +65,8 @@ export interface Hypothesis {
 export interface DecisionHeadField {
   key: string;
   label: Text;
+  /** An example of the shape the field wants, shown while it is empty. */
+  hint: Text;
 }
 
 /** Theme 6 only: the mini data inventory, one row per data domain. */
@@ -147,12 +149,56 @@ export const THEMES: Theme[] = (source.themes as RawTheme[]).map((t) => ({
 
 /** The Entscheidungskopf slots, in the order the briefing fixes them. */
 export const DECISION_HEAD_FIELDS: DecisionHeadField[] = [
-  { key: "decision_question", label: { en: "Decision question", de: "Entscheidungsfrage" } },
-  { key: "decision_owner", label: { en: "Decision owner", de: "Entscheidungseigner" } },
-  { key: "in_scope", label: { en: "In scope", de: "Im Scope" } },
-  { key: "out_of_scope", label: { en: "Out of scope", de: "Außerhalb des Scope" } },
-  { key: "deadline", label: { en: "Deadline", de: "Frist" } },
+  {
+    key: "decision_question",
+    label: { en: "Decision question", de: "Entscheidungsfrage" },
+    hint: {
+      en: "Answerable with yes, no, or a named option, and carrying a date.",
+      de: "Mit Ja, Nein oder einer benannten Option beantwortbar, und mit Datum.",
+    },
+  },
+  {
+    key: "decision_owner",
+    label: { en: "Decision owner", de: "Entscheidungseigner" },
+    hint: {
+      en: "One named person, and whether the authority is in writing.",
+      de: "Eine benannte Person, und ob die Befugnis schriftlich hinterlegt ist.",
+    },
+  },
+  {
+    key: "in_scope",
+    label: { en: "In scope", de: "Im Scope" },
+    hint: {
+      en: "The systems and layers this decision is allowed to change.",
+      de: "Die Systeme und Schichten, die diese Entscheidung ändern darf.",
+    },
+  },
+  {
+    key: "out_of_scope",
+    label: { en: "Out of scope", de: "Außerhalb des Scope" },
+    hint: {
+      en: "What it explicitly does not touch.",
+      de: "Was sie ausdrücklich nicht anfasst.",
+    },
+  },
+  {
+    key: "deadline",
+    label: { en: "Deadline", de: "Frist" },
+    hint: {
+      en: "The date, and what happens on the day after it passes.",
+      de: "Das Datum, und was am Tag danach passiert.",
+    },
+  },
 ];
+
+/** Examples for the mini data inventory, keyed by the column name from the theme source. */
+export const COLUMN_HINTS: Record<string, Text> = {
+  domain: { en: "Partner data", de: "Partnerdaten" },
+  classification: { en: "confidential, established 2021", de: "vertraulich, festgestellt 2021" },
+  owner: { en: "one named person", de: "eine benannte Person" },
+  retention: { en: "10 years after contract end", de: "10 J. nach Vertragsende" },
+  erasure_path: { en: "tested, or say it is not", de: "getestet, oder: nicht" },
+};
 
 /** Every question in the set, flat — the deck reads answers by Q-ID. */
 export const QUESTIONS_BY_ID: ReadonlyMap<string, Question> = new Map(

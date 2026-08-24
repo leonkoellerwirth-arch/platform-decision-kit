@@ -353,6 +353,29 @@ h1, h2, h3, h4 {
 
 .block-meta { flex: 1; min-width: 0; }
 
+/* The card's own info button, in front of the block number. */
+.block-help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-right: 0.35rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  opacity: 0.6;
+  vertical-align: -0.3rem;
+  transition: opacity var(--dur-1) var(--ease), color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+}
+
+.block-help:hover { opacity: 1; color: var(--accent-strong); background: var(--accent-soft); }
+.block-help.on { opacity: 1; color: var(--accent-strong); background: var(--accent-soft); }
+.block-help:focus-visible { outline: none; opacity: 1; box-shadow: var(--focus-ring); }
+
 /* Block number and title on one line — the number was costing a line of its own. */
 .block-num {
   font-family: var(--font-mono);

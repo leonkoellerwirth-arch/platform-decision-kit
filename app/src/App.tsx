@@ -2,10 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Deck } from "./Deck";
 import { Button, Chip, Tabs, TextArea, ToggleButton, ToggleButtonGroup } from "@heroui/react";
 import { EvidenceGrid, GridSummary } from "./EvidenceGrid";
-import { HELP, questionHelp } from "./help";
+import { HELP, blockHelp, questionHelp } from "./help";
 import { HelpPanel } from "./HelpPanel";
 import { t, UI } from "./i18n";
 import {
+  COLUMN_HINTS,
   DECISION_HEAD_FIELDS,
   pick,
   THEMES,
@@ -428,12 +429,20 @@ export default function App() {
 
   // ── JSX ───────────────────────────────────────────────────────────────────
 
-  const qHelpQuestion = qHelp
-    ? visible.flatMap((th) => th.questions.map((q) => ({ th, q }))).find(({ q }) => q.id === qHelp)
-    : undefined;
+  /** The docked panel shows either one question or the whole card it sits on. */
+  const dockedHelp = (() => {
+    if (!qHelp) return undefined;
+    if (qHelp.startsWith("block:")) {
+      const id = Number(qHelp.slice(6));
+      const th = visible.find((x) => x.id === id);
+      return th ? blockHelp(th) : undefined;
+    }
+    const hit = visible.flatMap((th) => th.questions.map((q) => ({ th, q }))).find(({ q }) => q.id === qHelp);
+    return hit ? questionHelp(hit.th, hit.q) : undefined;
+  })();
 
   return (
-    <div className={`app${qHelpQuestion && view === "intake" ? " app-docked" : ""}`}>
+    <div className={`app${dockedHelp && view === "intake" ? " app-docked" : ""}`}>
       {/* ── One bar ──────────────────────────────────────────────────────
           Three stacked bands (brand · mode+view · block rail) cost roughly 200px
           before a single question was visible. Brand, mode, view and the meters
@@ -638,6 +647,22 @@ export default function App() {
           <section className="block-view">
             <div className="block-header">
               <div className="block-meta">
+                {/* The card shows more than its questions: the rail, the lead, and on two of
+                    the ten a structure of its own. This explains whatever is actually on it. */}
+                <button
+                  type="button"
+                  className={`block-help${qHelp === `block:${currentTheme.id}` ? " on" : ""}`}
+                  aria-label={t(UI.helpForBlock, lang)}
+                  onClick={() =>
+                    setQHelp(qHelp === `block:${currentTheme.id}` ? null : `block:${currentTheme.id}`)
+                  }
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M9.2 9.2a2.8 2.8 0 1 1 3.8 2.6c-.7.3-1 .9-1 1.6v.4" />
+                    <line x1="12" y1="17.6" x2="12.01" y2="17.6" />
+                  </svg>
+                </button>
                 <span className="block-num">
                   {t(UI.block, lang)} {currentTheme.id} / {visible.length}
                 </span>
@@ -883,13 +908,8 @@ export default function App() {
 
       {/* Docked, not modal: the answer field stays live while the help is open, because
           reading why a question is asked and writing the answer to it is one activity. */}
-      {qHelpQuestion && view === "intake" && (
-        <HelpPanel
-          docked
-          help={questionHelp(qHelpQuestion.th, qHelpQuestion.q)}
-          lang={lang}
-          onClose={() => setQHelp(null)}
-        />
+      {dockedHelp && view === "intake" && (
+        <HelpPanel docked help={dockedHelp} lang={lang} onClose={() => setQHelp(null)} />
       )}
     </div>
   );
@@ -1109,6 +1129,7 @@ function DecisionHeadBlock({
           <input
             type="text"
             style={{ flex: "1 1 18rem" }}
+            placeholder={`${t(UI.forExample, lang)} ${pick(f.hint, lang)}`}
             value={head[f.key] ?? ""}
             onChange={(e) => onChange({ ...head, [f.key]: e.target.value })}
           />
@@ -1162,6 +1183,9 @@ function DataInventoryBlock({
                 <td key={c}>
                   <input
                     type="text"
+                    placeholder={
+                      COLUMN_HINTS[c] ? `${t(UI.forExample, lang)} ${pick(COLUMN_HINTS[c], lang)}` : undefined
+                    }
                     value={row[ci] ?? ""}
                     onChange={(e) => {
                       const next = rows.map((r) => [...r]);

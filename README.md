@@ -109,6 +109,74 @@ questions are answered, and the instrument still arrives at no recommendation, w
 of the example. A clickable version, the whole instrument in a single HTML file with the answers
 already in it, is attached to the v0.1.0 release.
 
+## What it looks like
+
+The screenshots follow your system theme. The instrument ships two, `paper` and `ink`, and every
+colour in both comes from one token file.
+
+### Intake
+
+One theme block at a time. Each question takes a written answer, an optional source, and one cell
+in a four by three grid: basis across, verification down. Clicking a cell sets both axes at once.
+The grey text in an empty field is an example of the shape a usable answer has.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/01-intake-ink.webp">
+  <img alt="The intake: a question, its answer, its source, and the evidence grid" src="docs/screenshots/01-intake-paper.webp">
+</picture>
+
+### Help that stays open while you type
+
+Every question and every block carries an info button. It opens beside the form rather than over
+it, so you can read why a question is asked while you answer it. Almost none of that text is
+written per question: the block's own `why`, its red flags and its stop conditions already live in
+`intake/themes/`, and the panel assembles them.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/02-help-ink.webp">
+  <img alt="Question help docked beside the intake, with the form still live" src="docs/screenshots/02-help-paper.webp">
+</picture>
+
+The block help explains whatever is actually on the card, including the structures that only two
+of the ten blocks have: the decision head here, the mini data inventory on block 6.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/03-block-ink.webp">
+  <img alt="Block help explaining the decision head, field by field" src="docs/screenshots/03-block-paper.webp">
+</picture>
+
+### To-verify register
+
+Everything not yet verified, in a size you can turn the screen around and show to the client. Open
+items and blocked ones, each keeping its question ID.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/04-register-ink.webp">
+  <img alt="The to-verify register" src="docs/screenshots/04-register-paper.webp">
+</picture>
+
+### Presentation
+
+One 16:9 slide at a time, arrow keys to move, F for full screen. Built from the intake verbatim
+with the tags, in the order the specification fixes. No model runs in the page. Slide 1 carries the
+board: every answer on the cell it was tagged with.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/05-deck-ink.webp">
+  <img alt="Slide 1 with the decision head, the evidence board and the assumptions" src="docs/screenshots/05-deck-paper.webp">
+</picture>
+
+Slide 4 was 39 one-line entries. It is the ten theme blocks with their question IDs now, grouped by
+the intake's own structure rather than a new taxonomy, and every ID stays visible.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/06-directions-ink.webp">
+  <img alt="Slide 4: the open points grouped by theme block" src="docs/screenshots/06-directions-paper.webp">
+</picture>
+
+Every info button is hidden in print, and "Print / save as PDF" sets the page to the slide, so the
+sheet shows what the room saw.
+
 ## Layout
 
 ```

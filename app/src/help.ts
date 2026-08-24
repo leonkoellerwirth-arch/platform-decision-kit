@@ -8,7 +8,7 @@
 // no em dashes, an example instead of an adjective. English is the binding version; the German
 // is a translation.
 
-import type { Question, Text, Theme } from "./themes";
+import { DECISION_HEAD_FIELDS, type Question, type Text, type Theme } from "./themes";
 
 export interface HelpItem {
   label: Text;
@@ -717,4 +717,132 @@ export function questionHelp(theme: Theme, q: Question): Help {
     lede: q.text,
     sections,
   };
+}
+
+// ── Per block ───────────────────────────────────────────────────────────────
+
+const B = {
+  onCard: { en: "What is on this card", de: "Was auf dieser Karte steht" },
+  head: { en: "The decision head", de: "Der Entscheidungskopf" },
+  headWhy: {
+    en: "Five fields that frame everything else. Fill them before the blocks and check them again whenever a block contradicts one. A conversation whose decision question is still unwritten after ninety minutes did not have one.",
+    de: "Fünf Felder, die alles andere rahmen. Vor den Blöcken ausfüllen und erneut prüfen, sobald ein Block einem davon widerspricht. Ein Gespräch, dessen Entscheidungsfrage nach neunzig Minuten noch ungeschrieben ist, hatte keine.",
+  },
+  headFields: [
+    {
+      en: "Phrase it so it can be answered with yes, no, or a choice between named options, and give it a date. \"How do we modernise?\" is a topic, not a decision question.",
+      de: "So formulieren, dass sie mit Ja, Nein oder einer Wahl zwischen benannten Optionen beantwortbar ist, und mit einem Datum versehen. „Wie modernisieren wir?\" ist ein Thema, keine Entscheidungsfrage.",
+    },
+    {
+      en: "One named person, not a committee and not a department. Note whether the authority is in writing, because \"everyone assumed it was them\" is the most common reason a decision does not happen.",
+      de: "Eine benannte Person, kein Gremium und keine Abteilung. Notieren Sie, ob die Befugnis schriftlich hinterlegt ist, denn „alle nahmen an, er sei es\" ist der häufigste Grund, warum eine Entscheidung ausbleibt.",
+    },
+    {
+      en: "The systems and layers this decision is allowed to change.",
+      de: "Die Systeme und Schichten, die diese Entscheidung ändern darf.",
+    },
+    {
+      en: "What it explicitly does not touch. A scope that only lists what is included is not a boundary, and this is usually the field that prevents the argument in month four.",
+      de: "Was sie ausdrücklich nicht anfasst. Ein Scope, der nur aufzählt, was dazugehört, ist keine Grenze, und dieses Feld verhindert meist den Streit im vierten Monat.",
+    },
+    {
+      en: "The date, and what happens on the day after it passes. If the honest answer is that a contract renews itself, the decision is already being made for the room.",
+      de: "Das Datum, und was am Tag danach passiert. Lautet die ehrliche Antwort, dass sich ein Vertrag selbst verlängert, wird die Entscheidung dem Raum bereits abgenommen.",
+    },
+  ] as Text[],
+  inv: { en: "The mini data inventory", de: "Das Mini-Dateninventar" },
+  invWhy: {
+    en: "A table without process apparatus: one row per data domain the platform holds. A blank cell is not a gap in the table, it is an entry for the register. Most first passes leave the owner column half empty, and that is the finding.",
+    de: "Eine Tabelle ohne Verfahrensapparat: eine Zeile je Datendomäne, die die Plattform hält. Eine leere Zelle ist keine Lücke in der Tabelle, sie ist ein Eintrag fürs Register. Die meisten ersten Durchgänge lassen die Eignerspalte halb leer, und genau das ist der Befund.",
+  },
+  invCols: {
+    domain: { en: "The data domain, in the words the organisation uses for it.", de: "Die Datendomäne, in den Worten, die die Organisation dafür benutzt." },
+    classification: { en: "Its classification, and who established it. Not your assessment of it.", de: "Ihre Klassifizierung, und wer sie festgestellt hat. Nicht Ihre Einschätzung." },
+    owner: { en: "One named owner. \"The department\" is an empty cell with extra words.", de: "Ein benannter Eigner. „Der Fachbereich\" ist eine leere Zelle mit mehr Buchstaben." },
+    retention: { en: "The documented retention period, not the one that seems plausible.", de: "Die dokumentierte Aufbewahrungsfrist, nicht die plausibel wirkende." },
+    erasure_path: { en: "Whether deletion actually works, and whether anybody has tested it.", de: "Ob Löschen tatsächlich funktioniert, und ob das jemand getestet hat." },
+  } as Record<string, Text>,
+  questions: { en: "The questions in this block", de: "Die Fragen dieses Blocks" },
+  questionsNote: {
+    en: "Each carries its own info button with the example, the red flags and the rule that applies to it.",
+    de: "Jede trägt ihr eigenes Info-Zeichen mit dem Beispiel, den Red Flags und der Regel, die für sie gilt.",
+  },
+  hypo: { en: "Patterns and hypotheses, not questions", de: "Muster und Hypothesen, keine Fragen" },
+  hypoNote: {
+    en: "Testable patterns with the boundary inside which they hold. Never ask one as a question. That is exactly what turns a pattern into a leading question, and the answer you get back is your own.",
+    de: "Prüfbare Muster mit dem Bereich, in dem sie gelten. Stellen Sie keines als Frage. Genau das macht aus einem Muster eine Suggestivfrage, und die Antwort, die zurückkommt, ist Ihre eigene.",
+  },
+  rail: { en: "The block rail", de: "Die Blockleiste" },
+  railText: {
+    en: "The ten blocks, in the header. A dot on a number means that block has open points. You can move through them in any order; the numbering is the order of the printed form, not a sequence you owe anybody.",
+    de: "Die zehn Blöcke, im Kopf der Karte. Ein Punkt an einer Zahl heißt: dieser Block hat offene Punkte. Sie können in beliebiger Reihenfolge springen; die Nummerierung ist die des gedruckten Formulars, keine Reihenfolge, die Sie jemandem schulden.",
+  },
+  lead: { en: "The lead paragraph", de: "Der Einleitungstext" },
+  leadText: {
+    en: "Two sentences on what this block is trying to separate. Read it once before you start, and again if the answers start sounding like the answers to a different block.",
+    de: "Zwei Sätze darüber, was dieser Block auseinanderhalten soll. Einmal vor dem Beginn lesen, und noch einmal, wenn die Antworten anfangen, nach einem anderen Block zu klingen.",
+  },
+} as const;
+
+/**
+ * The help for the whole card, not just one question.
+ *
+ * A block shows more than its questions: the rail, the lead paragraph, and on two of the ten
+ * an entire structure of its own (the decision head on block 2, the data inventory on block 6).
+ * Those had no explanation anywhere. This assembles one for whatever the card actually shows,
+ * so a block that gains a structure later gains its help with it.
+ */
+export function blockHelp(theme: Theme): Help {
+  const sections: HelpSection[] = [];
+
+  const onCard: HelpItem[] = [
+    { label: B.rail, text: B.railText },
+    { label: B.lead, text: B.leadText },
+  ];
+  sections.push({ title: B.onCard, items: onCard });
+
+  if (theme.hasDecisionHead) {
+    sections.push({
+      title: B.head,
+      body: [B.headWhy],
+      items: DECISION_HEAD_FIELDS.map((f, i) => ({ label: f.label, text: B.headFields[i] })),
+    });
+  }
+
+  if (theme.dataInventory) {
+    sections.push({
+      title: B.inv,
+      body: [B.invWhy],
+      items: theme.dataInventory.columns.map((c) => ({
+        label: { en: c, de: c },
+        text: B.invCols[c] ?? { en: c, de: c },
+      })),
+    });
+  }
+
+  sections.push({
+    title: B.questions,
+    body: [B.questionsNote],
+    items: theme.questions.map((q) => ({ label: { en: q.id, de: q.id }, text: q.text })),
+  });
+
+  if (theme.redFlags.length) {
+    sections.push({ title: T.flags, body: [T.flagsNote], items: bullet(theme.redFlags) });
+  }
+  if (theme.stopConditions.length) {
+    sections.push({ title: T.stops, body: [T.stopsNote], items: bullet(theme.stopConditions) });
+  }
+  if (theme.hypotheses.length) {
+    sections.push({
+      title: B.hypo,
+      body: [B.hypoNote],
+      items: theme.hypotheses.map((h) => ({
+        label: { en: h.name, de: h.name },
+        text: { en: `${h.scopeOfValidity} Falsifiable by: ${h.falsifiableBy}`,
+                de: `${h.scopeOfValidity} Widerlegbar durch: ${h.falsifiableBy}` },
+      })),
+    });
+  }
+
+  return { title: { en: `Block ${theme.id}`, de: `Block ${theme.id}` }, lede: theme.why, sections };
 }
