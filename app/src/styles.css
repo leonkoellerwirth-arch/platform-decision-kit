@@ -164,3 +164,27 @@ pre.export {
 
 footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 1rem; }
 footer a { color: var(--navy); }
+
+/* Language switch — top right, above the title, so the choice is made before reading. */
+.langbar { display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }
+
+.langnote {
+  font-size: 0.83rem;
+  color: var(--muted);
+  margin: -1rem 0 2rem;
+}
+
+.qde .marker { font-style: normal; font-size: 0.78rem; opacity: 0.8; }
+
+details.flags { margin-top: 1.25rem; border-top: 1px solid var(--line); padding-top: 0.9rem; }
+details.flags summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--flag);
+  list-style: none;
+}
+details.flags summary::-webkit-details-marker { display: none; }
+details.flags summary::before { content: "▸ "; }
+details.flags[open] summary::before { content: "▾ "; }
+details.flags ul { margin: 0.6rem 0 0; padding-left: 1.2rem; font-size: 0.87rem; color: var(--muted); }
+details.flags li { margin-bottom: 0.3rem; }
