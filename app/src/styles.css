@@ -161,6 +161,9 @@ h1, h2, h3, h4 {
 /* ── HeroUI in the bar ── */
 .appbar .toggle-button-group { flex-shrink: 0; }
 
+/* The gloss switch shows it is on: the canonical wording is a state, not an action. */
+.appbar .button.on { color: var(--accent-strong); background: var(--accent-soft); }
+
 .appbar .button,
 .appbar .toggle-button {
   font-size: 0.8rem;

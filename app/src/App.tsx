@@ -124,6 +124,23 @@ function initialMode(): Mode {
 
 type Theme = "paper" | "ink";
 
+/**
+ * Whether each question also shows its wording in the other language.
+ *
+ * It used to be always on, and that doubled every question on screen: the German text and the
+ * English one below it, fifty-five times, for a reader who had already chosen a language. The
+ * asymmetry the repository insists on (English binds, German translates) is stated once in the
+ * footer notice and marked on the export; it does not need repeating under every line. Off by
+ * default, one switch away for the moment a client asks what the binding wording is.
+ */
+function initialGloss(): boolean {
+  try {
+    return localStorage.getItem("pdk.gloss") === "1";
+  } catch {
+    return false;
+  }
+}
+
 function initialTheme(): Theme {
   try {
     const stored = localStorage.getItem("pdk.theme");
@@ -139,6 +156,7 @@ function initialTheme(): Theme {
 export default function App() {
   const [lang, setLang] = useState<Lang>(initialLang);
   const [theme, setTheme] = useState<Theme>(initialTheme);
+  const [gloss, setGloss] = useState<boolean>(initialGloss);
   const [mode, setMode] = useState<Mode>(initialMode);
   const [view, setView] = useState<View>("intake");
   const [answers, setAnswers] = useState<Record<string, Answer>>(() =>
@@ -216,6 +234,14 @@ export default function App() {
   }, [lang]);
 
   // Persist answers, head, rows whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem("pdk.gloss", gloss ? "1" : "0");
+    } catch {
+      /* private windows */
+    }
+  }, [gloss]);
+
   useEffect(() => {
     try {
       localStorage.setItem("pdk.answers", JSON.stringify(answers));
@@ -487,6 +513,23 @@ export default function App() {
           variant="ghost"
           size="sm"
           isIconOnly
+          aria-label={t(UI.glossToggle, lang)}
+          aria-pressed={gloss}
+          className={gloss ? "on" : undefined}
+          onPress={() => setGloss((v) => !v)}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M4 5h7M7.5 5v3c0 3-1.5 5.5-3.5 7" />
+            <path d="M5 12c1.5 2 3.5 3.5 5.5 4" />
+            <path d="M13 20l4-11 4 11" />
+            <path d="M14.5 16h5" />
+          </svg>
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          isIconOnly
           aria-label={t(UI.themeToggle, lang)}
           onPress={() => setTheme((prev) => (prev === "paper" ? "ink" : "paper"))}
         >
@@ -575,9 +618,11 @@ export default function App() {
                   {t(UI.block, lang)} {currentTheme.id} / {visible.length}
                 </span>
                 <h2 className="block-title">{pick(currentTheme.title, lang)}</h2>
-                <span className="block-other">
-                  {pick(currentTheme.title, other)} — {otherLabel}
-                </span>
+                {gloss && (
+                  <span className="block-other">
+                    {pick(currentTheme.title, other)}, {otherLabel}
+                  </span>
+                )}
               </div>
 
               {/* The rail navigates this card, so it lives in this card's header. */}
@@ -650,6 +695,7 @@ export default function App() {
                 lang={lang}
                 other={other}
                 otherLabel={otherLabel}
+                gloss={gloss}
                 answer={get(q.id)}
                 isActive={activeQId === q.id}
                 onActivate={() => setActiveQId(q.id)}
@@ -815,6 +861,7 @@ function QuestionBlock({
   lang,
   other,
   otherLabel,
+  gloss,
   answer,
   isActive,
   onActivate,
@@ -824,6 +871,7 @@ function QuestionBlock({
   lang: Lang;
   other: Lang;
   otherLabel: string;
+  gloss: boolean;
   answer: Answer;
   isActive: boolean;
   onActivate: () => void;
@@ -847,12 +895,14 @@ function QuestionBlock({
         <div className="q-head">
           <span className="qid">{q.id}</span>
           <p className="qtext">{pick(q.text, lang)}</p>
-          <p className="qde">
-            {pick(q.text, other)}{" "}
-            <Chip size="sm" className="marker">
-              {otherLabel}
-            </Chip>
-          </p>
+          {gloss && (
+            <p className="qde">
+              {pick(q.text, other)}{" "}
+              <Chip size="sm" className="marker">
+                {otherLabel}
+              </Chip>
+            </p>
+          )}
         </div>
 
         <TextArea

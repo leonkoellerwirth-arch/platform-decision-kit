@@ -50,6 +50,10 @@ export const UI = {
   redFlags: { en: "Red flags to watch for", de: "Red Flags, auf die zu achten ist" },
   answerPlaceholder: { en: "What was observed?", de: "Was wurde beobachtet?" },
   forExample: { en: "e.g.", de: "z. B." },
+  glossToggle: {
+    en: "Show the canonical wording under each question",
+    de: "Kanonischen Wortlaut unter jeder Frage zeigen",
+  },
   unknownPlaceholder: {
     en: "Unknown, deliberately left empty.",
     de: "Unbekannt, bewusst leer gelassen.",
