@@ -1,0 +1,42 @@
+# Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Leon Köllerwirth Hlihel
+
+This repository is **dual-licensed**. The **code** — `tools/`, `tests/`, `scripts/`, and the
+configuration files — is licensed under the MIT License; see [`LICENSE`](LICENSE).
+
+The documentation and instrument artifacts in this repository — `intake/`, `examples/`,
+`pipeline/`, `docs/`, and `README.md` — are licensed under the Creative Commons
+Attribution 4.0 International License, set out below.
+
+`SPDX-License-Identifier: MIT AND CC-BY-4.0`
+
+You are free to:
+
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material for any purpose, even
+  commercially
+
+Under the following terms:
+
+- **Attribution** — You must give appropriate credit, provide a link to the license, and
+  indicate if changes were made. You may do so in any reasonable manner, but not in any way
+  that suggests the licensor endorses you or your use.
+- **No additional restrictions** — You may not apply legal terms or technological measures
+  that legally restrict others from doing anything the license permits.
+
+Full license text: <https://creativecommons.org/licenses/by/4.0/legalcode>
+Human-readable summary: <https://creativecommons.org/licenses/by/4.0/>
+
+**Attribution example:**
+
+> Based on *platform-decision-kit* by Leon Köllerwirth Hlihel (CC BY 4.0),
+> <https://github.com/leonkoellerwirth-arch/platform-decision-kit>
+
+Templates in this repository are meant to be filled in and adapted inside your own
+organization. Doing so does not oblige you to publish the result — attribution applies to
+redistribution of the templates themselves, not to internal use of the documents you write
+with them.
+
+**Note:** the license covers copyright. It carries no warranty and no assertion that use of
+these artifacts satisfies any legal or supervisory obligation. See `DISCLAIMER.md`.

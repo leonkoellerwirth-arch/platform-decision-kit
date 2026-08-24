@@ -8,3 +8,11 @@ dist/
 .env
 uv.lock
 .DS_Store
+
+# Internal briefing — the source instruction, not part of the public artifact.
+CLAUDE-CODE-BRIEFING-*.md
+
+# Web instrument (Phase 2)
+app/node_modules/
+app/dist/
+app/dev-dist/
