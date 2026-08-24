@@ -50,6 +50,8 @@ export const UI = {
   redFlags: { en: "Red flags to watch for", de: "Red Flags, auf die zu achten ist" },
   answerPlaceholder: { en: "What was observed?", de: "Was wurde beobachtet?" },
   forExample: { en: "e.g.", de: "z. B." },
+  helpFor: { en: "How this view works", de: "Wie diese Ansicht funktioniert" },
+  close: { en: "Close", de: "Schließen" },
   glossToggle: {
     en: "Show the canonical wording under each question",
     de: "Kanonischen Wortlaut unter jeder Frage zeigen",

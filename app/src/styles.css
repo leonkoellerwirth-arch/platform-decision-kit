@@ -480,23 +480,35 @@ h1, h2, h3, h4 {
 .qid {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--accent);
   margin-bottom: 0.15rem;
   transition: color var(--dur-1) var(--ease);
 }
 
-/* The question keeps a reading measure even though the column is wider now — 110
-   characters a line is not a question, it is a paragraph. The fields below use the
-   full width. */
+/* The question is the heading of the intake, and it used to be set like a paragraph:
+   0.97rem in the body face, a hair heavier than the block text around it. On a screen
+   full of prose it disappeared. It carries the display face now, at the size the eye
+   goes to first, so a glance at the card finds the question and not the explanation.
+
+   It keeps a reading measure even though the column is wider now. 110 characters a
+   line is not a question, it is a paragraph. The fields below use the full width. */
 .qtext {
-  max-width: 62ch;
-  margin: 0.1rem 0 0.1rem;
-  font-size: 0.97rem;
+  max-width: 34ch;
+  margin: 0.15rem 0 0.1rem;
+  font-family: var(--font-display);
+  font-size: 1.32rem;
   font-weight: 500;
+  letter-spacing: -0.012em;
   color: var(--text);
-  line-height: 1.45;
+  line-height: 1.28;
+  text-wrap: balance;
+}
+
+@media (min-width: 62rem) {
+  .qtext { max-width: 44ch; }
 }
 
 /* The other language is a gloss, not a second question — it reads at gloss weight. */
@@ -1970,4 +1982,115 @@ pre.export {
     padding-left: max(1.5rem, env(safe-area-inset-left));
     padding-right: max(1.5rem, env(safe-area-inset-right));
   }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Help panel
+   A tooltip says what a control does. It cannot say why an architect asks a
+   question this way. That needs room, so this is a panel over the work.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.appbar .button.help-btn.on { color: var(--accent-strong); background: var(--accent-soft); }
+
+.help-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: color-mix(in srgb, var(--text) 38%, transparent);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.help {
+  width: min(46rem, 100%);
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.6rem 2rem 3rem;
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  box-shadow: inset 0 1px 0 0 var(--edge-light), var(--shadow-2);
+  border-left: 1px solid var(--line);
+}
+
+.help-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: sticky;
+  top: -1.6rem;
+  margin: -1.6rem -2rem 0;
+  padding: 1.1rem 2rem 0.9rem;
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  border-bottom: 1px solid var(--line);
+  z-index: 1;
+}
+
+.help-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--text);
+}
+
+.help-lede {
+  margin: 1.2rem 0 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 54ch;
+}
+
+.help-sec { margin-top: 2rem; }
+
+.help-sec h3 {
+  margin: 0 0 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.help-sec p {
+  margin: 0 0 0.8rem;
+  font-size: 0.93rem;
+  line-height: 1.62;
+  color: var(--text-soft);
+  max-width: 62ch;
+}
+
+.help-sec dl { margin: 0; }
+
+.help-sec dl > div {
+  padding: 0.7rem 0 0.75rem 0.9rem;
+  border-left: 2px solid var(--line);
+}
+
+.help-sec dl > div + div { border-top: 1px solid var(--line); }
+
+.help-sec dt {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+.help-sec dd {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+  max-width: 62ch;
+}
+
+@media (max-width: 48rem) {
+  .help { padding: 1.2rem 1.2rem 3rem; }
+  .help-head { margin: -1.2rem -1.2rem 0; padding: 0.9rem 1.2rem 0.8rem; }
 }
