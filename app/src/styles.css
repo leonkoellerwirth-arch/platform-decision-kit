@@ -1,0 +1,166 @@
+/* The house line: navy, calm, a lot of whitespace, Georgia against a system sans. */
+:root {
+  --navy: #2e4b63;
+  --navy-deep: #22394b;
+  --ink: #1c2530;
+  --muted: #5c6b7a;
+  --line: #d9e1e8;
+  --paper: #f7f9fb;
+  --card: #ffffff;
+  --flag: #a4341f;
+  --open: #8a5a00;
+
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+
+header h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.9rem;
+  line-height: 1.25;
+  color: var(--navy-deep);
+  margin: 0 0 0.75rem;
+}
+
+.claim {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--muted);
+  border-left: 3px solid var(--line);
+  padding-left: 1rem;
+  margin: 0 0 2rem;
+}
+
+.trust {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--navy);
+  padding: 0.85rem 1.1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+.trust strong { color: var(--navy-deep); }
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+
+.modes { display: flex; border: 1px solid var(--line); background: var(--card); }
+.modes button {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  color: var(--muted);
+}
+.modes button[aria-pressed="true"] { background: var(--navy); color: #fff; }
+
+.counts { font-size: 0.85rem; color: var(--muted); }
+.counts b { color: var(--navy-deep); font-weight: 600; }
+
+section.block {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 1.5rem 1.5rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+section.block > h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: var(--navy-deep);
+  margin: 0 0 0.2rem;
+}
+.num { color: var(--muted); font-size: 0.85rem; letter-spacing: 0.04em; }
+.de { color: var(--muted); font-size: 0.85rem; font-style: italic; }
+.why { color: var(--muted); font-size: 0.9rem; margin: 0.6rem 0 1.25rem; }
+
+.q { border-top: 1px solid var(--line); padding-top: 1.1rem; margin-top: 1.1rem; }
+.q:first-of-type { border-top: 0; margin-top: 0; }
+.qid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: var(--navy); }
+.qtext { margin: 0.15rem 0 0.15rem; }
+.qde { color: var(--muted); font-size: 0.87rem; margin: 0 0 0.8rem; }
+
+textarea, input[type="text"] {
+  width: 100%;
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 0;
+}
+textarea { min-height: 4.5rem; resize: vertical; }
+textarea:focus, input:focus { outline: 2px solid var(--navy); outline-offset: -1px; }
+
+.row { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-top: 0.7rem; }
+.label { font-size: 0.8rem; color: var(--muted); min-width: 5.5rem; }
+
+.tag {
+  border: 1px solid var(--line);
+  background: #fff;
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.28rem 0.7rem;
+  cursor: pointer;
+  color: var(--muted);
+}
+.tag[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+.hint { font-size: 0.8rem; color: var(--open); margin-top: 0.45rem; }
+.hint.flag { color: var(--flag); }
+
+.register { background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--open); padding: 1.5rem; margin-top: 2.5rem; }
+.register h2 { font-family: var(--serif); font-weight: 400; font-size: 1.2rem; color: var(--navy-deep); margin: 0 0 0.75rem; }
+.register ul { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; }
+.register li { margin-bottom: 0.35rem; }
+.register .empty { color: var(--muted); font-size: 0.9rem; margin: 0; }
+
+.actions { display: flex; gap: 0.6rem; margin-top: 2rem; flex-wrap: wrap; }
+.actions button {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--navy);
+  background: var(--navy);
+  color: #fff;
+  cursor: pointer;
+}
+.actions button.ghost { background: transparent; color: var(--navy); }
+
+pre.export {
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 1rem;
+  font-size: 0.8rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin-top: 1rem;
+}
+
+footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 1rem; }
+footer a { color: var(--navy); }
