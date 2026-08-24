@@ -496,19 +496,18 @@ h1, h2, h3, h4 {
    It keeps a reading measure even though the column is wider now. 110 characters a
    line is not a question, it is a paragraph. The fields below use the full width. */
 .qtext {
-  max-width: 34ch;
   margin: 0.15rem 0 0.1rem;
   font-family: var(--font-display);
-  font-size: 1.32rem;
+  font-size: 1.3rem;
   font-weight: 500;
   letter-spacing: -0.012em;
   color: var(--text);
-  line-height: 1.28;
+  line-height: 1.3;
+  /* No character cap. A `ch` measure is right for prose and wrong here: at display size it
+     cut this column in half and broke a two-line question into three ragged ones while
+     four hundred pixels sat empty beside it. The column is the measure; `balance` keeps the
+     lines even. */
   text-wrap: balance;
-}
-
-@media (min-width: 62rem) {
-  .qtext { max-width: 44ch; }
 }
 
 /* The other language is a gloss, not a second question — it reads at gloss weight. */
@@ -1984,6 +1983,38 @@ pre.export {
   }
 }
 
+
+/* The ⓘ in the corner of a slide: quiet until you look for it, and gone on paper. */
+.slide-help {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.6rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  opacity: 0.55;
+  transition:
+    opacity var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease);
+}
+
+.slide:hover .slide-help { opacity: 1; }
+.slide-help:hover { color: var(--accent-strong); border-color: var(--accent); }
+.slide-help:focus-visible { outline: none; opacity: 1; box-shadow: var(--focus-ring); }
+
+@media print {
+  .slide-help { display: none !important; }
+}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Help panel

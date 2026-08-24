@@ -14,10 +14,12 @@
 //
 // PDF export is the browser's own print dialogue against the @media print rules. No library.
 
-import { Children, Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { Children, createContext, Fragment, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 import { Button } from "@heroui/react";
 
+import { HelpPanel } from "./HelpPanel";
+import { SLIDE_HELP } from "./help";
 import { t, UI } from "./i18n";
 import {
   DECISION_HEAD_FIELDS,
@@ -31,6 +33,13 @@ import {
   type Text,
   type Theme,
 } from "./themes";
+
+/**
+ * The slides are built before the presenter exists, so the corner button cannot be handed a
+ * callback as a prop. A context is the smaller of the two evils: the presenter provides the
+ * opener, every slide picks it up, and nothing has to be threaded through seven call sites.
+ */
+const OpenSlideHelp = createContext<((n: number) => void) | null>(null);
 
 interface DeckProps {
   lang: Lang;
@@ -319,6 +328,7 @@ function Presenter({
   slides: React.ReactNode[];
 }) {
   const [i, setI] = useState(0);
+  const [help, setHelp] = useState<number | null>(null);
   const n = slides.length;
   const stageRef = useRef<HTMLDivElement>(null);
 
@@ -372,6 +382,7 @@ function Presenter({
   }, [go, n, fullscreen]);
 
   return (
+    <OpenSlideHelp.Provider value={setHelp}>
     <section className="deck">
       <div className="stage" ref={stageRef}>
         <div className="stage-frame">
@@ -422,7 +433,12 @@ function Presenter({
       <p className="credit">
         {t(UI.deckDesignCredit, lang)} · {mode === "triage" ? "TRIAGE" : "DISCOVERY"}
       </p>
+
+      {help !== null && SLIDE_HELP[help] && (
+        <HelpPanel help={SLIDE_HELP[help]} lang={lang} onClose={() => setHelp(null)} />
+      )}
     </section>
+    </OpenSlideHelp.Provider>
   );
 }
 
@@ -487,12 +503,33 @@ function Slide({
   return (
     <article className={`slide${last ? " last" : ""}`}>
       <span className="corner" aria-hidden="true" />
+      <SlideHelpButton n={n} lang={lang} />
       <h3>{title}</h3>
       <div className="slide-body">{children}</div>
       <span className="marker">
         {t(UI.slide, lang)} {n} / 7
       </span>
     </article>
+  );
+}
+
+/** The ⓘ in the corner of a slide. Hidden in print: a sheet has nothing to open. */
+function SlideHelpButton({ n, lang }: { n: number; lang: Lang }) {
+  const open = useContext(OpenSlideHelp);
+  if (!open || !SLIDE_HELP[n]) return null;
+  return (
+    <button
+      type="button"
+      className="slide-help"
+      aria-label={t(UI.helpForSlide, lang)}
+      onClick={() => open(n)}
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.2 9.2a2.8 2.8 0 1 1 3.8 2.6c-.7.3-1 .9-1 1.6v.4" />
+        <line x1="12" y1="17.6" x2="12.01" y2="17.6" />
+      </svg>
+    </button>
   );
 }
 

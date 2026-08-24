@@ -381,3 +381,262 @@ export const HELP: Record<"intake" | "register" | "deck", Help> = {
     ],
   },
 };
+
+// ── Per slide ───────────────────────────────────────────────────────────────
+//
+// The deck help above says what the seven slides are for. This says, for the slide in front of
+// you, what it shows, why it is in the deck at all, how to read what is on it, and what to do
+// when it looks thin. The ⓘ sits in the corner of the slide itself, because that is where the
+// question comes up: while you are looking at it.
+
+export const SLIDE_HELP: Record<number, Help> = {
+  1: {
+    title: { en: "Slide 1 · Situation and assumptions", de: "Folie 1 · Ausgangslage & Annahmen" },
+    lede: {
+      en: "The opening claim, the frame the whole conversation hangs on, and a picture of how well evidenced the answers are.",
+      de: "Die Eröffnungsbehauptung, der Rahmen, an dem das ganze Gespräch hängt, und ein Bild davon, wie gut die Antworten belegt sind.",
+    },
+    sections: [
+      {
+        title: { en: "Why it opens the deck", de: "Warum sie das Deck eröffnet" },
+        body: [
+          {
+            en: "A room needs to agree on the problem before it can talk about options. The large sentence is Q1.1 in the words it was given, not your paraphrase of it, so the first thing anybody can dispute is a quote rather than an interpretation.",
+            de: "Ein Raum muss sich über das Problem einig sein, bevor er über Optionen sprechen kann. Der große Satz ist Q1.1 im gegebenen Wortlaut, nicht Ihre Paraphrase, damit das Erste, was jemand bestreiten kann, ein Zitat ist und keine Deutung.",
+          },
+          {
+            en: "The assumptions sit here rather than late in the deck on purpose. An assumption that surfaces on slide six has already carried five slides of reasoning.",
+            de: "Die Annahmen stehen bewusst hier und nicht spät im Deck. Eine Annahme, die auf Folie sechs auftaucht, hat schon fünf Folien Argumentation getragen.",
+          },
+        ],
+      },
+      {
+        title: { en: "The three areas", de: "Die drei Bereiche" },
+        items: [
+          {
+            label: { en: "Decision head", de: "Entscheidungskopf" },
+            text: {
+              en: "The five fields from block 2: the question, its owner, what is in and out of scope, and the deadline. If a field is empty here, the room is about to discuss something nobody has framed.",
+              de: "Die fünf Felder aus Block 2: die Frage, ihr Eigner, was im Scope liegt und was nicht, und die Frist. Ist hier ein Feld leer, diskutiert der Raum gleich etwas, das niemand gerahmt hat.",
+            },
+          },
+          {
+            label: { en: "Evidence at a glance", de: "Beleglage auf einen Blick" },
+            text: {
+              en: "Every tagged answer on the cell it was given. A heavy left column means a well evidenced conversation; a lit bottom right means a room that admitted a lot. Neither is a score, and the board never says which is better.",
+              de: "Jede getaggte Antwort auf der Zelle, die sie bekommen hat. Eine schwere linke Spalte heißt gut belegtes Gespräch, ein helles Feld unten rechts ein Raum, der viel zugegeben hat. Keines ist eine Note, und das Brett sagt nie, was besser ist.",
+            },
+          },
+          {
+            label: { en: "Assumptions", de: "Annahmen" },
+            text: {
+              en: "Everything tagged as an assumption anywhere in the intake, in question order, with its ID. Beyond three the card says how many are left and where they are in full.",
+              de: "Alles, was irgendwo in der Erhebung als Annahme getaggt wurde, in Fragenreihenfolge, mit ID. Ab dem vierten sagt die Karte, wie viele fehlen und wo sie vollständig stehen.",
+            },
+          },
+        ],
+      },
+      {
+        title: { en: "If it looks thin", de: "Wenn sie dünn aussieht" },
+        body: [
+          {
+            en: "An empty assumption card usually does not mean there were no assumptions. It means nobody tagged them. Go back to the intake before you present a deck that claims a room had none.",
+            de: "Eine leere Annahmen-Karte heißt meist nicht, dass es keine Annahmen gab. Sie heißt, dass niemand sie getaggt hat. Gehen Sie in die Erhebung zurück, bevor Sie ein Deck zeigen, das einem Raum keine bescheinigt.",
+          },
+        ],
+      },
+    ],
+  },
+
+  2: {
+    title: { en: "Slide 2 · Goals and criteria", de: "Folie 2 · Ziele & Entscheidungskriterien" },
+    lede: {
+      en: "What success would look like to somebody who was not involved, who gets to judge it, and what the boundary of the decision is.",
+      de: "Wie Erfolg für jemanden aussähe, der nicht beteiligt war, wer darüber urteilt, und wo die Grenze der Entscheidung liegt.",
+    },
+    sections: [
+      {
+        title: { en: "Why these four", de: "Warum diese vier" },
+        body: [
+          {
+            en: "Most platform decisions fail on the criteria rather than the analysis. Nobody wrote down what would count as success, so any outcome can be argued into one, and the decision is settled later by whoever is most senior in the room.",
+            de: "Die meisten Plattformentscheidungen scheitern an den Kriterien, nicht an der Analyse. Niemand hat aufgeschrieben, was als Erfolg gilt, also lässt sich jedes Ergebnis dazu erklären, und entschieden wird später von dem, der im Raum am höchsten steht.",
+          },
+          {
+            en: "Scope in and scope out are on the same slide because a scope that only says what is included is not a boundary. The sentence that matters is usually the one about what this decision does not touch.",
+            de: "Im Scope und außerhalb des Scope stehen auf derselben Folie, weil ein Scope, der nur sagt, was dazugehört, keine Grenze ist. Der Satz, auf den es ankommt, ist meist der darüber, was diese Entscheidung nicht anfasst.",
+          },
+        ],
+      },
+      {
+        title: { en: "The deadline card", de: "Die Fristkarte" },
+        body: [
+          {
+            en: "Q2.5 asks what happens if the date passes without a decision. It is on this slide because it is a criterion, not a schedule item: if the honest answer is that the contract renews itself, the room has been discussing a decision that is already being made for them.",
+            de: "Q2.5 fragt, was passiert, wenn das Datum ohne Entscheidung verstreicht. Sie steht auf dieser Folie, weil sie ein Kriterium ist und kein Terminpunkt: lautet die ehrliche Antwort, dass der Vertrag sich selbst verlängert, hat der Raum über eine Entscheidung gesprochen, die längst für ihn getroffen wird.",
+          },
+        ],
+      },
+    ],
+  },
+
+  3: {
+    title: { en: "Slide 3 · Options", de: "Folie 3 · Optionen" },
+    lede: {
+      en: "Three columns in a fixed order, none of them scored, ranked or preferred. This is the slide the whole instrument is built to be able to show.",
+      de: "Drei Spalten in fester Reihenfolge, keine davon bewertet, gewichtet oder bevorzugt. Auf diese Folie hin ist das ganze Instrument gebaut.",
+    },
+    sections: [
+      {
+        title: { en: "Why the order never changes", de: "Warum die Reihenfolge nie wechselt" },
+        items: [
+          {
+            label: { en: "0 · Carry on as before", de: "0 · Weiter wie bisher" },
+            text: {
+              en: "The status quo is an option and is listed first, always. Its price is the price of inaction, quoted from Q1.5 and never computed here. A deck that omits it has already recommended change.",
+              de: "Der Status quo ist eine Option und steht immer an erster Stelle. Sein Preis ist der Preis der Untätigkeit, aus Q1.5 zitiert und hier nie berechnet. Ein Deck, das ihn weglässt, hat die Veränderung schon empfohlen.",
+            },
+          },
+          {
+            label: { en: "1 · Paths considered", de: "1 · Erwogene Pfade" },
+            text: {
+              en: "What was discussed, in the words it was discussed in, with the costs the intake recorded: one-off, parallel running, the irreversible step. If the reasons were only ever exchanged verbally, that is what this card will say.",
+              de: "Was besprochen wurde, im besprochenen Wortlaut, mit den Kosten aus der Erhebung: einmalig, Parallelbetrieb, der irreversible Schritt. Wurden die Begründungen nur mündlich ausgetauscht, steht genau das auf dieser Karte.",
+            },
+          },
+          {
+            label: { en: "2 · Defer and run Discovery", de: "2 · Entscheidung vertagen und Discovery" },
+            text: {
+              en: "Always present, with the number of open points it would close. Deferring is a real option with a real cost, and naming it stops the room from treating \"decide now\" as the only responsible move.",
+              de: "Immer vorhanden, mit der Zahl der offenen Punkte, die sie schließen würde. Vertagen ist eine echte Option mit echtem Preis, und sie zu benennen hindert den Raum daran, „jetzt entscheiden\" für den einzigen verantwortlichen Zug zu halten.",
+            },
+          },
+        ],
+      },
+      {
+        title: { en: "What it deliberately does not do", de: "Was sie bewusst nicht tut" },
+        body: [
+          {
+            en: "No option carries a score, a colour that reads as a verdict, or a word like preferred. Nothing is weighed against anything. The comparison happens in the room, from the evidence on the other six slides, and the instrument stays out of it.",
+            de: "Keine Option trägt eine Bewertung, eine Farbe, die sich wie ein Urteil liest, oder ein Wort wie „bevorzugt\". Nichts wird gegen etwas abgewogen. Der Vergleich findet im Raum statt, aus den Belegen der anderen sechs Folien, und das Instrument hält sich heraus.",
+          },
+        ],
+      },
+    ],
+  },
+
+  4: {
+    title: { en: "Slide 4 · Undecided directions", de: "Folie 4 · Nicht entschiedene Richtungen" },
+    lede: {
+      en: "Every open point, grouped by the theme block it came from. This is the work that stands between the room and a decision it could defend.",
+      de: "Jeder offene Punkt, gruppiert nach dem Themenblock, aus dem er stammt. Das ist die Arbeit, die zwischen dem Raum und einer verteidigbaren Entscheidung steht.",
+    },
+    sections: [
+      {
+        title: { en: "How to read it", de: "Wie Sie sie lesen" },
+        body: [
+          {
+            en: "Each block shows its number, its name, how many of its questions are open, and their IDs. The shape tells you where the platform is least known. A block with five open points is not worse than one with two; it is less examined, which is a different problem and often an easier one.",
+            de: "Jeder Block zeigt Nummer, Namen, wie viele seiner Fragen offen sind, und deren IDs. Die Form sagt, wo die Plattform am wenigsten bekannt ist. Ein Block mit fünf offenen Punkten ist nicht schlechter als einer mit zwei, er ist weniger untersucht, und das ist ein anderes und oft leichteres Problem.",
+          },
+          {
+            en: "The grouping is the intake's own theme structure, not a category anybody invented for this deck. The full question and answer for every ID here are on slide 7.",
+            de: "Die Gruppierung ist die Themenstruktur der Erhebung, keine für dieses Deck erfundene Kategorie. Frage und Antwort zu jeder ID hier stehen vollständig auf Folie 7.",
+          },
+        ],
+      },
+      {
+        title: { en: "Why it is called directions", de: "Warum sie Richtungen heißt" },
+        body: [
+          {
+            en: "Because every directional sentence anybody might write after this meeting depends on these IDs. While they are open, the direction is not decision-ready, and the deck says so rather than hoping the reader notices.",
+            de: "Weil jeder Richtungssatz, den nach diesem Termin jemand schreiben könnte, an diesen IDs hängt. Solange sie offen sind, ist die Richtung nicht entscheidungsreif, und das Deck sagt es, statt darauf zu hoffen, dass der Leser es merkt.",
+          },
+        ],
+      },
+    ],
+  },
+
+  5: {
+    title: { en: "Slide 5 · Risks and the way back", de: "Folie 5 · Risiken & Rückweg" },
+    lede: {
+      en: "What cannot be undone, what returning would cost, and whether anybody has actually assessed that.",
+      de: "Was sich nicht rückgängig machen lässt, was eine Rückkehr kosten würde, und ob das überhaupt jemand bewertet hat.",
+    },
+    sections: [
+      {
+        title: { en: "The one question most decks skip", de: "Die Frage, die die meisten Decks auslassen" },
+        body: [
+          {
+            en: "Not what the risk is, but what happens after the point of no return. Q8.5 asks whether the scenario \"we cannot go back\" was assessed and written down. A plain no is a strong finding and belongs in front of the room.",
+            de: "Nicht, was das Risiko ist, sondern was nach dem Punkt ohne Rückkehr passiert. Q8.5 fragt, ob das Szenario „Rückkehr ist unmöglich\" bewertet und dokumentiert wurde. Ein schlichtes Nein ist ein starker Befund und gehört vor den Raum.",
+          },
+        ],
+      },
+      {
+        title: { en: "The red edge", de: "Die rote Kante" },
+        body: [
+          {
+            en: "A card with a red left edge carries an answer whose verification is blocked: nobody can go and check it, because the person left, the system is gone or the document was never written. Those are the entries that move a date, and they are marked so they are found before they are read.",
+            de: "Eine Karte mit roter linker Kante trägt eine Antwort, deren Prüfung blockiert ist: niemand kann sie nachsehen, weil die Person weg ist, das System abgeschaltet oder das Dokument nie geschrieben wurde. Das sind die Einträge, die einen Termin verschieben, und sie sind markiert, damit man sie findet, bevor man sie liest.",
+          },
+        ],
+      },
+    ],
+  },
+
+  6: {
+    title: { en: "Slide 6 · Team and anchoring", de: "Folie 6 · Team & Verankerung" },
+    lede: {
+      en: "Who owns the platform, where the knowledge actually sits, and who can stop a change without holding a role that says so.",
+      de: "Wem die Plattform gehört, wo das Wissen tatsächlich sitzt, und wer eine Änderung anhalten kann, ohne eine Rolle zu haben, die das hergibt.",
+    },
+    sections: [
+      {
+        title: { en: "Usually the slide that decides", de: "Meist die Folie, die entscheidet" },
+        body: [
+          {
+            en: "A migration plan is a statement about people before it is a statement about systems. Two named individuals who are also booked for something else is not a staffing detail, it is the schedule.",
+            de: "Ein Migrationsplan ist eine Aussage über Menschen, bevor er eine über Systeme ist. Zwei benannte Personen, die zusätzlich anderswo eingeplant sind, sind kein Besetzungsdetail, sie sind der Zeitplan.",
+          },
+          {
+            en: "The third card is the one people find uncomfortable and remember: the role with no formal standing whose no has still stopped every schema change so far. Leaving it off the deck does not remove it from the organisation.",
+            de: "Die dritte Karte ist die, die unangenehm ist und hängen bleibt: die Rolle ohne formale Zuständigkeit, deren Nein bisher jede Schemaänderung angehalten hat. Sie vom Deck zu lassen, entfernt sie nicht aus der Organisation.",
+          },
+        ],
+      },
+    ],
+  },
+
+  7: {
+    title: { en: "Slide 7 · Open points", de: "Folie 7 · Offene Punkte" },
+    lede: {
+      en: "The register in full, question, answer and ID, led by the sentence that says what this document is and is not.",
+      de: "Das Register vollständig, Frage, Antwort und ID, angeführt von dem Satz, der sagt, was dieses Dokument ist und was nicht.",
+    },
+    sections: [
+      {
+        title: { en: "The sign-off leads", de: "Der Sign-off führt" },
+        body: [
+          {
+            en: "It used to sit under thirty-nine rows in grey italics, where nobody read it. It is the finding of the instrument: a discovery brief, no recommendation, and no directional statement with open IDs is decision-ready. The wording is fixed and checked by the gate, because the exact sentence is the guarantee.",
+            de: "Er stand früher unter neununddreißig Zeilen in grauer Kursive, wo ihn niemand gelesen hat. Er ist der Befund des Instruments: ein Discovery-Brief, keine Empfehlung, und keine Richtungsaussage mit offenen IDs ist entscheidungsreif. Der Wortlaut liegt fest und wird vom Gate geprüft, denn der genaue Satz ist die Zusage.",
+          },
+          {
+            en: "The line ends with a blank for a signature. Somebody in the room takes the list, and that is the outcome of the meeting rather than a verdict about the platform.",
+            de: "Die Zeile endet mit einer Leerstelle für eine Unterschrift. Jemand im Raum nimmt die Liste mit, und das ist das Ergebnis des Termins, kein Urteil über die Plattform.",
+          },
+        ],
+      },
+      {
+        title: { en: "Why it is long", de: "Warum sie lang ist" },
+        body: [
+          {
+            en: "This is the appendix, not a slide to read aloud. It runs onto further sheets when printed, and that is deliberate: a slide may cost an extra page but it may never lose its tail. Show slide 4 in the room and hand this one over.",
+            de: "Das ist der Anhang, keine Folie zum Vorlesen. Sie läuft im Druck auf weitere Blätter, und das ist Absicht: eine Folie darf ein zusätzliches Blatt kosten, aber niemals ihren Schluss verlieren. Zeigen Sie im Raum Folie 4 und geben Sie diese hier mit.",
+          },
+        ],
+      },
+    ],
+  },
+};

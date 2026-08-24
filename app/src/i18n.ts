@@ -51,6 +51,7 @@ export const UI = {
   answerPlaceholder: { en: "What was observed?", de: "Was wurde beobachtet?" },
   forExample: { en: "e.g.", de: "z. B." },
   helpFor: { en: "How this view works", de: "Wie diese Ansicht funktioniert" },
+  helpForSlide: { en: "About this slide", de: "Zu dieser Folie" },
   close: { en: "Close", de: "Schließen" },
   glossToggle: {
     en: "Show the canonical wording under each question",
