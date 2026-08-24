@@ -429,6 +429,21 @@ export default function App() {
 
   // ── JSX ───────────────────────────────────────────────────────────────────
 
+  /**
+   * The help follows the card.
+   *
+   * Stepping to another block used to leave the panel showing the block you had left, which is
+   * worse than showing nothing: it reads as an explanation of what is in front of you. A block
+   * help retargets, and a question help becomes the new card's help, because the panel describes
+   * what you are looking at and you are no longer looking at that question.
+   */
+  const lastBlock = useRef(safeBlock);
+  useEffect(() => {
+    if (lastBlock.current === safeBlock) return;
+    lastBlock.current = safeBlock;
+    setQHelp((prev) => (prev === null ? null : `block:${visible[safeBlock]?.id ?? ""}`));
+  }, [safeBlock, visible]);
+
   /** The docked panel shows either one question or the whole card it sits on. */
   const dockedHelp = (() => {
     if (!qHelp) return undefined;
