@@ -52,6 +52,7 @@ export const UI = {
   forExample: { en: "e.g.", de: "z. B." },
   helpFor: { en: "How this view works", de: "Wie diese Ansicht funktioniert" },
   helpForSlide: { en: "About this slide", de: "Zu dieser Folie" },
+  helpForQuestion: { en: "About this question", de: "Zu dieser Frage" },
   close: { en: "Close", de: "Schließen" },
   glossToggle: {
     en: "Show the canonical wording under each question",

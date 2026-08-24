@@ -8,7 +8,7 @@
 // no em dashes, an example instead of an adjective. English is the binding version; the German
 // is a translation.
 
-import type { Text } from "./themes";
+import type { Question, Text, Theme } from "./themes";
 
 export interface HelpItem {
   label: Text;
@@ -640,3 +640,81 @@ export const SLIDE_HELP: Record<number, Help> = {
     ],
   },
 };
+
+// ── Per question ────────────────────────────────────────────────────────────
+
+/** Shared wording that does not change from question to question. */
+const ANSWER_STEPS: HelpItem[] = HELP.intake.sections[1].items!;
+const GRID_VALUES: HelpItem[] = HELP.intake.sections[3].items!;
+
+const T = {
+  question: { en: "The question", de: "Die Frage" },
+  why: { en: "Why this block asks it", de: "Warum dieser Block danach fragt" },
+  scope: { en: "Scope note on this question", de: "Hinweis zum Zuschnitt dieser Frage" },
+  noDefaults: { en: "No default answer here", de: "Hier gibt es keine Voreinstellung" },
+  noDefaultsText: {
+    en: "Security, data protection, regulation, cost and irreversibility are the places where a plausible guess does the most damage. If nobody knows, the answer is unknown and it becomes a task. It is never inferred from experience and never averaged from similar projects.",
+    de: "Sicherheit, Datenschutz, Regulatorik, Kosten und Irreversibilität sind die Stellen, an denen eine plausible Vermutung den größten Schaden anrichtet. Weiß es niemand, lautet die Antwort unbekannt, und sie wird zur Aufgabe. Sie wird nie aus Erfahrung abgeleitet und nie aus ähnlichen Projekten gemittelt.",
+  },
+  example: { en: "An answer of the right shape", de: "Eine Antwort in der richtigen Form" },
+  exampleNote: {
+    en: "This is the example the field shows while it is empty. Copy its shape, not its content: a fact, a cause, and something a stranger could check.",
+    de: "Das ist das Beispiel, das im leeren Feld steht. Übernehmen Sie seine Form, nicht seinen Inhalt: eine Tatsache, eine Ursache, und etwas, das ein Fremder nachprüfen kann.",
+  },
+  steps: { en: "How to answer it", de: "Wie Sie diese Frage beantworten" },
+  tags: { en: "Choosing the cell", de: "Die Zelle wählen" },
+  flags: { en: "Red flags in this block", de: "Red Flags in diesem Block" },
+  flagsNote: {
+    en: "Answers that should make you ask again before you move on. They are prompts for you, not findings about the client.",
+    de: "Antworten, bei denen Sie nachfragen sollten, bevor Sie weitergehen. Sie sind Hinweise für Sie, keine Befunde über den Kunden.",
+  },
+  stops: { en: "When to break off", de: "Wann abzubrechen ist" },
+  stopsNote: {
+    en: "If one of these is true, the honest move is to stop the pass and say why. Carrying on produces a document that looks complete and is not.",
+    de: "Trifft eines davon zu, ist der ehrliche Zug, den Durchgang anzuhalten und zu sagen, warum. Weiterzumachen erzeugt ein Dokument, das vollständig aussieht und es nicht ist.",
+  },
+} as const;
+
+const bullet = (items: Text[]): HelpItem[] =>
+  items.map((x, i) => ({ label: { en: `${i + 1}`, de: `${i + 1}` }, text: x }));
+
+/**
+ * The help for one question, assembled from the canonical source.
+ *
+ * Almost nothing here is written per question by hand, and that is the point: the block's own
+ * `why`, its red flags and its stop conditions already exist in `intake/themes/`, and the
+ * example already sits on the question. Assembling them means a question added next year
+ * arrives with its help already written, and no second copy of the instrument's content can
+ * drift away from the first (INV-5).
+ */
+export function questionHelp(theme: Theme, q: Question): Help {
+  const sections: HelpSection[] = [
+    { title: T.why, body: [theme.why] },
+  ];
+
+  if (q.note) {
+    sections.push({ title: T.scope, body: [{ en: q.note, de: q.note }] });
+  }
+  if (q.noDefaults) {
+    sections.push({ title: T.noDefaults, body: [T.noDefaultsText] });
+  }
+  if (q.hint) {
+    sections.push({ title: T.example, body: [q.hint, T.exampleNote] });
+  }
+
+  sections.push({ title: T.steps, items: ANSWER_STEPS });
+  sections.push({ title: T.tags, items: GRID_VALUES });
+
+  if (theme.redFlags.length) {
+    sections.push({ title: T.flags, body: [T.flagsNote], items: bullet(theme.redFlags) });
+  }
+  if (theme.stopConditions.length) {
+    sections.push({ title: T.stops, body: [T.stopsNote], items: bullet(theme.stopConditions) });
+  }
+
+  return {
+    title: { en: q.id, de: q.id },
+    lede: q.text,
+    sections,
+  };
+}

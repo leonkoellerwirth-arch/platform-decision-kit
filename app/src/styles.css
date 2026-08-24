@@ -477,6 +477,36 @@ h1, h2, h3, h4 {
 
 .q-head { margin-bottom: 0.85rem; }
 
+/* The ID and its help sit on one line above the question, so the button is where the
+   eye already is and never competes with the question itself. */
+.q-idline {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.1rem;
+}
+
+.q-help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity var(--dur-1) var(--ease), color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+}
+
+.q:hover .q-help,
+.q-help:focus-visible { opacity: 1; }
+.q-help:hover { color: var(--accent-strong); background: var(--accent-soft); }
+.q-help:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
 .qid {
   display: inline-block;
   font-family: var(--font-mono);
@@ -484,7 +514,6 @@ h1, h2, h3, h4 {
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--accent);
-  margin-bottom: 0.15rem;
   transition: color var(--dur-1) var(--ease);
 }
 
@@ -2023,6 +2052,38 @@ pre.export {
    ───────────────────────────────────────────────────────────────────────────── */
 
 .appbar .button.help-btn.on { color: var(--accent-strong); background: var(--accent-soft); }
+
+/* ── Docked: beside the work, not over it ──────────────────────────────────
+   The intake help accompanies the form. No scrim, no modal, the answer field
+   stays focusable and the page keeps its own scroll. The main column gives up
+   the width instead of being covered by it. The slide help stays modal: a
+   presentation surface has nothing to type into. */
+.app-docked .main {
+  /* `width: 100%` above would keep the column at the full viewport and push the margin
+     into an overflow instead of giving the width up. */
+  width: auto;
+  margin-right: var(--dock-w);
+  max-width: none;
+}
+
+.help.docked {
+  --dock-w: 27rem;
+  position: fixed;
+  top: 3.1rem;
+  right: 0;
+  bottom: 0;
+  width: var(--dock-w);
+  height: auto;
+  z-index: 15;
+  box-shadow: inset 0 1px 0 0 var(--edge-light), -12px 0 32px -22px rgba(0, 0, 0, 0.5);
+}
+
+.app-docked { --dock-w: 27rem; }
+
+@media (max-width: 76rem) {
+  .app-docked .main { margin-right: 0; }
+  .help.docked { top: auto; height: 60vh; width: 100%; border-left: 0; border-top: 1px solid var(--line); }
+}
 
 .help-scrim {
   position: fixed;

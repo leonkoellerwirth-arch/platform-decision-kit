@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Deck } from "./Deck";
 import { Button, Chip, Tabs, TextArea, ToggleButton, ToggleButtonGroup } from "@heroui/react";
 import { EvidenceGrid, GridSummary } from "./EvidenceGrid";
-import { HELP } from "./help";
+import { HELP, questionHelp } from "./help";
 import { HelpPanel } from "./HelpPanel";
 import { t, UI } from "./i18n";
 import {
@@ -170,6 +170,7 @@ export default function App() {
   const [copied, setCopied] = useState(false);
   const [info, setInfo] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
+  const [qHelp, setQHelp] = useState<string | null>(null);
 
   const [activeBlock, setActiveBlock] = useState(0);
   const [activeQId, setActiveQId] = useState<string | null>(null);
@@ -427,8 +428,12 @@ export default function App() {
 
   // ── JSX ───────────────────────────────────────────────────────────────────
 
+  const qHelpQuestion = qHelp
+    ? visible.flatMap((th) => th.questions.map((q) => ({ th, q }))).find(({ q }) => q.id === qHelp)
+    : undefined;
+
   return (
-    <div className="app">
+    <div className={`app${qHelpQuestion && view === "intake" ? " app-docked" : ""}`}>
       {/* ── One bar ──────────────────────────────────────────────────────
           Three stacked bands (brand · mode+view · block rail) cost roughly 200px
           before a single question was visible. Brand, mode, view and the meters
@@ -710,6 +715,8 @@ export default function App() {
             {currentTheme.questions.map((q) => (
               <QuestionBlock
                 key={q.id}
+                helpOn={qHelp === q.id}
+                onHelp={setQHelp}
                 q={q}
                 lang={lang}
                 other={other}
@@ -873,6 +880,17 @@ export default function App() {
       {helpOpen && (
         <HelpPanel help={HELP[view]} lang={lang} onClose={() => setHelpOpen(false)} />
       )}
+
+      {/* Docked, not modal: the answer field stays live while the help is open, because
+          reading why a question is asked and writing the answer to it is one activity. */}
+      {qHelpQuestion && view === "intake" && (
+        <HelpPanel
+          docked
+          help={questionHelp(qHelpQuestion.th, qHelpQuestion.q)}
+          lang={lang}
+          onClose={() => setQHelp(null)}
+        />
+      )}
     </div>
   );
 }
@@ -883,6 +901,8 @@ export default function App() {
 function QuestionBlock({
   q,
   lang,
+  helpOn,
+  onHelp,
   other,
   otherLabel,
   gloss,
@@ -893,6 +913,8 @@ function QuestionBlock({
 }: {
   q: Question;
   lang: Lang;
+  helpOn: boolean;
+  onHelp: (id: string | null) => void;
   other: Lang;
   otherLabel: string;
   gloss: boolean;
@@ -903,6 +925,7 @@ function QuestionBlock({
 }) {
   const unknown = answer.basis === "unknown";
   const grow = useAutoGrow(answer.text);
+
   const growSource = useAutoGrow(answer.source);
 
   return (
@@ -917,7 +940,24 @@ function QuestionBlock({
     >
       <div className="q-main">
         <div className="q-head">
-          <span className="qid">{q.id}</span>
+          <span className="q-idline">
+            <span className="qid">{q.id}</span>
+            {/* The question the architect is looking at is the one they have a question
+                about, so the answer sits on it rather than three clicks away. */}
+            <button
+              type="button"
+              className={`q-help${helpOn ? " on" : ""}`}
+              aria-label={t(UI.helpForQuestion, lang)}
+              aria-pressed={helpOn}
+              onClick={() => onHelp(helpOn ? null : q.id)}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.2 9.2a2.8 2.8 0 1 1 3.8 2.6c-.7.3-1 .9-1 1.6v.4" />
+                <line x1="12" y1="17.6" x2="12.01" y2="17.6" />
+              </svg>
+            </button>
+          </span>
           <p className="qtext">{pick(q.text, lang)}</p>
           {gloss && (
             <p className="qde">

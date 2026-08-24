@@ -17,10 +17,14 @@ import { pick, type Lang } from "./themes";
 export function HelpPanel({
   help,
   lang,
+  docked,
   onClose,
 }: {
   help: Help;
   lang: Lang;
+  /** Docked beside the work instead of over it: no scrim, no modal, the form stays live.
+      Reading the help and typing the answer is one activity, not two. */
+  docked?: boolean;
   onClose: () => void;
 }) {
   useEffect(() => {
@@ -31,15 +35,14 @@ export function HelpPanel({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  return (
-    <div className="help-scrim" onClick={onClose}>
-      <aside
-        className="help"
-        role="dialog"
-        aria-modal="true"
-        aria-label={pick(help.title, lang)}
-        onClick={(e) => e.stopPropagation()}
-      >
+  const panel = (
+    <aside
+      className={`help${docked ? " docked" : ""}`}
+      role={docked ? "complementary" : "dialog"}
+      aria-modal={docked ? undefined : true}
+      aria-label={pick(help.title, lang)}
+      onClick={docked ? undefined : (e) => e.stopPropagation()}
+    >
         <div className="help-head">
           <h2>{pick(help.title, lang)}</h2>
           <Button variant="ghost" size="sm" isIconOnly aria-label={t(UI.close, lang)} onPress={onClose}>
@@ -67,7 +70,13 @@ export function HelpPanel({
             )}
           </section>
         ))}
-      </aside>
+    </aside>
+  );
+
+  if (docked) return panel;
+  return (
+    <div className="help-scrim" onClick={onClose}>
+      {panel}
     </div>
   );
 }
