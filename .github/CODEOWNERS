@@ -1,0 +1,12 @@
+# Code owners — who must review before merge. Copy to .github/CODEOWNERS.
+# Enable "Require review from Code Owners" in branch protection to make it binding.
+# https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo.
+*                       @leonkoellerwirth-arch
+
+# Security-sensitive surfaces — never merge without an explicit owner review.
+/.github/               @leonkoellerwirth-arch
+/scripts/               @leonkoellerwirth-arch
+BIBLE.md                @leonkoellerwirth-arch
+CONSTITUTION.md         @leonkoellerwirth-arch

@@ -1,0 +1,15 @@
+# Canonical gitleaks config — copy to a repo root as .gitleaks.toml.
+# Used by scripts/gate.sh (when gitleaks is installed), .pre-commit-config.yaml, and CI.
+# Extends the maintained default ruleset so new secret shapes are covered automatically.
+title = "paved-road gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Files that legitimately carry secret-shaped example strings"
+paths = [
+  '''\.env\.example$''',
+  '''(^|/)LESSONS\.md$''',
+  '''(^|/)CONSTITUTION\.md$''',
+]

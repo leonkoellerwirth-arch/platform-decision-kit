@@ -1,0 +1,28 @@
+# Pre-commit hooks — the local guardrails that fire before a commit is even created.
+# Copy to a repo root as .pre-commit-config.yaml, then: pip install pre-commit && pre-commit install
+#
+# These are a fast, universal subset. Python repos add ruff, web repos add eslint locally; the
+# authoritative full check remains scripts/gate.sh (CONSTITUTION §4).
+minimum_pre_commit_version: "3.5.0"
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+      - id: check-yaml
+      - id: detect-private-key
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.11.0
+    hooks:
+      - id: shellcheck
+        args: ["-S", "warning"]
