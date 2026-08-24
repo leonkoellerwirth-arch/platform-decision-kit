@@ -171,6 +171,35 @@ h1, h2, h3, h4 {
 
 .tab-count { margin-left: 0.35rem; }
 
+/* The example, offered on an empty instrument. It is a way in, not a feature of the
+   work, so it reads quietly and disappears at the first answer. */
+.demo-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 0;
+  padding: 0.85rem 1.1rem;
+  border: 1px dashed var(--line-2);
+  border-radius: var(--r-md);
+  background: var(--bg);
+}
+
+.demo-hint p {
+  flex: 1;
+  min-width: 16rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
 /* ── Footer — one line, and a notice that folds away ── */
 .app-footer {
   margin-top: auto;

@@ -21,6 +21,22 @@ import {
 /** What this build is. Rendered in the bar and repeated in the footer. */
 const VERSION = `v${__APP_VERSION__}${__APP_COMMIT__ ? ` · ${__APP_COMMIT__}` : ""}`;
 
+/**
+ * The worked example, as data.
+ *
+ * It sits in `demo/case.json` next to the prose that explains it, and is imported the same way
+ * the question set is: inlined at build time, so loading it makes no network call. One source —
+ * the file the repository publishes is the file the button loads.
+ */
+import demoCase from "../../demo/case.json";
+
+type DemoCase = {
+  mode: Mode;
+  head: DecisionHead;
+  rows: string[][];
+  answers: Record<string, Answer>;
+};
+
 type View = "intake" | "register" | "deck";
 
 const EMPTY: Answer = { text: "", basis: null, source: "", verification: "none" };
@@ -133,8 +149,39 @@ export default function App() {
   const [exported, setExported] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [info, setInfo] = useState(false);
+
   const [activeBlock, setActiveBlock] = useState(0);
   const [activeQId, setActiveQId] = useState<string | null>(null);
+
+  /** Fill the instrument with the worked example. Replaces whatever is there. */
+  const loadDemo = useCallback(() => {
+    const c = demoCase as unknown as DemoCase;
+    setAnswers(c.answers);
+    setHead(c.head);
+    setRows(c.rows);
+    // The mode has to be persisted, not just set: a bare setMode left `pdk.mode` at
+    // triage, and a reload dropped forty-five of the example's answers from view.
+    setMode(c.mode);
+    try {
+      localStorage.setItem("pdk.mode", c.mode);
+    } catch {
+      /* private windows */
+    }
+    setActiveBlock(0);
+    setActiveQId(null);
+    setExported(null);
+  }, []);
+
+  /** Back to an empty instrument. Confirmed, because there is no undo. */
+  const clearAll = useCallback(() => {
+    if (!window.confirm(t(UI.clearAllConfirm, lang))) return;
+    setAnswers({});
+    setHead({});
+    setRows([]);
+    setActiveBlock(0);
+    setActiveQId(null);
+    setExported(null);
+  }, [lang]);
 
   // Refs for keyboard handler — avoids stale closures with empty-dep effect
   const activeQIdRef = useRef<string | null>(null);
@@ -682,6 +729,18 @@ export default function App() {
             </p>
           )}
 
+          {/* The example belongs where it is useful: on an empty instrument, and nowhere
+              after that. At the first answer the hint is gone; the entry stays reachable
+              in the footer notice. */}
+          {answered === 0 && (
+            <div className="demo-hint">
+              <p>{t(UI.loadDemoHint, lang)}</p>
+              <Button variant="outline" size="sm" onPress={loadDemo}>
+                {t(UI.loadDemo, lang)}
+              </Button>
+            </div>
+          )}
+
           {/* Der Export sitzt jetzt als Icon in der Leiste; hier steht nur noch sein
               Ergebnis, und das auch nur, wenn es eines gibt. */}
           {exported && (
@@ -734,6 +793,14 @@ export default function App() {
               <strong>{t(UI.trustLead, lang)}</strong> {t(UI.trustRest, lang)}
             </p>
             <p className="muted">{t(UI.footer, lang)}</p>
+            <div className="footer-actions">
+              <Button variant="outline" size="sm" onPress={loadDemo}>
+                {t(UI.loadDemo, lang)}
+              </Button>
+              <Button variant="ghost" size="sm" onPress={clearAll}>
+                {t(UI.clearAll, lang)}
+              </Button>
+            </div>
           </div>
         )}
       </footer>

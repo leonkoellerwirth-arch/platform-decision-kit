@@ -1,0 +1,373 @@
+{
+  "_comment": "The worked example, as data. Loaded by the app on demand; see demo/README.md for the case it describes. Demo-Firma does not exist. Generated from a real pass through the instrument, not hand-edited.",
+  "mode": "discovery",
+  "head": {
+    "decision_question": "Wird die Datenhaltung der Zähler- und Marktdatenplattform bis Q2/2027 abgelöst, oder wird die Wartung der Bestandsversion verlängert?",
+    "decision_owner": "Bereichsleiter IT-Anwendungen Netz (benannt, Befugnis nicht schriftlich)",
+    "in_scope": "Datenhaltung und Zugriffsschicht der ZMP",
+    "out_of_scope": "Abrechnungssystem, Netzleitsystem, Data Warehouse",
+    "deadline": "31.12.2027 — Wartungsende der Bestandsversion"
+  },
+  "rows": [
+    [
+      "Zählpunkt- und Zählwertdaten",
+      "vertraulich · personenbezogen",
+      "Fachbereich Messstellenbetrieb",
+      "Fristen nach MsbG",
+      "nur Sperrkennzeichen"
+    ],
+    [
+      "Vertragsdaten",
+      "vertraulich",
+      "nicht benannt",
+      "10 J. nach Vertragsende",
+      "offen"
+    ],
+    [
+      "Bankverbindungen (SEPA)",
+      "vertraulich",
+      "nicht benannt",
+      "unbekannt",
+      "offen"
+    ],
+    [
+      "Netzdaten (Redispatch)",
+      "intern",
+      "Fachbereich Netzbetrieb",
+      "unbekannt",
+      "entfällt (nur Referenz)"
+    ]
+  ],
+  "answers": {
+    "Q1.1": {
+      "text": "Änderungen an der Zähler- und Marktdatenplattform brauchen sechs bis neun Monate, weil niemand die Auswirkung auf die elf angeschlossenen Systeme vorhersagen kann.",
+      "basis": "fact",
+      "source": "Änderungsstatistik ZMP 2024–2026 · Betriebsbericht Q1/2026",
+      "verification": "none"
+    },
+    "Q2.1": {
+      "text": "Wird die Datenhaltung der Zähler- und Marktdatenplattform bis Q2/2027 abgelöst, oder wird die Wartung der Bestandsversion kostenpflichtig verlängert?",
+      "basis": "fact",
+      "source": "Geschäftsführungsvorlage IT 2026-04",
+      "verification": "none"
+    },
+    "Q3.1": {
+      "text": "Fest: Betrieb im konzerneigenen Rechenzentrum, Java als Zielsprache, Keycloak als Identitätsanbieter.",
+      "basis": "fact",
+      "source": "Konzern-Architekturvorgaben v7, Kapitel 3",
+      "verification": "none"
+    },
+    "Q4.3": {
+      "text": "Die nächtliche Abgleichstrecke zwischen ZMP und dem Abrechnungssystem. Der Entwickler, der sie gebaut hat, ist 2024 in Rente gegangen.",
+      "basis": "fact",
+      "source": "Betrieb · Übergabeprotokoll 2024",
+      "verification": "blocked"
+    },
+    "Q5.2": {
+      "text": "Geschäftskritisch sind Marktkommunikation, Redispatch-Meldung und Abrechnung. Erwartet werden 99,9 % und unter 300 ms — verabredet ist nichts davon.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q6.1": {
+      "text": "Personenbezogene Zählwerte und Bankverbindungen, Klassifizierung „vertraulich“. Festgestellt vom Datenschutzbeauftragten 2021.",
+      "basis": "fact",
+      "source": "Schutzbedarfsfeststellung 2021",
+      "verification": "none"
+    },
+    "Q7.3": {
+      "text": "Nein. KI ist nicht im Entscheidungsgegenstand. Eine Lastprognose läuft im Vertriebssystem, nicht in der ZMP.",
+      "basis": "fact",
+      "source": "Architekturreview 2023",
+      "verification": "none"
+    },
+    "Q8.2": {
+      "text": "Die Umstellung der Bankverbindungsdaten auf ein neues Verschlüsselungsverfahren — die Altbestände sind danach im Altsystem nicht mehr lesbar.",
+      "basis": "assumption",
+      "source": "",
+      "verification": "blocked"
+    },
+    "Q9.1": {
+      "text": "Team „Marktdaten“, sieben Personen, Leitung benannt. Die Verfügbarkeitsverantwortung liegt formal beim Betrieb, nicht beim Team.",
+      "basis": "fact",
+      "source": "Organigramm IT 2026",
+      "verification": "open"
+    },
+    "Q10.1": {
+      "text": "Kein SLO dokumentiert. Gemessene Verfügbarkeit der letzten zwölf Monate: 99,7 %.",
+      "basis": "fact",
+      "source": "Monitoring-Auswertung 08/2025–07/2026",
+      "verification": "open"
+    },
+    "Q1.2": {
+      "text": "Der Zustand besteht seit der Zusammenführung von Netz- und Vertriebsdaten 2019. Ausgelöst hat das Review das Wartungsende der Bestandsversion zum 31.12.2027 und die für Q4/2026 angekündigte Prüfung nach §8a BSIG.",
+      "basis": "fact",
+      "source": "Herstellermitteilung Wartungsende · Regulierungsmanagement",
+      "verification": "open"
+    },
+    "Q1.3": {
+      "text": "Benannt hat es der Leiter Messstellenbetrieb. Netzbetrieb und Vertrieb stimmen zu; das Bilanzkreismanagement sieht kein Problem, weil seine Auswertungen aus dem Data Warehouse kommen.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q1.4": {
+      "text": "2023 wurde ein API-Gateway davorgesetzt. Ergebnis: die Fassade steht, drei Konsumenten greifen weiterhin direkt auf die Datenbank zu.",
+      "basis": "fact",
+      "source": "Architekturreview 2023 · Anhang C",
+      "verification": "open"
+    },
+    "Q1.5": {
+      "text": "Nicht quantifiziert. Genannt wurde „ein zweistelliger Millionenbetrag über drei Jahre“, ohne Herleitung.",
+      "basis": "assumption",
+      "source": "",
+      "verification": "blocked"
+    },
+    "Q2.2": {
+      "text": "Bereichsleiter IT-Anwendungen Netz. Formal benannt, aber nicht schriftlich mit Entscheidungsbefugnis hinterlegt.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q2.3": {
+      "text": "Datenhaltung und Zugriffsschicht der ZMP.",
+      "basis": "fact",
+      "source": "Geschäftsführungsvorlage IT 2026-04, Abschnitt 2",
+      "verification": "none"
+    },
+    "Q2.4": {
+      "text": "Das Abrechnungssystem selbst, das Netzleitsystem und das Data Warehouse.",
+      "basis": "fact",
+      "source": "Geschäftsführungsvorlage IT 2026-04, Abschnitt 2",
+      "verification": "none"
+    },
+    "Q2.5": {
+      "text": "31.12.2027, Wartungsende der Bestandsversion. Was bei Verstreichen passiert, ist nicht festgelegt — im Gespräch wurde vermutet, dass die kostenpflichtige Verlängerung automatisch gezogen wird.",
+      "basis": "assumption",
+      "source": "",
+      "verification": "open"
+    },
+    "Q2.6": {
+      "text": "Kein Konsument greift mehr direkt auf die Datenbank zu, und eine Schemaänderung ist in unter vier Wochen produktiv.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q2.7": {
+      "text": "Die Interne Revision, der Datenschutzbeauftragte und die elf Konsumenten. Kriterien liegen nur für die Revision vor.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q3.2": {
+      "text": "Kein eigener Rahmen. Die Mittel liegen im Topf „Digitalisierung Netz“ und sind der ZMP nicht zugeordnet.",
+      "basis": "fact",
+      "source": "Mittelfristplanung IT 2026–2029",
+      "verification": "open"
+    },
+    "Q3.3": {
+      "text": "Seit 2011 in Produktion, vier Releases pro Jahr, zwei davon reine Wartung.",
+      "basis": "fact",
+      "source": "Release-Kalender ZMP",
+      "verification": "none"
+    },
+    "Q3.4": {
+      "text": "EnWG und MsbG gelten laufend. Die Prüfung nach §8a BSIG ist für Q4/2026 angekündigt, und der IT-Sicherheitskatalog nach §11 Abs. 1a EnWG verlangt ein zertifiziertes ISMS.",
+      "basis": "fact",
+      "source": "Mitteilung Regulierungsmanagement 2026-02",
+      "verification": "open"
+    },
+    "Q3.5": {
+      "text": "Architekturboard, dann IT-Lenkungsausschuss. Laut Verfahrensanweisung acht Wochen, erfahrungsgemäß ein Quartal.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q4.1": {
+      "text": "Oracle 19c, ein Java-EE-Monolith aus 2011, ein API-Gateway aus 2023, zwei Batch-Strecken für Marktkommunikation und Netzabrechnung.",
+      "basis": "fact",
+      "source": "CMDB-Auszug 2026-08",
+      "verification": "none"
+    },
+    "Q4.2": {
+      "text": "Confluence-Raum „ZMP“. Letzter Abgleich gegen das laufende System unbekannt, letzte Seitenänderung 2022.",
+      "basis": "fact",
+      "source": "Confluence · Raum ZMP",
+      "verification": "open"
+    },
+    "Q4.4": {
+      "text": "Zählpunkt-, Zählwert- und Vertragsdaten sowie Bankverbindungen für den Lastschrifteinzug. Zählpunktbezeichnungen liegen dreifach vor — ZMP, CRM und Abrechnung — ohne führende Quelle.",
+      "basis": "fact",
+      "source": "Datenlandkarte 2025",
+      "verification": "open"
+    },
+    "Q4.5": {
+      "text": "Elf dokumentierte Integrationen. Drei weitere wurden im Gespräch genannt und stehen in keiner Liste.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q4.6": {
+      "text": "",
+      "basis": "unknown",
+      "source": "",
+      "verification": "open"
+    },
+    "Q5.1": {
+      "text": "Elf: CRM, Abrechnung, Marktkommunikation (EDIFACT/AS4), Netzleitsystem (lesend), Data Warehouse, Kundenportal, Lieferantenwechsel, Redispatch-Meldung, Zählerfernauslesung, Inkasso, Bilanzkreismanagement.",
+      "basis": "fact",
+      "source": "API-Gateway · Routing-Tabelle",
+      "verification": "none"
+    },
+    "Q5.3": {
+      "text": "Ja. Das Kundenportal hält eine nächtliche Kopie der Zählwerte, weil die Antwortzeit früher nicht gereicht hat.",
+      "basis": "fact",
+      "source": "Betrieb · Ticket INC-2019-4471",
+      "verification": "open"
+    },
+    "Q5.4": {
+      "text": "Kein einziges Interface ist durch ein SLA abgedeckt.",
+      "basis": "fact",
+      "source": "Vertragsdatenbank Dienstleister",
+      "verification": "none"
+    },
+    "Q5.5": {
+      "text": "",
+      "basis": "unknown",
+      "source": "",
+      "verification": "open"
+    },
+    "Q6.2": {
+      "text": "Über das Kundenportal, den Lieferantenwechsel und die Zählerfernauslesung. Rechtsgrundlage: Vertragserfüllung nach Art. 6 Abs. 1 lit. b DSGVO, für die Messdaten zusätzlich die Bestimmungen des MsbG.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q6.3": {
+      "text": "Für Zählpunktdaten benannt. Für Vertrags- und Bankverbindungsdaten nicht.",
+      "basis": "fact",
+      "source": "Verzeichnis der Verarbeitungstätigkeiten",
+      "verification": "open"
+    },
+    "Q6.4": {
+      "text": "Zehn Jahre nach Vertragsende, Zählwerte nach den Fristen des MsbG. Ein funktionierender Löschweg existiert nicht — Löschungen werden als Sperrkennzeichen abgebildet.",
+      "basis": "fact",
+      "source": "Löschkonzept 2022, Abschnitt 4",
+      "verification": "blocked"
+    },
+    "Q6.5": {
+      "text": "Laut Betrieb bleibt alles im konzerneigenen Rechenzentrum. Für die Backup-Strecke konnte das im Gespräch niemand bestätigen.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q7.1": {
+      "text": "EnWG, MsbG, DSGVO und das BSIG (KRITIS). Festgestellt vom Regulierungsmanagement, zuletzt bestätigt 02/2026.",
+      "basis": "fact",
+      "source": "Mitteilung Regulierungsmanagement 2026-02",
+      "verification": "none"
+    },
+    "Q7.2": {
+      "text": "Interne Revision 03/2025. Zwei Feststellungen zur Zugriffsverwaltung sind offen.",
+      "basis": "fact",
+      "source": "Revisionsbericht 2025-03",
+      "verification": "open"
+    },
+    "Q7.4": {
+      "text": "Entfällt, da kein KI/ML im Entscheidungsgegenstand. Die Rechtsabteilung wurde dazu nicht befragt.",
+      "basis": "statement",
+      "source": "",
+      "verification": "none"
+    },
+    "Q7.5": {
+      "text": "Der IT-Sicherheitskatalog verlangt ein nach ISO 27001 zertifiziertes ISMS. Das Zertifikat deckt das Rechenzentrum ab, nicht die Anwendung.",
+      "basis": "fact",
+      "source": "Zertifikat ISO 27001 · Geltungsbereich",
+      "verification": "open"
+    },
+    "Q8.1": {
+      "text": "Zwei: Ablösung der Datenhaltung auf PostgreSQL im eigenen Rechenzentrum, oder Neubau als Datenprodukt. Die Begründungen wurden mündlich ausgetauscht und nirgends festgehalten.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q8.3": {
+      "text": "Parallelbetrieb wurde als „ein paar Monate“ erwähnt. Wie lange die doppelte Schreiblast neben der Marktkommunikation tragbar ist, hat niemand geprüft.",
+      "basis": "assumption",
+      "source": "",
+      "verification": "open"
+    },
+    "Q8.4": {
+      "text": "",
+      "basis": "unknown",
+      "source": "",
+      "verification": "open"
+    },
+    "Q8.5": {
+      "text": "Nein, nicht bewertet.",
+      "basis": "fact",
+      "source": "Protokoll Architekturboard 2026-05",
+      "verification": "none"
+    },
+    "Q8.6": {
+      "text": "Für Stammdaten offen. Für historische Zählwerte wurde vorgeschlagen, sie im Altsystem zu belassen.",
+      "basis": "assumption",
+      "source": "",
+      "verification": "open"
+    },
+    "Q9.2": {
+      "text": "Über das Anforderungsboard des Bereichs. Es staut sich an der fachlichen Abnahme, nicht in der Entwicklung.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q9.3": {
+      "text": "Zwei Personen. Beide sind zusätzlich im Smart-Meter-Rollout eingeplant.",
+      "basis": "fact",
+      "source": "Ressourcenplanung 2026/2027",
+      "verification": "blocked"
+    },
+    "Q9.4": {
+      "text": "Der Bereich wird zum 01.01.2027 mit der IT Vertrieb zusammengelegt.",
+      "basis": "fact",
+      "source": "Mitteilung der Geschäftsführung 2026-06",
+      "verification": "open"
+    },
+    "Q9.5": {
+      "text": "Der Leiter Marktkommunikation. Formal nicht beteiligt, faktisch hat noch keine Schemaänderung ohne seine Zustimmung stattgefunden.",
+      "basis": "statement",
+      "source": "",
+      "verification": "none"
+    },
+    "Q10.2": {
+      "text": "RTO vier Stunden, RPO 15 Minuten laut Notfallkonzept. Der letzte Restore-Test ist nicht belegt.",
+      "basis": "fact",
+      "source": "Notfallkonzept IT 2023",
+      "verification": "blocked"
+    },
+    "Q10.3": {
+      "text": "Protokolle in Splunk, Infrastrukturmetriken in Zabbix. Fachliche Alerts auf die Fristen der Marktkommunikation gibt es nicht.",
+      "basis": "fact",
+      "source": "Betriebshandbuch ZMP",
+      "verification": "none"
+    },
+    "Q10.4": {
+      "text": "Beide dokumentiert. Der Change-Prozess wird gelebt; die Incident-Nachbereitung endet regelmäßig ohne Maßnahme.",
+      "basis": "statement",
+      "source": "",
+      "verification": "open"
+    },
+    "Q10.5": {
+      "text": "Fünfzehn Personen mit produktivem Datenbankzugriff. Eine dokumentierte Rezertifizierung gibt es seit 2024 nicht.",
+      "basis": "fact",
+      "source": "Revisionsbericht 2025-03, Feststellung 2",
+      "verification": "blocked"
+    },
+    "Q10.6": {
+      "text": "Transportverschlüsselung ja, Verschlüsselung im Ruhezustand nur für Bankverbindungen. Eine Schlüsselrotation ist nicht definiert.",
+      "basis": "fact",
+      "source": "Kryptokonzept 2021",
+      "verification": "open"
+    }
+  }
+}

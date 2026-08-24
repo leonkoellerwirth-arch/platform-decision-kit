@@ -252,6 +252,16 @@ export const UI = {
   themeToggle: { en: "Switch theme", de: "Theme wechseln" },
   versionLabel: { en: "Build", de: "Build" },
   infoToggle: { en: "About this page", de: "Hinweis zu dieser Seite" },
+  loadDemo: { en: "Load the worked example", de: "Beispiel laden" },
+  loadDemoHint: {
+    en: "Nothing recorded yet. You can load the worked example — an invented energy utility — to see what a finished pass looks like.",
+    de: "Noch nichts erfasst. Sie können das Beispiel laden — ein erfundener Energieversorger — um zu sehen, wie ein fertiger Durchgang aussieht.",
+  },
+  clearAll: { en: "Clear everything", de: "Alles zurücksetzen" },
+  clearAllConfirm: {
+    en: "Delete every answer, the decision head and the data inventory? This cannot be undone.",
+    de: "Alle Antworten, den Entscheidungskopf und das Dateninventar löschen? Das lässt sich nicht rückgängig machen.",
+  },
 
   // --- Presenter mode ---
   present: { en: "Present", de: "Präsentieren" },
