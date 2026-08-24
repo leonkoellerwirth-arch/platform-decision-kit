@@ -1357,19 +1357,246 @@ pre.export {
 
 .quote { font-size: 0.92rem; line-height: 1.55; margin: 0 0 0.5rem; }
 
+/* ── The tag: a shape and a colour, not a grey word ──────────────────────────
+   All four bases used to look identical, so a slide said *that* an answer was
+   tagged and never *what*. The glyph is the one the grid uses, so the mark a
+   person clicked in the intake is the mark they see on the slide.
+
+   Four hues, not four steps: mint for what can be verified, blue for what was
+   said, brass for what was assumed, dashed grey for what nobody knows. A
+   statement is not a lesser fact, and nothing here may read as a ranking.
+   ────────────────────────────────────────────────────────────────────────── */
 .tagpill {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
   margin-left: 0.4rem;
-  padding: 0.05rem 0.45rem;
+  padding: 0.08rem 0.5rem 0.08rem 0.42rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   font-size: 0.7rem;
+  font-weight: 500;
   color: var(--muted);
   vertical-align: middle;
+  white-space: nowrap;
 }
 
+.tagpill .mark { font-size: 0.62rem; line-height: 1; }
+
+.tagpill--fact {
+  background: var(--accent2-soft);
+  border-color: color-mix(in srgb, var(--accent2) 35%, transparent);
+  color: var(--accent2-strong);
+}
+
+.tagpill--statement {
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--accent-strong);
+}
+
+.tagpill--assumption {
+  background: color-mix(in srgb, var(--brass) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--brass) 45%, transparent);
+  color: var(--brass-deep);
+}
+
+.tagpill--unknown {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--line-2);
+  color: var(--muted);
+}
+
+/* ── The board at slide size ────────────────────────────────────────────────
+   Four kinds of knowledge across, three states of outstanding work down, and
+   every answer of this intake on the cell it was tagged with. Generated from
+   the tags, for any intake — a slide that has to be drawn per client is a
+   template, not an instrument.
+   ────────────────────────────────────────────────────────────────────────── */
+.dgrid { margin-top: 0.15rem; }
+
+.dgrid-board {
+  display: grid;
+  grid-template-columns: auto repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+
+.dgrid-corner { background: var(--surface); }
+
+.dgrid-col,
+.dgrid-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  font-size: 0.62rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.dgrid-col {
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.1rem;
+  padding: 0.35rem 0.15rem 0.3rem;
+  text-align: center;
+}
+
+.dgrid-col .mark { font-size: 0.7rem; color: var(--text-soft); }
+
+.dgrid-row { padding: 0 0.4rem 0 0; min-height: 2rem; }
+
+/* Verification keeps its colour on the edge, exactly as in the intake grid. */
+.dgrid-bar {
+  width: 3px;
+  align-self: stretch;
+  background: var(--line-2);
+  border-radius: 0 2px 2px 0;
+  margin-right: 0.3rem;
+}
+
+.dgrid-row.v-open .dgrid-bar { background: var(--brass); }
+.dgrid-row.v-blocked .dgrid-bar { background: var(--signal); }
+.dgrid-row.v-open { color: var(--brass-deep); }
+.dgrid-row.v-blocked { color: var(--signal); }
+
+.dgrid-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  min-height: 2rem;
+  background: var(--surface);
+  font-size: 0.72rem;
+}
+
+.dgrid-cell b { font-family: var(--font-mono); color: var(--text); font-weight: 600; }
+
+.dgrid-dot { color: var(--text-soft); font-size: 0.7rem; line-height: 1; }
+.dgrid-cell.v-open .dgrid-dot { color: var(--brass); }
+.dgrid-cell.v-blocked .dgrid-dot { color: var(--signal); }
+.dgrid-cell.v-none .dgrid-dot { color: var(--accent); }
+
+/* The rule of the unknown column, drawn the same way as in the intake. */
+.dgrid-cell.off {
+  background-color: var(--bg);
+  background-image: linear-gradient(
+    to top right,
+    transparent calc(50% - 0.5px),
+    var(--line-2) calc(50% - 0.5px),
+    var(--line-2) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+
+.dgrid-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+/* ── The open points as a map of the theme blocks ──────────────────────────
+   Thirty-nine one-line entries is a list nobody reads in a room. The grouping
+   is the intake's own theme structure, not a new taxonomy. Every ID stays
+   visible; the full question and answer are on the last slide.
+   ────────────────────────────────────────────────────────────────────────── */
+.tmap-lead { font-size: 0.95rem; margin-bottom: 0.7rem; }
+
+.tmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 0.7rem;
+}
+
+.tmap-block {
+  background-color: var(--bg);
+  background-image: var(--relief-soft);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--brass);
+  border-radius: var(--r-sm);
+  padding: 0.7rem 0.85rem 0.75rem;
+}
+
+.tmap-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.tmap-num {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--accent-strong);
+}
+
+.tmap-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--brass-deep);
+  background: color-mix(in srgb, var(--brass) 14%, var(--surface));
+  border-radius: 999px;
+  padding: 0.02rem 0.4rem;
+}
+
+.tmap-ids {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+}
+
+.tmap-ids code {
+  font-size: 0.7rem;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.02rem 0.28rem;
+}
+
+/* ── Blocked: one red edge, never a fill ──────────────────────────────────
+   Signal red is the single focal pop of the house palette and is not allowed
+   to become an area. An edge is enough: the hard items are found before they
+   are read. */
+.card.blockedcard {
+  border-left: 3px solid var(--signal);
+  padding-left: calc(1.2rem - 2px);
+}
+
+.card.blockedcard .card-label { color: var(--signal); }
+
 .src { color: var(--muted); font-size: 0.8rem; }
+
+/* The count carries the message the chip grid could not. */
+.optcount {
+  margin: 0.5rem 0 0.4rem;
+  font-size: 0.86rem;
+  color: var(--text);
+}
+.optcount b {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  color: var(--brass-deep);
+}
+
+/* What did not fit on the card, and where the rest is. Never a silent truncation. */
+.more {
+  margin: 0.3rem 0 0;
+  font-size: 0.76rem;
+  font-style: italic;
+  color: var(--muted);
+}
 
 .kv { font-size: 0.86rem; margin: 0 0 0.6rem; }
 .kv .k {

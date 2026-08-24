@@ -14,7 +14,7 @@
 //
 // PDF export is the browser's own print dialogue against the @media print rules. No library.
 
-import { Children, useCallback, useEffect, useRef, useState } from "react";
+import { Children, Fragment, useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@heroui/react";
 
@@ -23,6 +23,8 @@ import {
   DECISION_HEAD_FIELDS,
   pick,
   type Answer,
+  type Basis,
+  type Verification,
   type DecisionHead,
   type Lang,
   type Mode,
@@ -44,7 +46,12 @@ interface Item {
   id: string;
   question: Text;
   text: string;
+  /** The translated word, for reading. */
   basis: string | null;
+  /** The raw key, for the shape and the colour. A slide that only had the word could
+      write "Annahme" but not draw a triangle in brass. */
+  basisKey: Basis | null;
+  verification: Verification;
   source: string;
   open: boolean;
 }
@@ -58,6 +65,8 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
         question: q.text,
         text: a?.text.trim() ?? "",
         basis: a?.basis ? t(UI.basisLabels[a.basis], lang) : null,
+        basisKey: a?.basis ?? null,
+        verification: a?.verification ?? "none",
         source: a?.source.trim() ?? "",
         open: a?.verification === "open" || a?.verification === "blocked",
       };
@@ -105,11 +114,26 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
               <Line key={f.key} label={pick(f.label, lang)} value={head[f.key] ?? ""} lang={lang} />
             ))}
           </Card>
+          <Card label={t(UI.gridTitle, lang)}>
+            <DeckGrid items={items} lang={lang} />
+          </Card>
+          {/* A slide holds what a slide holds. Beyond four the card runs off the canvas, so
+              it says how many are left and where they are in full. The order is the question
+              order, not a judgement about which assumption matters more. */}
           <Card label={t(UI.basisLabels.assumption, lang)}>
             {assumptions.length === 0 ? (
               <p className="muted">—</p>
             ) : (
-              assumptions.map((a) => <Quote key={a.id} item={a} lang={lang} />)
+              <>
+                {assumptions.slice(0, 3).map((a) => (
+                  <Quote key={a.id} item={a} lang={lang} />
+                ))}
+                {assumptions.length > 3 && (
+                  <p className="more">
+                    +{assumptions.length - 3} {t(UI.andMore, lang)}
+                  </p>
+                )}
+              </>
             )}
           </Card>
         </Cards>
@@ -122,6 +146,14 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
           </Card>
           <Card label={t(UI.cardJudge, lang)}>
             <Quote item={have("Q2.7")} lang={lang} />
+          </Card>
+          {/* What happens if the deadline passes undecided is a decision criterion, and it
+              was on no slide at all. */}
+          <Card
+            label={t(UI.cardDeadline, lang)}
+            blocked={have("Q2.5")?.verification === "blocked"}
+          >
+            <Quote item={have("Q2.5")} lang={lang} />
           </Card>
         </Cards>
         <Cards>
@@ -154,13 +186,26 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
             {openItems.length === 0 ? (
               <p className="muted">—</p>
             ) : (
-              <ul className="ids">
-                {openItems.map((i) => (
-                  <li key={i.id}>
-                    <code>{i.id}</code>
-                  </li>
-                ))}
-              </ul>
+              <>
+                {/* Thirty-nine numbered chips is a texture, not a message. The count is the
+                    message; the chips stay for the reader who wants to see that they are all
+                    there, and the rest are on the last slide. */}
+                <p className="optcount">
+                  <b>{openItems.length}</b> {t(UI.openPoints, lang)}
+                </p>
+                <ul className="ids">
+                  {openItems.slice(0, 8).map((i) => (
+                    <li key={i.id}>
+                      <code>{i.id}</code>
+                    </li>
+                  ))}
+                </ul>
+                {openItems.length > 8 && (
+                  <p className="more">
+                    +{openItems.length - 8} {t(UI.andMore, lang)}
+                  </p>
+                )}
+              </>
             )}
           </Card>
         </Cards>
@@ -170,16 +215,16 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
         {openItems.length === 0 ? (
           <p className="muted">{t(UI.noOpenDirections, lang)}</p>
         ) : (
-          <ul className="conditions">
-            {openItems.map((i) => (
-              <li key={i.id}>
-                <span className="cond">
-                  {t(UI.conditionalOn, lang)} <code>{i.id}</code>
-                </span>
-                <span className="cond-q">{pick(i.question, lang)}</span>
-              </li>
-            ))}
-          </ul>
+          <>
+            <p className="lead muted tmap-lead">
+              {t(UI.openByTheme, lang)}
+            </p>
+            <ThemeMap
+              themes={themes}
+              open={new Set(openItems.map((i) => i.id))}
+              lang={lang}
+            />
+          </>
         )}
       </Slide>
 
@@ -188,10 +233,13 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
           <Card label={t(UI.irreversible, lang)} flag>
             <Quote item={have("Q8.2")} lang={lang} />
           </Card>
-          <Card label={t(UI.cardWayBack, lang)}>
+          <Card label={t(UI.cardWayBack, lang)} blocked={have("Q8.4")?.verification === "blocked"}>
             <Quote item={have("Q8.4")} lang={lang} />
           </Card>
-          <Card label={t(UI.cardIrreversibilityAssessed, lang)}>
+          <Card
+            label={t(UI.cardIrreversibilityAssessed, lang)}
+            blocked={have("Q8.5")?.verification === "blocked"}
+          >
             <Quote item={have("Q8.5")} lang={lang} />
           </Card>
         </Cards>
@@ -206,7 +254,7 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
               ["Q9.5", UI.cardVetoChain],
             ] as const
           ).map(([id, label]) => (
-            <Card key={id} label={t(label, lang)}>
+            <Card key={id} label={t(label, lang)} blocked={have(id)?.verification === "blocked"}>
               <Quote item={have(id)} lang={lang} />
             </Card>
           ))}
@@ -456,18 +504,47 @@ function Card({
   label,
   accent,
   flag,
+  blocked,
   children,
 }: {
   label: string;
   accent?: boolean;
   flag?: boolean;
+  /** Work on this answer is blocked. One red edge, so the hard items are found before
+      they are read. Never a fill: signal red is the focal pop, not an area. */
+  blocked?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <div className={`card${accent ? " accent" : ""}${flag ? " flagcard" : ""}`}>
+    <div
+      className={`card${accent ? " accent" : ""}${flag ? " flagcard" : ""}${blocked ? " blockedcard" : ""}`}
+    >
       <span className="card-label">{label}</span>
       {children}
     </div>
+  );
+}
+
+/**
+ * The tag, as a shape and a colour rather than a grey word.
+ *
+ * The four bases had one appearance between them, so a slide told you *that* something was
+ * tagged and never *what*. The glyph is the one the grid already uses, so the mark a person
+ * clicked in the intake is the mark they see on the slide: filled circle for a fact, hollow
+ * for a statement, triangle for an assumption, dash for an unknown. Colour follows the same
+ * split the house palette already makes — mint for what can be verified, blue for what was
+ * said, brass for what was assumed, a dashed grey for what nobody knows.
+ *
+ * This is not a ranking. A statement is not a lesser fact, and the colours are four different
+ * hues rather than four steps of one.
+ */
+function Tag({ item }: { item: Item }) {
+  if (!item.basisKey || !item.basis) return null;
+  return (
+    <span className={`tagpill tagpill--${item.basisKey}`}>
+      <i className={`mark m-${item.basisKey}`} aria-hidden="true" />
+      {item.basis}
+    </span>
   );
 }
 
@@ -479,7 +556,7 @@ function Lead({ item, lang }: { item: Item | null; lang: Lang }) {
   return (
     <p className="lead">
       {item.text} <code>[{item.id}]</code>
-      {item.basis && <span className="tagpill">{item.basis}</span>}
+      <Tag item={item} />
     </p>
   );
 }
@@ -492,7 +569,7 @@ function Quote({ item, lang }: { item: Item | null; lang: Lang }) {
   return (
     <p className="quote">
       {item.text || "—"} <code>[{item.id}]</code>
-      {item.basis && <span className="tagpill">{item.basis}</span>}
+      <Tag item={item} />
       {item.source && <span className="src">· {item.source}</span>}
     </p>
   );
@@ -515,5 +592,121 @@ function Line({
       <span className="k">{label}</span>
       <span className={value.trim() === "" && !raw ? "v muted" : "v"}>{shown || "—"}</span>
     </p>
+  );
+}
+
+/**
+ * The board, at slide size.
+ *
+ * The instrument's own signature picture: four kinds of knowledge across, three states of
+ * outstanding work down, and every answer of this intake sitting on the cell it was tagged
+ * with. One look says what kind of conversation this was — a heavy left column is a
+ * well-evidenced one, a lit bottom right is a room that admitted a lot.
+ *
+ * It counts and it does not weigh. A count is the same statement as the list it comes from,
+ * only shorter to look at; nothing here is ranked, scored or inferred, and no cell means
+ * "better" than another. The picture is generated from the tags for any intake, which is the
+ * condition for it being in the tool at all: a slide that has to be drawn by hand per client
+ * is a template, not an instrument.
+ */
+const BASES: Basis[] = ["fact", "statement", "assumption", "unknown"];
+const VERIFICATIONS: Verification[] = ["none", "open", "blocked"];
+
+function DeckGrid({ items, lang }: { items: Item[]; lang: Lang }) {
+  const counts = new Map<string, number>();
+  for (const i of items) {
+    if (!i.basisKey) continue;
+    const k = `${i.basisKey}/${i.verification}`;
+    counts.set(k, (counts.get(k) ?? 0) + 1);
+  }
+  const max = Math.max(1, ...counts.values());
+  const total = [...counts.values()].reduce((a, b) => a + b, 0);
+
+  return (
+    <div className="dgrid">
+      <div className="dgrid-board">
+        <span className="dgrid-corner" />
+        {BASES.map((b) => (
+          <span key={b} className="dgrid-col">
+            <i className={`mark m-${b}`} aria-hidden="true" />
+            {t(UI.basisLabels[b], lang)}
+          </span>
+        ))}
+
+        {VERIFICATIONS.map((v) => (
+          <Fragment key={v}>
+            <span className={`dgrid-row v-${v}`}>
+              <i className="dgrid-bar" aria-hidden="true" />
+              {t(UI.verificationLabels[v], lang)}
+            </span>
+            {BASES.map((b) => {
+              const n = counts.get(`${b}/${v}`) ?? 0;
+              const off = b === "unknown" && v !== "open";
+              return (
+                <span key={b} className={`dgrid-cell v-${v}${off ? " off" : ""}`}>
+                  {n > 0 && (
+                    <i
+                      className={`dgrid-dot m-${b}`}
+                      style={{ transform: `scale(${0.5 + 0.5 * (n / max)})` }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  {n > 0 && <b>{n}</b>}
+                </span>
+              );
+            })}
+          </Fragment>
+        ))}
+      </div>
+      <p className="dgrid-note">
+        {total} {t(UI.gridTagged, lang)}
+      </p>
+    </div>
+  );
+}
+
+/**
+ * The open points, arranged by the theme they came from.
+ *
+ * Thirty-nine one-line entries is a list nobody reads in a room; ten blocks with their
+ * question IDs is a shape. The grouping is not editorial: the blocks are the intake's own
+ * theme structure from `intake/themes.json` (INV-5), the same headings the form is printed
+ * under. Nothing is summarised and nothing is dropped — every ID stays visible, and the full
+ * question and answer for each of them is on the last slide.
+ */
+function ThemeMap({
+  themes,
+  open,
+  lang,
+}: {
+  themes: Theme[];
+  open: Set<string>;
+  lang: Lang;
+}) {
+  const blocks = themes
+    .map((th) => ({
+      id: th.id,
+      title: pick(th.title, lang),
+      ids: th.questions.map((q) => q.id).filter((id) => open.has(id)),
+    }))
+    .filter((b) => b.ids.length > 0);
+
+  return (
+    <div className="tmap">
+      {blocks.map((b) => (
+        <div className="tmap-block" key={b.id}>
+          <span className="tmap-head">
+            <span className="tmap-num">{b.id}</span>
+            {b.title}
+            <b className="tmap-count">{b.ids.length}</b>
+          </span>
+          <span className="tmap-ids">
+            {b.ids.map((id) => (
+              <code key={id}>{id}</code>
+            ))}
+          </span>
+        </div>
+      ))}
+    </div>
   );
 }

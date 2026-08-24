@@ -284,6 +284,15 @@ export const UI = {
   cardPlatformOwner: { en: "Platform ownership", de: "Plattformverantwortung" },
   cardKeyPeople: { en: "Key people", de: "Schlüsselpersonen" },
   cardVetoChain: { en: "Informal veto chain", de: "Informelle Veto-Kette" },
+  cardDeadline: { en: "Deadline and what follows", de: "Frist und ihre Folgen" },
+  gridTitle: { en: "Evidence at a glance", de: "Beleglage auf einen Blick" },
+  gridTagged: { en: "answers tagged", de: "eingeordnete Antworten" },
+  openPoints: { en: "open points, by theme block", de: "offene Punkte, nach Themenblock" },
+  openByTheme: {
+    en: "Every directional statement hangs on these open points, grouped by the theme block they came from.",
+    de: "Jede Richtungsaussage hängt an diesen offenen Punkten, gruppiert nach dem Themenblock, aus dem sie stammen.",
+  },
+  andMore: { en: "more, in full on the last slide", de: "weitere, vollständig auf der letzten Folie" },
   versionTitle: {
     en: "Version and commit this build came from. A trailing + means it was built from an uncommitted working tree.",
     de: "Version und Commit dieses Builds. Ein angehängtes + heißt: aus einem uncommitteten Arbeitsstand gebaut.",
