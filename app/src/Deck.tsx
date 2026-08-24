@@ -82,6 +82,19 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
     }),
   );
 
+  /**
+   * Answered and with nothing outstanding.
+   *
+   * These were falling off the deck entirely. A slide reaches for an ID by name, or an answer
+   * arrives because it is open or an assumption; an answer that is documented, sourced and
+   * settled matched none of those, so the eleven best-evidenced lines of the intake, the stack,
+   * the eleven consumers, "no interface has an SLA", the data classification and the regulatory
+   * frame, appeared nowhere. A room got the doubts without the ground they stand on.
+   */
+  const settled = items.filter(
+    (i) => (i.text !== "" || i.basis !== null) && !i.open && i.basisKey !== "unknown",
+  );
+
   const byId = new Map(items.map((i) => [i.id, i]));
   const have = (id: string) => {
     const i = byId.get(id);
@@ -297,6 +310,35 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
               ))}
             </tbody>
           </table>
+        )}
+
+        {/* The appendix is the record, so it carries the settled answers too. They are not
+            open points and are not mixed into that list: they sit under their own heading,
+            after it, with their tags. Nothing typed into the intake leaves the deck. */}
+        {settled.length > 0 && (
+          <>
+            <h4 className="reg-sub">
+              {t(UI.settledTitle, lang)} <b>{settled.length}</b>
+            </h4>
+            <p className="reg-sub-note">{t(UI.settledNote, lang)}</p>
+            <table className="reg settled">
+              <tbody>
+                {settled.map((i) => (
+                  <tr key={i.id}>
+                    <td>
+                      <code>{i.id}</code>
+                    </td>
+                    <td>{pick(i.question, lang)}</td>
+                    <td className="muted">
+                      {i.text || "—"}
+                      <Tag item={i} />
+                      {i.source && <span className="src"> · {i.source}</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
         )}
       </Slide>
     </>

@@ -307,6 +307,11 @@ export const UI = {
   cardDeadline: { en: "Deadline and what follows", de: "Frist und ihre Folgen" },
   gridTitle: { en: "Evidence at a glance", de: "Beleglage auf einen Blick" },
   gridTagged: { en: "answers tagged", de: "eingeordnete Antworten" },
+  settledTitle: { en: "Settled, nothing outstanding:", de: "Belegt, nichts offen:" },
+  settledNote: {
+    en: "Answers with no open verification. They are not decisions and not a recommendation; they are the ground the open points are measured against.",
+    de: "Antworten ohne offene Verifikation. Sie sind keine Entscheidungen und keine Empfehlung, sondern der Boden, an dem die offenen Punkte gemessen werden.",
+  },
   openPoints: { en: "open points, by theme block", de: "offene Punkte, nach Themenblock" },
   openByTheme: {
     en: "Every directional statement hangs on these open points, grouped by the theme block they came from.",

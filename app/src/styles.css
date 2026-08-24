@@ -1673,6 +1673,30 @@ pre.export {
 
 .src { color: var(--muted); font-size: 0.8rem; }
 
+/* The settled half of the appendix: same table, its own heading, clearly after. */
+.reg-sub {
+  margin: 1.8rem 0 0.2rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.reg-sub b {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--accent2-strong);
+}
+
+.reg-sub-note {
+  margin: 0 0 0.7rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  max-width: 74ch;
+}
+
+.reg.settled td:first-child code { color: var(--accent2-strong); }
+
 /* The count carries the message the chip grid could not. */
 .optcount {
   margin: 0.5rem 0 0.4rem;
