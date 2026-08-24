@@ -102,11 +102,12 @@ out, because the browser-only property is an invariant here.
 
 ## A worked example
 
-[`demo/`](demo/) holds one full Discovery pass for an invented mid-sized energy utility: the filled
-intake in both question languages and the seven-slide deck as a PDF. All 55 questions are
-answered, and the instrument still arrives at no recommendation, which is the point of the
-example. A clickable version, the whole instrument in a single HTML file with the answers already
-in it, is attached to the v0.1.0 release.
+[`demo/`](demo/) holds one full Discovery pass for an invented regional energy utility: the
+filled intake in both question languages and the seven-slide deck as a PDF. The company does not
+exist; the regulatory frame around it (EnWG, MsbG, the KRITIS audit under §8a BSIG) does. All 55
+questions are answered, and the instrument still arrives at no recommendation, which is the point
+of the example. A clickable version, the whole instrument in a single HTML file with the answers
+already in it, is attached to the v0.1.0 release.
 
 ## Layout
 
