@@ -1,0 +1,987 @@
+{
+  "themes": [
+    {
+      "theme_id": 1,
+      "slug": "pain-occasion",
+      "title": {
+        "en": "Pain & Occasion",
+        "de": "Schmerz & Anlass"
+      },
+      "why": {
+        "en": "Every platform intervention begins with a presenting problem that may or may not\nbe the real problem. This block surfaces who names the pain, what triggered the\nreview now, and what inaction actually costs — separating the real driver from\nthe stated one before any technical assessment begins.\n",
+        "de": "Jede Plattformintervention beginnt mit einem vordergründigen Problem, das nicht\nunbedingt das eigentliche Problem ist. Dieser Block legt offen, wer den Schmerz\nbenennt, was das Review jetzt ausgelöst hat und was Untätigkeit kostet.\n"
+      },
+      "questions": [
+        {
+          "id": "Q1.1",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What is the presenting problem in one sentence?",
+            "de": "Was ist das vordergründige Problem in einem Satz?"
+          }
+        },
+        {
+          "id": "Q1.2",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "How long has this situation existed, and what changed to trigger a review now?",
+            "de": "Wie lange besteht diese Situation, und was hat sich verändert, sodass das Review jetzt stattfindet?"
+          }
+        },
+        {
+          "id": "Q1.3",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Who named this a problem — and who agrees, who does not?",
+            "de": "Wer hat dies als Problem benannt — und wer stimmt zu, wer nicht?"
+          }
+        },
+        {
+          "id": "Q1.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What has already been attempted to address this situation, and what was the outcome?",
+            "de": "Was wurde bisher unternommen, um diese Situation zu adressieren, und was war das Ergebnis?"
+          }
+        },
+        {
+          "id": "Q1.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What is the estimated cost of inaction over 12 months — quantified, or explicitly stated as unquantified?",
+            "de": "Was sind die geschätzten Kosten der Untätigkeit über 12 Monate — quantifiziert oder explizit als unquantifiziert benannt?"
+          }
+        }
+      ],
+      "hypotheses": [
+        {
+          "name": "Presenting pain is a symptom, not a root cause",
+          "type": "hypothesis",
+          "scope_of_validity": "When pain is described exclusively from one stakeholder perspective and no attempt to cross-check has been made.\n",
+          "falsifiable_by": "A single documented technical or organisational event that is the traceable cause."
+        },
+        {
+          "name": "The trigger is external, the pain is internal",
+          "type": "hypothesis",
+          "scope_of_validity": "When the review is precipitated by an audit, contract renewal, or regulatory deadline rather than operational failure.\n",
+          "falsifiable_by": "A documented operational metric that was already deteriorating before the external trigger."
+        }
+      ],
+      "red_flags": [
+        "Pain described only from one stakeholder group, not cross-checked with consumers or operators.",
+        "No one has tried to fix this before — or no one knows whether it was tried.",
+        "Trigger is an external deadline; underlying operational situation is stable or unknown."
+      ],
+      "stop_conditions": [
+        "No clear pain owner and no mandate to define one → stop; clarify mandate first."
+      ]
+    },
+    {
+      "theme_id": 2,
+      "slug": "success-benchmark",
+      "title": {
+        "en": "Success & Benchmark",
+        "de": "Erfolg & Messlatte"
+      },
+      "why": {
+        "en": "A platform decision without a measurable success criterion is a preference, not a\ndecision. This block captures the Entscheidungskopf — the decision question, its\nowner, its explicit scope boundary, and its deadline — alongside the criteria by\nwhich any outcome will be judged.\n",
+        "de": "Eine Plattformentscheidung ohne messbares Erfolgskriterium ist eine Präferenz,\nkeine Entscheidung. Dieser Block erfasst den Entscheidungskopf sowie die\nKriterien, nach denen jedes Ergebnis beurteilt wird.\n"
+      },
+      "questions": [
+        {
+          "id": "Q2.1",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What is the primary decision question — stated as a question with a yes/no or option-selecting answer?",
+            "de": "Was ist die primäre Entscheidungsfrage — als Frage formuliert, die mit Ja/Nein oder einer Optionswahl beantwortet werden kann?"
+          }
+        },
+        {
+          "id": "Q2.2",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Who is the decision owner — the single named person accountable for the outcome?",
+            "de": "Wer ist der Entscheidungseigner — die einzelne benannte Person, die für das Ergebnis verantwortlich ist?"
+          }
+        },
+        {
+          "id": "Q2.3",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What is explicitly in scope for this decision?",
+            "de": "Was liegt explizit im Scope dieser Entscheidung?"
+          }
+        },
+        {
+          "id": "Q2.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What is explicitly out of scope for this decision?",
+            "de": "Was liegt explizit außerhalb des Scope dieser Entscheidung?"
+          }
+        },
+        {
+          "id": "Q2.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What is the decision deadline, and what happens — explicitly — if it passes without a decision?",
+            "de": "Was ist die Entscheidungsfrist, und was passiert — explizit — wenn sie ohne Entscheidung verstreicht?"
+          }
+        },
+        {
+          "id": "Q2.6",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What does success look like in 12 months — in terms that a neutral observer could verify?",
+            "de": "Wie sieht Erfolg in 12 Monaten aus — in Begriffen, die ein neutraler Beobachter verifizieren könnte?"
+          }
+        },
+        {
+          "id": "Q2.7",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Who must be satisfied for this to be considered a good outcome, and by what criteria do they judge it?",
+            "de": "Wer muss mit dem Ergebnis zufrieden sein, und nach welchen Kriterien beurteilt er es?"
+          }
+        }
+      ],
+      "decision_head": {
+        "decision_question": null,
+        "decision_owner": null,
+        "in_scope": null,
+        "out_of_scope": null,
+        "deadline": null
+      },
+      "hypotheses": [
+        {
+          "name": "Success criteria are stated but not measurable",
+          "type": "hypothesis",
+          "scope_of_validity": "When the stated success is expressed in qualitative terms (\"better\", \"faster\") with no observable indicator.\n",
+          "falsifiable_by": "A named metric with a target value and a measurement method."
+        },
+        {
+          "name": "The deadline is political, not operational",
+          "type": "hypothesis",
+          "scope_of_validity": "When the deadline aligns with a budget cycle, a personnel change, or an external milestone rather than a technical dependency.\n",
+          "falsifiable_by": "A documented technical dependency that establishes the deadline independently."
+        }
+      ],
+      "red_flags": [
+        "No named decision owner — \"the architecture board\" or \"leadership\" is not an owner.",
+        "Success is defined only in terms of what is built, not in terms of outcomes.",
+        "Deadline is stated but its consequence if missed is unknown or \"not yet defined\"."
+      ],
+      "stop_conditions": [
+        "No decision question can be formulated → stop; the intake is premature."
+      ]
+    },
+    {
+      "theme_id": 3,
+      "slug": "constraints-phase",
+      "title": {
+        "en": "Constraints & Phase",
+        "de": "Vorgaben & Phase"
+      },
+      "why": {
+        "en": "Fixed constraints collapse the option space before analysis begins. Discovering a\nhard mandate late — a vendor lock-in, a budget ceiling, a regulatory timeline —\ninvalidates work already done. This block captures what cannot be changed.\n",
+        "de": "Feste Vorgaben reduzieren den Optionsraum, bevor die Analyse beginnt. Eine spät\nentdeckte harte Vorgabe — ein Vendor-Lock-in, eine Budgetobergrenze, eine\nregulatorische Frist — macht bereits geleistete Arbeit ungültig.\n"
+      },
+      "questions": [
+        {
+          "id": "Q3.1",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What architecture or technology mandates are fixed — i.e., not open for discussion in this decision?",
+            "de": "Welche Architektur- oder Technologievorgaben sind fest — d.h. in dieser Entscheidung nicht zur Diskussion gestellt?"
+          }
+        },
+        {
+          "id": "Q3.2",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What budget envelope exists for this initiative — or is there none defined?",
+            "de": "Welchen Budgetrahmen gibt es für diese Initiative — oder ist keiner definiert?"
+          }
+        },
+        {
+          "id": "Q3.3",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What is the current maturity phase of this platform — how long has it been in production, and what is the cadence of changes?",
+            "de": "Was ist die aktuelle Reifephase der Plattform — wie lange ist sie in Produktion, und wie häufig wird sie geändert?"
+          }
+        },
+        {
+          "id": "Q3.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What regulatory or audit commitments constrain the timeline of any change?",
+            "de": "Welche regulatorischen oder Audit-Verpflichtungen schränken den Zeitplan einer Änderung ein?"
+          }
+        },
+        {
+          "id": "Q3.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What governance process must any significant platform decision pass through, and how long does it take?",
+            "de": "Welchen Governance-Prozess muss eine bedeutende Plattformentscheidung durchlaufen, und wie lange dauert er?"
+          }
+        }
+      ],
+      "hypotheses": [
+        {
+          "name": "Stated mandates are softer than they appear",
+          "type": "hypothesis",
+          "scope_of_validity": "When constraints are stated as \"we use X\" rather than \"we must use X per signed contract / policy reference N\".\n",
+          "falsifiable_by": "A signed contract clause or a named policy document with the exact requirement."
+        }
+      ],
+      "red_flags": [
+        "Budget stated as \"TBD\" for a decision with a firm deadline.",
+        "Mandate attributed to a person rather than a policy or contract.",
+        "Governance process timeline is unknown but the decision deadline is fixed."
+      ],
+      "stop_conditions": [
+        "None specific; flag for Discovery if regulatory timelines are unknown — Q3.4 is no_defaults: leave blank, mark to-verify."
+      ]
+    },
+    {
+      "theme_id": 4,
+      "slug": "inventory-knowledge",
+      "title": {
+        "en": "Inventory & Knowledge",
+        "de": "Bestand & Wissen"
+      },
+      "why": {
+        "en": "Brownfield platforms accumulate components that no one fully understands. Dark\nzones — parts of the system whose behaviour is known only through observation,\nnot documentation — are the primary source of architectural surprise. This block\nmaps what exists and who knows it.\n",
+        "de": "Brownfield-Plattformen akkumulieren Komponenten, die niemand mehr vollständig\nversteht. Dunkle Zonen — Teile des Systems, deren Verhalten nur durch Beobachtung,\nnicht durch Dokumentation bekannt ist — sind die Hauptquelle architektonischer\nÜberraschungen.\n"
+      },
+      "questions": [
+        {
+          "id": "Q4.1",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What exists today — list the core components, their approximate production age, and their technology stack?",
+            "de": "Was existiert heute — Liste der Kernkomponenten, ihr ungefähres Produktionsalter und ihr Technologie-Stack?"
+          }
+        },
+        {
+          "id": "Q4.2",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Where does the definitive technical documentation live, and when was it last verified against the system?",
+            "de": "Wo lebt die maßgebliche technische Dokumentation, und wann wurde sie zuletzt gegen das System verifiziert?"
+          }
+        },
+        {
+          "id": "Q4.3",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Which parts of the system does no one currently understand well enough to predict the effect of a change?",
+            "de": "Welche Teile des Systems versteht niemand aktuell gut genug, um die Auswirkung einer Änderung vorherzusagen?"
+          }
+        },
+        {
+          "id": "Q4.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What data does the platform manage — and what is the master data situation (single source, duplicates, ownership)?",
+            "de": "Welche Daten verwaltet die Plattform — und wie ist die Stammdatenlage (Einzelquelle, Duplikate, Eigentümerschaft)?"
+          }
+        },
+        {
+          "id": "Q4.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What integrations exist — documented or not — and who knows about them?",
+            "de": "Welche Integrationen existieren — dokumentiert oder nicht — und wer kennt sie?"
+          }
+        },
+        {
+          "id": "Q4.6",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What is the current automated test coverage, and when was the last full regression run conducted?",
+            "de": "Wie ist die aktuelle automatisierte Testabdeckung, und wann wurde der letzte vollständige Regressionstest durchgeführt?"
+          }
+        }
+      ],
+      "hypotheses": [
+        {
+          "name": "The dark zone is concentrated, not distributed",
+          "type": "hypothesis",
+          "scope_of_validity": "When the least-understood component is a legacy module written by a single person or team that has since left.\n",
+          "falsifiable_by": "Multiple team members who can independently describe the component's behaviour with matching accounts."
+        },
+        {
+          "name": "Documentation describes the intended system, not the running one",
+          "type": "hypothesis",
+          "scope_of_validity": "Systems older than 3 years with no documented verification process.\n",
+          "falsifiable_by": "A documented audit comparing specification against observed runtime behaviour within the last 12 months."
+        }
+      ],
+      "red_flags": [
+        "Only one person understands a critical path component.",
+        "No automated test suite — changes are verified manually or in production.",
+        "Master data exists in more than one system with no documented reconciliation process."
+      ],
+      "stop_conditions": [
+        "If the dark zone covers a component involved in any proposed migration path → flag as a pre-condition for Discovery work, not a Discovery finding."
+      ]
+    },
+    {
+      "theme_id": 5,
+      "slug": "consumers-interfaces",
+      "title": {
+        "en": "Consumers & Interfaces",
+        "de": "Konsumenten & Schnittstellen"
+      },
+      "why": {
+        "en": "A platform migration that breaks a consumer is not a platform migration — it is\nan incident. This block maps who depends on what, which dependencies are formally\ncontracted versus informally assumed, and who has the authority to accept a\nbreaking change.\n",
+        "de": "Eine Plattformmigration, die einen Konsumenten bricht, ist keine Migration,\nsondern ein Vorfall. Dieser Block bildet ab, wer wovon abhängt, welche\nAbhängigkeiten formal vereinbart und welche informell angenommen sind, und wer\neiner brechenden Änderung zustimmen muss.\n"
+      },
+      "questions": [
+        {
+          "id": "Q5.1",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Who are the current consumers of this platform — list them and describe how they integrate (sync, async, batch, event)?",
+            "de": "Wer sind die aktuellen Konsumenten dieser Plattform — Liste und Beschreibung der Integration (sync, async, Batch, Event)?"
+          }
+        },
+        {
+          "id": "Q5.2",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Which consumers are business-critical, and what availability or latency do they require?",
+            "de": "Welche Konsumenten sind geschäftskritisch, und welche Verfügbarkeit oder Latenz erwarten sie?"
+          }
+        },
+        {
+          "id": "Q5.3",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Are there consumers who have built workarounds, undocumented integrations, or shadow copies of platform data?",
+            "de": "Gibt es Konsumenten, die Workarounds, undokumentierte Integrationen oder Schattenkopien von Plattformdaten angelegt haben?"
+          }
+        },
+        {
+          "id": "Q5.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Which interfaces are formally contracted or covered by an SLA — and which are informally used?",
+            "de": "Welche Schnittstellen sind formal vertraglich vereinbart oder durch SLAs abgedeckt — und welche werden informell genutzt?"
+          }
+        },
+        {
+          "id": "Q5.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Who has the authority to accept a breaking interface change on behalf of each consumer — and is that person reachable?",
+            "de": "Wer hat die Befugnis, im Namen jedes Konsumenten eine brechende Schnittstellenänderung zu akzeptieren — und ist diese Person erreichbar?"
+          }
+        }
+      ],
+      "hypotheses": [
+        {
+          "name": "Informal consumers will surface only when broken",
+          "type": "hypothesis",
+          "scope_of_validity": "Platforms older than 3 years in organisations where interface usage is not instrumented or logged.\n",
+          "falsifiable_by": "Complete API access logs showing all callers over a 90-day window."
+        },
+        {
+          "name": "The most critical consumer is not the most vocal one",
+          "type": "hypothesis",
+          "scope_of_validity": "When requirements gathering was driven by the loudest team rather than by dependency graph analysis.\n",
+          "falsifiable_by": "A dependency map that ranks consumers by data-flow criticality rather than relationship."
+        }
+      ],
+      "red_flags": [
+        "Shadow integrations exist that the platform team did not know about.",
+        "No one can identify who would approve a breaking change for a given consumer.",
+        "SLA commitments are verbal or email-based, not in a signed document."
+      ],
+      "stop_conditions": [
+        "If no consumer inventory exists → treat as a pre-condition for any migration option, not as a Design input."
+      ]
+    },
+    {
+      "theme_id": 6,
+      "slug": "data-sovereignty",
+      "title": {
+        "en": "Data & Sovereignty",
+        "de": "Daten & Souveränität"
+      },
+      "why": {
+        "en": "Data classification determines which options are legally available. Missing\nretention schedules and erasure paths are not implementation details — they are\nblocking constraints that invalidate entire migration options. This block surfaces\nthe data layer before options are evaluated.\n",
+        "de": "Die Datenklassifizierung bestimmt, welche Optionen rechtlich verfügbar sind.\nFehlende Aufbewahrungsfristen und Löschpfade sind keine Implementierungsdetails —\nsie sind blockierende Vorgaben, die ganze Migrationsoptionen ausschließen.\n"
+      },
+      "questions": [
+        {
+          "id": "Q6.1",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What data classifications apply to data this platform stores or processes — and who validated that classification?",
+            "de": "Welche Datenklassifizierungen gelten für Daten, die diese Plattform speichert oder verarbeitet — und wer hat sie validiert?"
+          }
+        },
+        {
+          "id": "Q6.2",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "Where does personal data enter the platform, and under what legal basis is it processed?",
+            "de": "Wo treten personenbezogene Daten in die Plattform ein, und unter welcher Rechtsgrundlage werden sie verarbeitet?"
+          }
+        },
+        {
+          "id": "Q6.3",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "Who is the named data owner for each major data domain processed by this platform?",
+            "de": "Wer ist der benannte Dateneigner für jede wesentliche Datendomäne, die von dieser Plattform verarbeitet wird?"
+          }
+        },
+        {
+          "id": "Q6.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What are the documented retention requirements, and is there a working erasure path that has been tested?",
+            "de": "Was sind die dokumentierten Aufbewahrungsanforderungen, und gibt es einen funktionierenden Löschpfad, der getestet wurde?"
+          }
+        },
+        {
+          "id": "Q6.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "Does data processed by this platform cross jurisdictions or leave the organisation's direct control?",
+            "de": "Überqueren von dieser Plattform verarbeitete Daten Jurisdiktionen oder verlassen sie die direkte Kontrolle der Organisation?"
+          }
+        }
+      ],
+      "data_inventory_annex": {
+        "type": "table",
+        "columns": [
+          "domain",
+          "classification",
+          "owner",
+          "retention",
+          "erasure_path"
+        ],
+        "rows": []
+      },
+      "hypotheses": [
+        {
+          "name": "Classification was inherited from the source system, not assessed for the platform",
+          "type": "hypothesis",
+          "scope_of_validity": "Migrations where data from multiple source systems is combined in a new context.\n",
+          "falsifiable_by": "A documented classification review that evaluated the aggregated dataset rather than each source in isolation."
+        },
+        {
+          "name": "The erasure path exists on paper but not in practice",
+          "type": "hypothesis",
+          "scope_of_validity": "All platforms that have never received an erasure request.\n",
+          "falsifiable_by": "A logged, tested end-to-end erasure showing removal across all storage layers."
+        }
+      ],
+      "red_flags": [
+        "Data classification is \"TBD\" or \"same as source system\" with no documented review.",
+        "No named data owner for any domain.",
+        "Retention requirements are unknown — this is a no_defaults field; leave blank, flag to-verify."
+      ],
+      "stop_conditions": [
+        "If Q6.1, Q6.2 and Q6.4 are all unknown → stop migration options analysis; the data posture must be established before options can be evaluated."
+      ]
+    },
+    {
+      "theme_id": 7,
+      "slug": "regulation-trust",
+      "title": {
+        "en": "Regulation & Trust",
+        "de": "Regulatorik & Vertrauen"
+      },
+      "why": {
+        "en": "Regulatory obligations are not architectural inputs — they are constraints that\ndetermine which options are available at all. The AI scoping question is a scoping\ndecision, not a checklist. This block surfaces what applies, what is uncertain,\nand what Legal has said.\n",
+        "de": "Regulatorische Verpflichtungen sind keine architektonischen Eingaben — sie sind\nVorgaben, die bestimmen, welche Optionen überhaupt verfügbar sind. Die\nKI-Scopingfrage ist eine Scopingentscheidung, keine Checkliste.\n"
+      },
+      "questions": [
+        {
+          "id": "Q7.1",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What regulatory frameworks apply to this platform — stated by whom, and when was this last reviewed?",
+            "de": "Welche regulatorischen Rahmenbedingungen gelten für diese Plattform — von wem festgestellt, und wann zuletzt geprüft?"
+          }
+        },
+        {
+          "id": "Q7.2",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "When was the last external or internal audit that covered this platform, and what were the open findings?",
+            "de": "Wann war das letzte externe oder interne Audit, das diese Plattform abdeckte, und was waren die offenen Feststellungen?"
+          }
+        },
+        {
+          "id": "Q7.3",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Is AI/ML in the decision subject itself — in a production system or workflow — or only in the authoring process of this analysis?",
+            "de": "Ist KI/ML im Entscheidungsgegenstand selbst — in einem Produktivsystem oder -workflow — oder nur im Autorenprozess dieser Analyse?"
+          },
+          "note": "This is a scoping question, not a checklist. If AI is in scope: the role/risk class per Legal remains open unless Legal has stated otherwise. Do not fill in a risk class without a Legal statement — Q7.4 is a no_defaults field.\n"
+        },
+        {
+          "id": "Q7.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "If AI/ML is in the decision subject: what is the role and risk class per Legal — or is this explicitly open?",
+            "de": "Falls KI/ML im Entscheidungsgegenstand: Was ist die Rolle und Risikoklasse laut Legal — oder ist dies explizit offen?"
+          }
+        },
+        {
+          "id": "Q7.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What trust or certification requirements do customers, partners, or regulators impose on this platform?",
+            "de": "Welche Vertrauens- oder Zertifizierungsanforderungen stellen Kunden, Partner oder Behörden an diese Plattform?"
+          }
+        }
+      ],
+      "hypotheses": [
+        {
+          "name": "Regulatory applicability was assumed, not assessed",
+          "type": "hypothesis",
+          "scope_of_validity": "When regulatory statements are attributed to convention (\"we're always regulated like this\") rather than a named legal opinion or compliance review with a date.\n",
+          "falsifiable_by": "A documented regulatory applicability assessment with a named assessor and date."
+        }
+      ],
+      "red_flags": [
+        "AI risk class is stated without a named Legal opinion.",
+        "Open audit findings are unresolved — their status must be known before options analysis.",
+        "Regulatory framework was last reviewed more than 2 years ago."
+      ],
+      "stop_conditions": [
+        "If Q7.1 is unknown and the platform touches personal data → stop; the regulatory posture must be clarified before migration options can be evaluated."
+      ]
+    },
+    {
+      "theme_id": 8,
+      "slug": "migration-reversibility",
+      "title": {
+        "en": "Migration & Reversibility",
+        "de": "Migration & Reversibilität"
+      },
+      "why": {
+        "en": "Every migration path has at least one step from which return is difficult or\nimpossible. \"Return is impossible\" is a valid, documentable answer — pretending\notherwise creates options that do not exist. This block forces irreversibility to\nbe named explicitly.\n",
+        "de": "Jeder Migrationspfad hat mindestens einen Schritt, von dem die Rückkehr schwierig\noder unmöglich ist. \"Rückkehr ist unmöglich\" ist eine gültige, dokumentierbare\nAntwort — so zu tun, als wäre es anders, erzeugt Optionen, die nicht existieren.\n"
+      },
+      "questions": [
+        {
+          "id": "Q8.1",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What migration paths have been considered — even informally — and what was the reasoning for or against each?",
+            "de": "Welche Migrationspfade wurden erwogen — auch informell — und was war die Begründung für oder gegen jeden?"
+          }
+        },
+        {
+          "id": "Q8.2",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "Which steps in any migration path under consideration are irreversible — once taken, the previous state cannot be restored?",
+            "de": "Welche Schritte in einem erwogenen Migrationspfad sind irreversibel — einmal vollzogen, kann der vorherige Zustand nicht wiederhergestellt werden?"
+          }
+        },
+        {
+          "id": "Q8.3",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What approach for running old and new in parallel — if any — has been considered, and for how long?",
+            "de": "Welcher Ansatz zum parallelen Betrieb von Alt und Neu — falls erwogen — wurde diskutiert, und für wie lange?"
+          }
+        },
+        {
+          "id": "Q8.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "If this migration goes wrong, what is the rollback path — and what does it cost in time and data fidelity?",
+            "de": "Wenn diese Migration schiefgeht, was ist der Rückweg — und was kostet er an Zeit und Datenintegrität?"
+          }
+        },
+        {
+          "id": "Q8.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "Has the scenario \"return is impossible\" been explicitly evaluated and documented — not just noted as a risk?",
+            "de": "Wurde das Szenario \"Rückkehr ist unmöglich\" explizit bewertet und dokumentiert — nicht nur als Risiko notiert?"
+          }
+        },
+        {
+          "id": "Q8.6",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What data migration strategy exists for master data and historical records — particularly records with retention obligations?",
+            "de": "Welche Datenmigrationsstrategie gibt es für Stammdaten und historische Datensätze — insbesondere für solche mit Aufbewahrungspflichten?"
+          }
+        }
+      ],
+      "hypotheses": [
+        {
+          "name": "The dual-write window is underestimated",
+          "type": "hypothesis",
+          "scope_of_validity": "Migrations involving master data with many consumers and no single transactional authority.\n",
+          "falsifiable_by": "A documented load test or proof-of-concept that measured actual synchronisation latency under production-like conditions."
+        },
+        {
+          "name": "Cutover is treated as a technical event, not a business continuity event",
+          "type": "hypothesis",
+          "scope_of_validity": "When the cutover plan is owned by engineering with no explicit sign-off from operations or the business.\n",
+          "falsifiable_by": "A cutover plan that names a business-side go/no-go authority and defines rollback trigger criteria in business terms."
+        }
+      ],
+      "red_flags": [
+        "Irreversible steps are listed as \"risks\" rather than as named, dated decision points.",
+        "Rollback is described as possible but has never been rehearsed.",
+        "Historical data migration is deferred to \"phase 2\" with no defined phase 2."
+      ],
+      "stop_conditions": [
+        "If Q8.2 is answered and the irreversible step is the first one → options must explicitly include \"defer decision and complete Discovery\" before the irreversible step is sanctioned."
+      ]
+    },
+    {
+      "theme_id": 9,
+      "slug": "organisation-team",
+      "title": {
+        "en": "Organisation & Team",
+        "de": "Organisation & Team-Schnitt"
+      },
+      "why": {
+        "en": "Platform decisions are also team decisions. The way work is structured, where\nknowledge lives, and who talks to whom determine what is achievable — and on what\ntimeline. This block surfaces the organisational reality before any delivery\nestimate is formed.\n",
+        "de": "Plattformentscheidungen sind auch Teamentscheidungen. Wie Arbeit strukturiert ist,\nwo Wissen liegt und wer mit wem spricht, bestimmt, was erreichbar ist — und in\nwelchem Zeitrahmen.\n"
+      },
+      "questions": [
+        {
+          "id": "Q9.1",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Who owns this platform — the single named person or team with accountability for its availability and evolution?",
+            "de": "Wer besitzt diese Plattform — die einzelne benannte Person oder das Team mit Verantwortung für Verfügbarkeit und Weiterentwicklung?"
+          }
+        },
+        {
+          "id": "Q9.2",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "How does work reach this platform team — who initiates changes, who reviews them, and where do handoffs stall?",
+            "de": "Wie gelangt Arbeit zu diesem Plattformteam — wer initiiert Änderungen, wer prüft sie, und wo stocken Übergaben?"
+          }
+        },
+        {
+          "id": "Q9.3",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Where is knowledge concentrated — who are the individuals whose absence would delay or block a migration?",
+            "de": "Wo ist Wissen konzentriert — welche Personen wären, wenn sie fehlen, in der Lage, eine Migration zu verzögern oder zu blockieren?"
+          }
+        },
+        {
+          "id": "Q9.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What organisational changes — restructuring, key departures, team mergers — are planned or underway that affect this work?",
+            "de": "Welche Organisationsänderungen — Umstrukturierungen, wichtige Abgänge, Teamfusionen — sind geplant oder im Gange und betreffen diese Arbeit?"
+          }
+        },
+        {
+          "id": "Q9.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Who are the informal decision-makers whose alignment is necessary — even if they have no formal authority over this decision?",
+            "de": "Wer sind die informellen Entscheidungsträger, deren Einbindung notwendig ist — auch wenn sie keine formale Befugnis für diese Entscheidung haben?"
+          }
+        }
+      ],
+      "hypotheses": [
+        {
+          "name": "The formal owner and the effective owner are different people",
+          "type": "hypothesis",
+          "scope_of_validity": "Platforms handed over without a full knowledge transfer, or \"inherited\" by a team that did not build them.\n",
+          "falsifiable_by": "The formal owner can independently answer Q4.3 without consulting the person who actually knows."
+        },
+        {
+          "name": "Cognitive load of the platform team blocks the migration, not technical complexity",
+          "type": "hypothesis",
+          "scope_of_validity": "Teams that maintain multiple legacy platforms simultaneously.\n",
+          "falsifiable_by": "Team capacity analysis showing available bandwidth against the migration effort estimate."
+        },
+        {
+          "name": "Informal veto power sits outside the formal decision chain",
+          "type": "hypothesis",
+          "scope_of_validity": "Organisations where platform decisions have previously been reversed after formal approval.\n",
+          "falsifiable_by": "A mapping of all previous reversals against the people involved."
+        }
+      ],
+      "red_flags": [
+        "Only one person understands the deployment pipeline or the production data model.",
+        "Key knowledge holders have announced departure or have recently left.",
+        "The platform team is below minimum viable size for the maintenance burden they carry."
+      ],
+      "stop_conditions": [
+        "If Q9.3 reveals that the sole knowledge holder is leaving within the migration window → flag as a pre-condition; knowledge transfer becomes a phase-zero activity."
+      ]
+    },
+    {
+      "theme_id": 10,
+      "slug": "operations-security-resilience",
+      "title": {
+        "en": "Operations, Security & Resilience",
+        "de": "Betrieb, Sicherheit & Resilienz"
+      },
+      "why": {
+        "en": "A platform that cannot describe its own operational posture cannot safely migrate.\nThis block captures the minimum operational and security facts that any migration\noption depends on. If all of Q10.1, Q10.2, Q10.5 and Q10.6 are unknown, the stop\ncondition applies.\n",
+        "de": "Eine Plattform, die ihre eigene Betriebslage nicht beschreiben kann, kann nicht\nsicher migrieren. Dieser Block erfasst die minimalen Betriebs- und\nSicherheitsfakten, von denen jede Migrationsoption abhängt.\n"
+      },
+      "questions": [
+        {
+          "id": "Q10.1",
+          "mode": [
+            "triage",
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What are the current SLO/availability targets — and are they being met? If no SLO exists, state that explicitly.",
+            "de": "Was sind die aktuellen SLO/Verfügbarkeitsziele — und werden sie eingehalten? Falls kein SLO existiert, explizit benennen."
+          }
+        },
+        {
+          "id": "Q10.2",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What are the RTO and RPO targets — and when was the last restore test conducted?",
+            "de": "Was sind die RTO- und RPO-Ziele — und wann wurde der letzte Restore-Test durchgeführt?"
+          }
+        },
+        {
+          "id": "Q10.3",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What observability exists — what is logged, what is measured, what triggers an alert?",
+            "de": "Welche Observability existiert — was wird protokolliert, was gemessen, was löst einen Alert aus?"
+          }
+        },
+        {
+          "id": "Q10.4",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What is the incident response process — and what is the change management process? Are they documented and followed?",
+            "de": "Was ist der Incident-Response-Prozess — und was ist der Change-Management-Prozess? Sind sie dokumentiert und werden sie eingehalten?"
+          }
+        },
+        {
+          "id": "Q10.5",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "Who has access to production systems and data — and is there a documented, reviewed identity and permissions model?",
+            "de": "Wer hat Zugang zu Produktivsystemen und -daten — und gibt es ein dokumentiertes, geprüftes Identitäts- und Berechtigungsmodell?"
+          }
+        },
+        {
+          "id": "Q10.6",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "What encryption is in place at rest and in transit — and are cryptographic keys managed separately from the data they protect?",
+            "de": "Welche Verschlüsselung ist im Ruhezustand und beim Transport vorhanden — und werden kryptografische Schlüssel separat von den Daten verwaltet, die sie schützen?"
+          }
+        }
+      ],
+      "hypotheses": [
+        {
+          "name": "Operational posture was sufficient for the current system but will not transfer",
+          "type": "hypothesis",
+          "scope_of_validity": "Migrations that move from a self-managed on-premise system to a managed cloud service, or vice versa, where observability and access control models differ fundamentally.\n",
+          "falsifiable_by": "A documented mapping of current operational controls to the target environment."
+        }
+      ],
+      "red_flags": [
+        "No SLO exists — this is a no_defaults field; state \"none defined\", do not estimate.",
+        "Restore has never been tested — RTO/RPO targets are theoretical.",
+        "Production access is not inventoried or reviewed regularly.",
+        "Encryption at rest or in transit is unknown — leave blank, flag as to-verify."
+      ],
+      "stop_conditions": [
+        "If Q10.1, Q10.2, Q10.5 and Q10.6 are all unknown or blank → stop; the operational blind spot must be resolved before any migration option can be evaluated. Document this stop condition in the To-Verify register."
+      ]
+    }
+  ]
+}

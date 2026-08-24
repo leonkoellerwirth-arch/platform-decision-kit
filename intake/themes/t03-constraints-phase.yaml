@@ -1,0 +1,63 @@
+# Generated-from source. See t01 header. EN canonical, DE translation.
+theme_id: 3
+slug: "constraints-phase"
+title:
+  en: "Constraints & Phase"
+  de: "Vorgaben & Phase"
+why:
+  en: |
+    Fixed constraints collapse the option space before analysis begins. Discovering a
+    hard mandate late — a vendor lock-in, a budget ceiling, a regulatory timeline —
+    invalidates work already done. This block captures what cannot be changed.
+  de: |
+    Feste Vorgaben reduzieren den Optionsraum, bevor die Analyse beginnt. Eine spät
+    entdeckte harte Vorgabe — ein Vendor-Lock-in, eine Budgetobergrenze, eine
+    regulatorische Frist — macht bereits geleistete Arbeit ungültig.
+
+questions:
+  - id: "Q3.1"
+    mode: [triage, discovery]
+    no_defaults: false
+    text:
+      en: "What architecture or technology mandates are fixed — i.e., not open for discussion in this decision?"
+      de: "Welche Architektur- oder Technologievorgaben sind fest — d.h. in dieser Entscheidung nicht zur Diskussion gestellt?"
+  - id: "Q3.2"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "What budget envelope exists for this initiative — or is there none defined?"
+      de: "Welchen Budgetrahmen gibt es für diese Initiative — oder ist keiner definiert?"
+  - id: "Q3.3"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What is the current maturity phase of this platform — how long has it been in production, and what is the cadence of changes?"
+      de: "Was ist die aktuelle Reifephase der Plattform — wie lange ist sie in Produktion, und wie häufig wird sie geändert?"
+  - id: "Q3.4"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "What regulatory or audit commitments constrain the timeline of any change?"
+      de: "Welche regulatorischen oder Audit-Verpflichtungen schränken den Zeitplan einer Änderung ein?"
+  - id: "Q3.5"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What governance process must any significant platform decision pass through, and how long does it take?"
+      de: "Welchen Governance-Prozess muss eine bedeutende Plattformentscheidung durchlaufen, und wie lange dauert er?"
+
+hypotheses:
+  - name: "Stated mandates are softer than they appear"
+    type: hypothesis
+    scope_of_validity: >
+      When constraints are stated as "we use X" rather than "we must use X per signed
+      contract / policy reference N".
+    falsifiable_by: "A signed contract clause or a named policy document with the exact requirement."
+
+red_flags:
+  - "Budget stated as \"TBD\" for a decision with a firm deadline."
+  - "Mandate attributed to a person rather than a policy or contract."
+  - "Governance process timeline is unknown but the decision deadline is fixed."
+
+stop_conditions:
+  - "None specific; flag for Discovery if regulatory timelines are unknown — Q3.4 is no_defaults: leave blank, mark to-verify."

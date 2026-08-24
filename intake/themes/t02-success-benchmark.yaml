@@ -1,0 +1,89 @@
+# Generated-from source. See t01 header. EN canonical, DE translation.
+theme_id: 2
+slug: "success-benchmark"
+title:
+  en: "Success & Benchmark"
+  de: "Erfolg & Messlatte"
+why:
+  en: |
+    A platform decision without a measurable success criterion is a preference, not a
+    decision. This block captures the Entscheidungskopf — the decision question, its
+    owner, its explicit scope boundary, and its deadline — alongside the criteria by
+    which any outcome will be judged.
+  de: |
+    Eine Plattformentscheidung ohne messbares Erfolgskriterium ist eine Präferenz,
+    keine Entscheidung. Dieser Block erfasst den Entscheidungskopf sowie die
+    Kriterien, nach denen jedes Ergebnis beurteilt wird.
+
+questions:
+  - id: "Q2.1"
+    mode: [triage, discovery]
+    no_defaults: false
+    text:
+      en: "What is the primary decision question — stated as a question with a yes/no or option-selecting answer?"
+      de: "Was ist die primäre Entscheidungsfrage — als Frage formuliert, die mit Ja/Nein oder einer Optionswahl beantwortet werden kann?"
+  - id: "Q2.2"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "Who is the decision owner — the single named person accountable for the outcome?"
+      de: "Wer ist der Entscheidungseigner — die einzelne benannte Person, die für das Ergebnis verantwortlich ist?"
+  - id: "Q2.3"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What is explicitly in scope for this decision?"
+      de: "Was liegt explizit im Scope dieser Entscheidung?"
+  - id: "Q2.4"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What is explicitly out of scope for this decision?"
+      de: "Was liegt explizit außerhalb des Scope dieser Entscheidung?"
+  - id: "Q2.5"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What is the decision deadline, and what happens — explicitly — if it passes without a decision?"
+      de: "Was ist die Entscheidungsfrist, und was passiert — explizit — wenn sie ohne Entscheidung verstreicht?"
+  - id: "Q2.6"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What does success look like in 12 months — in terms that a neutral observer could verify?"
+      de: "Wie sieht Erfolg in 12 Monaten aus — in Begriffen, die ein neutraler Beobachter verifizieren könnte?"
+  - id: "Q2.7"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "Who must be satisfied for this to be considered a good outcome, and by what criteria do they judge it?"
+      de: "Wer muss mit dem Ergebnis zufrieden sein, und nach welchen Kriterien beurteilt er es?"
+
+decision_head:
+  decision_question: null
+  decision_owner: null
+  in_scope: null
+  out_of_scope: null
+  deadline: null
+
+hypotheses:
+  - name: "Success criteria are stated but not measurable"
+    type: hypothesis
+    scope_of_validity: >
+      When the stated success is expressed in qualitative terms ("better", "faster")
+      with no observable indicator.
+    falsifiable_by: "A named metric with a target value and a measurement method."
+  - name: "The deadline is political, not operational"
+    type: hypothesis
+    scope_of_validity: >
+      When the deadline aligns with a budget cycle, a personnel change, or an external
+      milestone rather than a technical dependency.
+    falsifiable_by: "A documented technical dependency that establishes the deadline independently."
+
+red_flags:
+  - "No named decision owner — \"the architecture board\" or \"leadership\" is not an owner."
+  - "Success is defined only in terms of what is built, not in terms of outcomes."
+  - "Deadline is stated but its consequence if missed is unknown or \"not yet defined\"."
+
+stop_conditions:
+  - "No decision question can be formulated → stop; the intake is premature."

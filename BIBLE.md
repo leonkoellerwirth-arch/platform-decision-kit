@@ -77,6 +77,14 @@ Newest first. Each: date · decision · why · (superseded by …).
   instead of `src/`, `py-modules = []`, PyYAML as the only runtime dependency. *Why:* this is an
   instrument made of documents with two small tools beside it, not a service.
 
+- **2026-08-24 — The Q-ID regex is bounded to themes 1–10, and that boundary is documented as a
+  limit.** `QID_PATTERN` matches `[Q1.1]`…`[Q10.6]` and nothing outside that range, so a
+  reference like `[Q12.9]` is invisible to `check.py` rather than reported as unknown. *Why:* the
+  bracket-and-range anchor is what keeps a quarter ("Q3 2026") from false-matching as a question
+  reference, and a false match in a claim-coverage assertion is worse than a missed one — it
+  would let an unreferenced claim pass. *The limit, stated honestly:* `tests/test_check.py`
+  carries an explicit test for this blind spot so it stays a known boundary, not a surprise.
+
 ## Open decisions
 
 _(Blocking questions. Do not start substantive work that depends on an open decision here.)_

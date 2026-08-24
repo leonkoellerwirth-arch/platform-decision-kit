@@ -1,0 +1,72 @@
+# Generated-from source. See t01 header. EN canonical, DE translation.
+theme_id: 10
+slug: "operations-security-resilience"
+title:
+  en: "Operations, Security & Resilience"
+  de: "Betrieb, Sicherheit & Resilienz"
+why:
+  en: |
+    A platform that cannot describe its own operational posture cannot safely migrate.
+    This block captures the minimum operational and security facts that any migration
+    option depends on. If all of Q10.1, Q10.2, Q10.5 and Q10.6 are unknown, the stop
+    condition applies.
+  de: |
+    Eine Plattform, die ihre eigene Betriebslage nicht beschreiben kann, kann nicht
+    sicher migrieren. Dieser Block erfasst die minimalen Betriebs- und
+    Sicherheitsfakten, von denen jede Migrationsoption abhängt.
+
+questions:
+  - id: "Q10.1"
+    mode: [triage, discovery]
+    no_defaults: true
+    text:
+      en: "What are the current SLO/availability targets — and are they being met? If no SLO exists, state that explicitly."
+      de: "Was sind die aktuellen SLO/Verfügbarkeitsziele — und werden sie eingehalten? Falls kein SLO existiert, explizit benennen."
+  - id: "Q10.2"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "What are the RTO and RPO targets — and when was the last restore test conducted?"
+      de: "Was sind die RTO- und RPO-Ziele — und wann wurde der letzte Restore-Test durchgeführt?"
+  - id: "Q10.3"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What observability exists — what is logged, what is measured, what triggers an alert?"
+      de: "Welche Observability existiert — was wird protokolliert, was gemessen, was löst einen Alert aus?"
+  - id: "Q10.4"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What is the incident response process — and what is the change management process? Are they documented and followed?"
+      de: "Was ist der Incident-Response-Prozess — und was ist der Change-Management-Prozess? Sind sie dokumentiert und werden sie eingehalten?"
+  - id: "Q10.5"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "Who has access to production systems and data — and is there a documented, reviewed identity and permissions model?"
+      de: "Wer hat Zugang zu Produktivsystemen und -daten — und gibt es ein dokumentiertes, geprüftes Identitäts- und Berechtigungsmodell?"
+  - id: "Q10.6"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "What encryption is in place at rest and in transit — and are cryptographic keys managed separately from the data they protect?"
+      de: "Welche Verschlüsselung ist im Ruhezustand und beim Transport vorhanden — und werden kryptografische Schlüssel separat von den Daten verwaltet, die sie schützen?"
+
+hypotheses:
+  - name: "Operational posture was sufficient for the current system but will not transfer"
+    type: hypothesis
+    scope_of_validity: >
+      Migrations that move from a self-managed on-premise system to a managed cloud
+      service, or vice versa, where observability and access control models differ
+      fundamentally.
+    falsifiable_by: "A documented mapping of current operational controls to the target environment."
+
+red_flags:
+  - "No SLO exists — this is a no_defaults field; state \"none defined\", do not estimate."
+  - "Restore has never been tested — RTO/RPO targets are theoretical."
+  - "Production access is not inventoried or reviewed regularly."
+  - "Encryption at rest or in transit is unknown — leave blank, flag as to-verify."
+
+stop_conditions:
+  - "If Q10.1, Q10.2, Q10.5 and Q10.6 are all unknown or blank → stop; the operational blind spot must be resolved before any migration option can be evaluated. Document this stop condition in the To-Verify register."

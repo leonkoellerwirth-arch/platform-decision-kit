@@ -16,3 +16,6 @@ CLAUDE-CODE-BRIEFING-*.md
 app/node_modules/
 app/dist/
 app/dev-dist/
+
+# Architecture spec — internal implementation blueprint, not part of the public artifact.
+ARCHITECTURE-SPEC.md

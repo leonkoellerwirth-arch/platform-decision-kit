@@ -1,0 +1,68 @@
+# Generated-from source. See t01 header. EN canonical, DE translation.
+theme_id: 7
+slug: "regulation-trust"
+title:
+  en: "Regulation & Trust"
+  de: "Regulatorik & Vertrauen"
+why:
+  en: |
+    Regulatory obligations are not architectural inputs — they are constraints that
+    determine which options are available at all. The AI scoping question is a scoping
+    decision, not a checklist. This block surfaces what applies, what is uncertain,
+    and what Legal has said.
+  de: |
+    Regulatorische Verpflichtungen sind keine architektonischen Eingaben — sie sind
+    Vorgaben, die bestimmen, welche Optionen überhaupt verfügbar sind. Die
+    KI-Scopingfrage ist eine Scopingentscheidung, keine Checkliste.
+
+questions:
+  - id: "Q7.1"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "What regulatory frameworks apply to this platform — stated by whom, and when was this last reviewed?"
+      de: "Welche regulatorischen Rahmenbedingungen gelten für diese Plattform — von wem festgestellt, und wann zuletzt geprüft?"
+  - id: "Q7.2"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "When was the last external or internal audit that covered this platform, and what were the open findings?"
+      de: "Wann war das letzte externe oder interne Audit, das diese Plattform abdeckte, und was waren die offenen Feststellungen?"
+  - id: "Q7.3"
+    mode: [triage, discovery]
+    no_defaults: false
+    text:
+      en: "Is AI/ML in the decision subject itself — in a production system or workflow — or only in the authoring process of this analysis?"
+      de: "Ist KI/ML im Entscheidungsgegenstand selbst — in einem Produktivsystem oder -workflow — oder nur im Autorenprozess dieser Analyse?"
+    note: >
+      This is a scoping question, not a checklist. If AI is in scope: the role/risk class
+      per Legal remains open unless Legal has stated otherwise. Do not fill in a risk class
+      without a Legal statement — Q7.4 is a no_defaults field.
+  - id: "Q7.4"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "If AI/ML is in the decision subject: what is the role and risk class per Legal — or is this explicitly open?"
+      de: "Falls KI/ML im Entscheidungsgegenstand: Was ist die Rolle und Risikoklasse laut Legal — oder ist dies explizit offen?"
+  - id: "Q7.5"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "What trust or certification requirements do customers, partners, or regulators impose on this platform?"
+      de: "Welche Vertrauens- oder Zertifizierungsanforderungen stellen Kunden, Partner oder Behörden an diese Plattform?"
+
+hypotheses:
+  - name: "Regulatory applicability was assumed, not assessed"
+    type: hypothesis
+    scope_of_validity: >
+      When regulatory statements are attributed to convention ("we're always regulated
+      like this") rather than a named legal opinion or compliance review with a date.
+    falsifiable_by: "A documented regulatory applicability assessment with a named assessor and date."
+
+red_flags:
+  - "AI risk class is stated without a named Legal opinion."
+  - "Open audit findings are unresolved — their status must be known before options analysis."
+  - "Regulatory framework was last reviewed more than 2 years ago."
+
+stop_conditions:
+  - "If Q7.1 is unknown and the platform touches personal data → stop; the regulatory posture must be clarified before migration options can be evaluated."

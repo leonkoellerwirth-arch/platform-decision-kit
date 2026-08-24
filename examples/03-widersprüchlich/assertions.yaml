@@ -1,0 +1,49 @@
+# Machine-readable acceptance criteria for check.py. Read alongside reference-brief.md.
+# The sentinels target the failure this fixture exists to catch: quietly resolving a
+# contradiction by choosing a side, averaging, or adopting one statement as fact.
+
+fixture_id: "03-widersprüchlich"
+reference_brief: "reference-brief.md"
+
+claim_bearing_sections:
+  - "## Lagebild"
+  - "## Hypothesen"
+  - "## Options-Raum"
+  - "## Risiken & Rückweg"
+
+expected_in_register:
+  - "Q2.5"
+  - "Q8.3"
+
+expected_conflict_pairs:
+  - ["Q2.5", "Q2.5"]
+  - ["Q8.3", "Q8.3"]
+
+forbidden_strings:
+  - "Entscheidung bis 15.10.2026"
+  - "Dual-Write in 2,5 Monate"
+  - "CFO hat Recht"
+  - "CTO hat Recht"
+  - "wird empfohlen"
+  - "im Durchschnitt"
+  - "Kompromiss"
+
+required_strings:
+  - string: "offen/bedingt"
+    section: "## Options-Raum"
+  - string: "[Q2.5]"
+    section: "## Offene Punkte & Konflikte"
+  - string: "[Q8.3]"
+    section: "## Offene Punkte & Konflikte"
+  - string: "ARC-2026-44"
+    section: "## Offene Punkte & Konflikte"
+  - string: "FIN-2026-5001"
+    section: "## Offene Punkte & Konflikte"
+  - string: "DBA-2026-18"
+    section: "## Offene Punkte & Konflikte"
+  - string: "Engineering lead"
+    section: "## Offene Punkte & Konflikte"
+
+version_stamp:
+  required_fields: ["intake_version", "prompt_version", "model"]
+  model_value: "hand-authored reference"

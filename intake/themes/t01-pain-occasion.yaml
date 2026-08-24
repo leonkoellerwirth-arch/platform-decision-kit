@@ -1,0 +1,74 @@
+# SINGLE SOURCE OF TRUTH. intake/00-triage.md, intake/01-discovery.md and
+# intake/themes.json are generated from these files by tools/render_intake.py.
+# Never edit the generated files directly — the gate fails if they drift.
+# EN is canonical. DE is a translation, not a separate authoritative source.
+
+theme_id: 1
+slug: "pain-occasion"
+title:
+  en: "Pain & Occasion"
+  de: "Schmerz & Anlass"
+why:
+  en: |
+    Every platform intervention begins with a presenting problem that may or may not
+    be the real problem. This block surfaces who names the pain, what triggered the
+    review now, and what inaction actually costs — separating the real driver from
+    the stated one before any technical assessment begins.
+  de: |
+    Jede Plattformintervention beginnt mit einem vordergründigen Problem, das nicht
+    unbedingt das eigentliche Problem ist. Dieser Block legt offen, wer den Schmerz
+    benennt, was das Review jetzt ausgelöst hat und was Untätigkeit kostet.
+
+questions:
+  - id: "Q1.1"
+    mode: [triage, discovery]
+    no_defaults: false
+    text:
+      en: "What is the presenting problem in one sentence?"
+      de: "Was ist das vordergründige Problem in einem Satz?"
+  - id: "Q1.2"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "How long has this situation existed, and what changed to trigger a review now?"
+      de: "Wie lange besteht diese Situation, und was hat sich verändert, sodass das Review jetzt stattfindet?"
+  - id: "Q1.3"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "Who named this a problem — and who agrees, who does not?"
+      de: "Wer hat dies als Problem benannt — und wer stimmt zu, wer nicht?"
+  - id: "Q1.4"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What has already been attempted to address this situation, and what was the outcome?"
+      de: "Was wurde bisher unternommen, um diese Situation zu adressieren, und was war das Ergebnis?"
+  - id: "Q1.5"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "What is the estimated cost of inaction over 12 months — quantified, or explicitly stated as unquantified?"
+      de: "Was sind die geschätzten Kosten der Untätigkeit über 12 Monate — quantifiziert oder explizit als unquantifiziert benannt?"
+
+hypotheses:
+  - name: "Presenting pain is a symptom, not a root cause"
+    type: hypothesis
+    scope_of_validity: >
+      When pain is described exclusively from one stakeholder perspective and no
+      attempt to cross-check has been made.
+    falsifiable_by: "A single documented technical or organisational event that is the traceable cause."
+  - name: "The trigger is external, the pain is internal"
+    type: hypothesis
+    scope_of_validity: >
+      When the review is precipitated by an audit, contract renewal, or regulatory
+      deadline rather than operational failure.
+    falsifiable_by: "A documented operational metric that was already deteriorating before the external trigger."
+
+red_flags:
+  - "Pain described only from one stakeholder group, not cross-checked with consumers or operators."
+  - "No one has tried to fix this before — or no one knows whether it was tried."
+  - "Trigger is an external deadline; underlying operational situation is stable or unknown."
+
+stop_conditions:
+  - "No clear pain owner and no mandate to define one → stop; clarify mandate first."

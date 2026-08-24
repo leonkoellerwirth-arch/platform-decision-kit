@@ -1,0 +1,76 @@
+# Generated-from source. See t01 header. EN canonical, DE translation.
+theme_id: 4
+slug: "inventory-knowledge"
+title:
+  en: "Inventory & Knowledge"
+  de: "Bestand & Wissen"
+why:
+  en: |
+    Brownfield platforms accumulate components that no one fully understands. Dark
+    zones — parts of the system whose behaviour is known only through observation,
+    not documentation — are the primary source of architectural surprise. This block
+    maps what exists and who knows it.
+  de: |
+    Brownfield-Plattformen akkumulieren Komponenten, die niemand mehr vollständig
+    versteht. Dunkle Zonen — Teile des Systems, deren Verhalten nur durch Beobachtung,
+    nicht durch Dokumentation bekannt ist — sind die Hauptquelle architektonischer
+    Überraschungen.
+
+questions:
+  - id: "Q4.1"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What exists today — list the core components, their approximate production age, and their technology stack?"
+      de: "Was existiert heute — Liste der Kernkomponenten, ihr ungefähres Produktionsalter und ihr Technologie-Stack?"
+  - id: "Q4.2"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "Where does the definitive technical documentation live, and when was it last verified against the system?"
+      de: "Wo lebt die maßgebliche technische Dokumentation, und wann wurde sie zuletzt gegen das System verifiziert?"
+  - id: "Q4.3"
+    mode: [triage, discovery]
+    no_defaults: false
+    text:
+      en: "Which parts of the system does no one currently understand well enough to predict the effect of a change?"
+      de: "Welche Teile des Systems versteht niemand aktuell gut genug, um die Auswirkung einer Änderung vorherzusagen?"
+  - id: "Q4.4"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What data does the platform manage — and what is the master data situation (single source, duplicates, ownership)?"
+      de: "Welche Daten verwaltet die Plattform — und wie ist die Stammdatenlage (Einzelquelle, Duplikate, Eigentümerschaft)?"
+  - id: "Q4.5"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What integrations exist — documented or not — and who knows about them?"
+      de: "Welche Integrationen existieren — dokumentiert oder nicht — und wer kennt sie?"
+  - id: "Q4.6"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What is the current automated test coverage, and when was the last full regression run conducted?"
+      de: "Wie ist die aktuelle automatisierte Testabdeckung, und wann wurde der letzte vollständige Regressionstest durchgeführt?"
+
+hypotheses:
+  - name: "The dark zone is concentrated, not distributed"
+    type: hypothesis
+    scope_of_validity: >
+      When the least-understood component is a legacy module written by a single
+      person or team that has since left.
+    falsifiable_by: "Multiple team members who can independently describe the component's behaviour with matching accounts."
+  - name: "Documentation describes the intended system, not the running one"
+    type: hypothesis
+    scope_of_validity: >
+      Systems older than 3 years with no documented verification process.
+    falsifiable_by: "A documented audit comparing specification against observed runtime behaviour within the last 12 months."
+
+red_flags:
+  - "Only one person understands a critical path component."
+  - "No automated test suite — changes are verified manually or in production."
+  - "Master data exists in more than one system with no documented reconciliation process."
+
+stop_conditions:
+  - "If the dark zone covers a component involved in any proposed migration path → flag as a pre-condition for Discovery work, not a Discovery finding."

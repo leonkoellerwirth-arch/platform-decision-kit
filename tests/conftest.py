@@ -1,31 +1,23 @@
-"""Shared fixtures. Heavy deps (models/LLMs) are faked here so tests run fully offline.
+"""Shared fixtures. Everything here is offline — this repo makes no model call, by invariant.
 
-Real-model tests are tagged `@pytest.mark.slow` and excluded from the gate and CI.
+Real-model tests would be tagged `@pytest.mark.slow` and excluded from the gate and CI.
+There are none: `tools/check.py` validates hand-authored reference outputs, never a live agent.
 """
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from pathlib import Path
 
 import pytest
 
-
-class ScriptedBackend:
-    """A fake LLM/model backend that routes by prompt marker and returns canned output.
-
-    Replace the routing with your real prompt markers as the service grows.
-    """
-
-    def __init__(self, replies: dict[str, str] | None = None) -> None:
-        self._replies = replies or {}
-
-    def __call__(self, prompt: str) -> str:
-        for marker, reply in self._replies.items():
-            if marker in prompt:
-                return reply
-        return "OK"
+REPO = Path(__file__).resolve().parent.parent
 
 
-@pytest.fixture
-def backend() -> Callable[[str], str]:
-    return ScriptedBackend({"greet": "hello"})
+@pytest.fixture(scope="session")
+def repo() -> Path:
+    return REPO
+
+
+@pytest.fixture(scope="session")
+def examples(repo: Path) -> list[Path]:
+    return sorted(d for d in (repo / "examples").iterdir() if d.is_dir())

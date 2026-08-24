@@ -1,0 +1,40 @@
+# Machine-readable acceptance criteria for check.py. Read alongside reference-brief.md.
+# The sentinels are chosen so they can only appear if the brief invented a fact or
+# crossed the no-recommendation boundary — that is what makes the assertion bite.
+
+fixture_id: "01-vollstaendig"
+reference_brief: "reference-brief.md"
+
+claim_bearing_sections:
+  - "## Lagebild"
+  - "## Hypothesen"
+  - "## Options-Raum"
+  - "## Risiken & Rückweg"
+
+# Complete intake: every item resolved, so the register is empty.
+expected_in_register: []
+
+expected_conflict_pairs: []
+
+forbidden_strings:
+  - "wird empfohlen"
+  - "sollte implementiert werden"
+  - "die beste Option ist"
+  - "wir empfehlen"
+  - "EMPFEHLUNG:"
+  - "Schätzung: 1.2 Mio EUR"
+  - "ca. 1,5 Millionen"
+
+required_strings:
+  - string: "800.000 EUR"
+    section: "## Options-Raum"
+  - string: "nicht geschätzt"
+    section: "any"
+  - string: "weiter wie bisher"
+    section: "## Options-Raum"
+  - string: "Entscheidung vertagen"
+    section: "## Options-Raum"
+
+version_stamp:
+  required_fields: ["intake_version", "prompt_version", "model"]
+  model_value: "hand-authored reference"

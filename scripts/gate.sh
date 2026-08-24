@@ -85,5 +85,22 @@ check "no customer-internal names" \
 check "no internal briefing tracked" \
   "! git ls-files --error-unmatch -- '*CLAUDE-CODE-BRIEFING*' 2>/dev/null | grep -q ."
 
+# --- Repo-specific: the instrument's own invariants (BIBLE.md) ---
+# INV-5: the rendered forms are a projection of intake/themes/, never hand-edited.
+# INV-1/7/8: the three fixtures are checked offline against machine-readable assertions.
+# The two German wordings are binding verbatim (INV-4 / INV-8 in ARCHITECTURE-SPEC §7.4);
+# a paraphrase is a gate failure, because the exact wording is the trust guarantee.
+if [ -f tools/render_intake.py ]; then
+  PY=".venv/bin/python"; [ -x "$PY" ] || PY="python3"
+  check "intake forms match the theme source (no drift)" "$PY tools/render_intake.py --check"
+  check "fixtures 3/3 green (offline assertions)"        "$PY tools/check.py fixtures"
+  check "confidentiality wording verbatim in README.md" \
+    "grep -qF 'Kunden-Rohdaten dürfen nur nach dokumentierter menschlicher Freigabe in einen Agenten eingegeben werden. Standard ist manuell-first — die Struktur IST das Werkzeug.' README.md"
+  check "sign-off wording verbatim in pipeline/presentation-agent.md" \
+    "grep -qF 'Discovery-Brief, keine Empfehlung; alle Richtungsformulierungen mit offenen to-verify-IDs sind nicht entscheidungsreif. Gesehen: ___' pipeline/presentation-agent.md"
+  check "no TODO/FIXME in tools/ or tests/" \
+    "! grep -rniE --include='*.py' 'TODO|FIXME|XXX' tools tests"
+fi
+
 echo
 if [ "$fail" -eq 0 ]; then echo "GATE: PASS"; else echo "GATE: FAIL"; exit 1; fi

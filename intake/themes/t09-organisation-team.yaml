@@ -1,0 +1,78 @@
+# Generated-from source. See t01 header. EN canonical, DE translation.
+theme_id: 9
+slug: "organisation-team"
+title:
+  en: "Organisation & Team"
+  de: "Organisation & Team-Schnitt"
+why:
+  en: |
+    Platform decisions are also team decisions. The way work is structured, where
+    knowledge lives, and who talks to whom determine what is achievable — and on what
+    timeline. This block surfaces the organisational reality before any delivery
+    estimate is formed.
+  de: |
+    Plattformentscheidungen sind auch Teamentscheidungen. Wie Arbeit strukturiert ist,
+    wo Wissen liegt und wer mit wem spricht, bestimmt, was erreichbar ist — und in
+    welchem Zeitrahmen.
+
+questions:
+  - id: "Q9.1"
+    mode: [triage, discovery]
+    no_defaults: false
+    text:
+      en: "Who owns this platform — the single named person or team with accountability for its availability and evolution?"
+      de: "Wer besitzt diese Plattform — die einzelne benannte Person oder das Team mit Verantwortung für Verfügbarkeit und Weiterentwicklung?"
+  - id: "Q9.2"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "How does work reach this platform team — who initiates changes, who reviews them, and where do handoffs stall?"
+      de: "Wie gelangt Arbeit zu diesem Plattformteam — wer initiiert Änderungen, wer prüft sie, und wo stocken Übergaben?"
+  - id: "Q9.3"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "Where is knowledge concentrated — who are the individuals whose absence would delay or block a migration?"
+      de: "Wo ist Wissen konzentriert — welche Personen wären, wenn sie fehlen, in der Lage, eine Migration zu verzögern oder zu blockieren?"
+  - id: "Q9.4"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What organisational changes — restructuring, key departures, team mergers — are planned or underway that affect this work?"
+      de: "Welche Organisationsänderungen — Umstrukturierungen, wichtige Abgänge, Teamfusionen — sind geplant oder im Gange und betreffen diese Arbeit?"
+  - id: "Q9.5"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "Who are the informal decision-makers whose alignment is necessary — even if they have no formal authority over this decision?"
+      de: "Wer sind die informellen Entscheidungsträger, deren Einbindung notwendig ist — auch wenn sie keine formale Befugnis für diese Entscheidung haben?"
+
+hypotheses:
+  # Conway's Law, Team Topologies (stream-aligned, platform, enabling,
+  # complicated-subsystem) and Enabler-Sockel are hypotheses about team coupling to
+  # architecture — they belong HERE, never as questions.
+  - name: "The formal owner and the effective owner are different people"
+    type: hypothesis
+    scope_of_validity: >
+      Platforms handed over without a full knowledge transfer, or "inherited" by a team
+      that did not build them.
+    falsifiable_by: "The formal owner can independently answer Q4.3 without consulting the person who actually knows."
+  - name: "Cognitive load of the platform team blocks the migration, not technical complexity"
+    type: hypothesis
+    scope_of_validity: >
+      Teams that maintain multiple legacy platforms simultaneously.
+    falsifiable_by: "Team capacity analysis showing available bandwidth against the migration effort estimate."
+  - name: "Informal veto power sits outside the formal decision chain"
+    type: hypothesis
+    scope_of_validity: >
+      Organisations where platform decisions have previously been reversed after formal
+      approval.
+    falsifiable_by: "A mapping of all previous reversals against the people involved."
+
+red_flags:
+  - "Only one person understands the deployment pipeline or the production data model."
+  - "Key knowledge holders have announced departure or have recently left."
+  - "The platform team is below minimum viable size for the maintenance burden they carry."
+
+stop_conditions:
+  - "If Q9.3 reveals that the sole knowledge holder is leaving within the migration window → flag as a pre-condition; knowledge transfer becomes a phase-zero activity."

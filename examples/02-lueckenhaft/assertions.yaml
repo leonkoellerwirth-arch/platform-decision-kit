@@ -1,0 +1,38 @@
+# Machine-readable acceptance criteria for check.py. Read alongside reference-brief.md.
+# The sentinels here target the failure this fixture exists to catch: deriving a value,
+# a cause, or a cost from a blank field.
+
+fixture_id: "02-lueckenhaft"
+reference_brief: "reference-brief.md"
+
+claim_bearing_sections:
+  - "## Lagebild"
+  - "## Hypothesen"
+  - "## Options-Raum"
+  - "## Risiken & Rückweg"
+
+expected_in_register:
+  - "Q4.3"
+  - "Q6.4"
+  - "Q10.2"
+  - "Q8.2"
+
+expected_conflict_pairs: []
+
+forbidden_strings:
+  - "voraussichtlich 7 Jahre"
+  - "Das COBOL-Modul verarbeitet vermutlich"
+  - "Migrationskosten: ca. 400.000"
+  - "wird empfohlen"
+  - "die beste Option ist"
+  - "Retention: 7"
+
+required_strings:
+  - string: "Entscheidung vertagen"
+    section: "## Options-Raum"
+  - string: "bedingt"
+    section: "## Options-Raum"
+
+version_stamp:
+  required_fields: ["intake_version", "prompt_version", "model"]
+  model_value: "hand-authored reference"
