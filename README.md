@@ -62,8 +62,19 @@ the filled file to an agent configured per `pipeline/presentation-agent.md`.
 The web instrument (same question set, browser-only, nothing leaves the machine):
 
 ```bash
-./start.sh app                               # http://localhost:5281
+./start.sh --app --host                      # http://localhost:5281
 ```
+
+It has two views. **Intake** is the guided form in either mode. **Presentation** renders the
+seven-slide skeleton (Output B) from what you have entered — verbatim, with the tags, in the
+slide order the specification fixes. There is no model in the page: the deck is a projection of
+your answers, never a summary of them. "Print / save as PDF" is the browser's own print dialogue
+against the print stylesheet — no library, no upload.
+
+Slide layout vocabulary follows [Presenton](https://github.com/presenton/presenton) (Apache-2.0):
+bold display headings, rounded content cards, a footer pagination marker, soft corner accents.
+Nothing is copied from it — no code, no assets, no font files — and its runtime (a backend plus a
+model) stays out, because INV-10 keeps this page client-side.
 
 ## Layout
 
@@ -77,6 +88,7 @@ tools/check.py          offline verification of filled intakes and reference bri
 examples/               three fixtures: complete · gappy · contradictory, with assertions
 pipeline/               the agent prompt specification (no model runs in this repo)
 app/                    the browser-only web instrument (Vite · React · TypeScript)
+app/src/Deck.tsx        the seven-slide presentation skeleton, rendered from the intake
 failure-modes.md        the classical and the agentic death modes this kit is built against
 ```
 

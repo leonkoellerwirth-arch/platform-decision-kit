@@ -68,9 +68,13 @@ hypotheses:
     falsifiable_by: "A documented audit comparing specification against observed runtime behaviour within the last 12 months."
 
 red_flags:
-  - "Only one person understands a critical path component."
-  - "No automated test suite — changes are verified manually or in production."
-  - "Master data exists in more than one system with no documented reconciliation process."
+  - en: "Only one person understands a critical path component."
+    de: "Nur eine Person versteht eine Komponente im kritischen Pfad."
+  - en: "No automated test suite — changes are verified manually or in production."
+    de: "Keine automatisierte Testsuite — Änderungen werden manuell oder in Produktion geprüft."
+  - en: "Master data exists in more than one system with no documented reconciliation process."
+    de: "Stammdaten liegen in mehr als einem System, ohne dokumentierten Abgleichprozess."
 
 stop_conditions:
-  - "If the dark zone covers a component involved in any proposed migration path → flag as a pre-condition for Discovery work, not a Discovery finding."
+  - en: "If the dark zone covers a component involved in any proposed migration path → flag as a pre-condition for Discovery work, not a Discovery finding."
+    de: "Wenn die dunkle Zone eine Komponente eines vorgeschlagenen Migrationspfads betrifft → als Vorbedingung für die Discovery-Arbeit markieren, nicht als Discovery-Ergebnis."

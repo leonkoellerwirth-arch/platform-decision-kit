@@ -84,12 +84,24 @@
         }
       ],
       "red_flags": [
-        "Pain described only from one stakeholder group, not cross-checked with consumers or operators.",
-        "No one has tried to fix this before — or no one knows whether it was tried.",
-        "Trigger is an external deadline; underlying operational situation is stable or unknown."
+        {
+          "en": "Pain described only from one stakeholder group, not cross-checked with consumers or operators.",
+          "de": "Der Schmerz wird nur aus einer Stakeholder-Gruppe beschrieben, ohne Gegenprobe bei Konsumenten oder Betrieb."
+        },
+        {
+          "en": "No one has tried to fix this before — or no one knows whether it was tried.",
+          "de": "Niemand hat bisher versucht, das zu beheben — oder niemand weiß, ob es versucht wurde."
+        },
+        {
+          "en": "Trigger is an external deadline; underlying operational situation is stable or unknown.",
+          "de": "Auslöser ist eine externe Frist; die zugrunde liegende Betriebslage ist stabil oder unbekannt."
+        }
       ],
       "stop_conditions": [
-        "No clear pain owner and no mandate to define one → stop; clarify mandate first."
+        {
+          "en": "No clear pain owner and no mandate to define one → stop; clarify mandate first.",
+          "de": "Kein klarer Eigner des Schmerzes und kein Mandat, einen zu bestimmen → Stopp; zuerst das Mandat klären."
+        }
       ]
     },
     {
@@ -205,12 +217,24 @@
         }
       ],
       "red_flags": [
-        "No named decision owner — \"the architecture board\" or \"leadership\" is not an owner.",
-        "Success is defined only in terms of what is built, not in terms of outcomes.",
-        "Deadline is stated but its consequence if missed is unknown or \"not yet defined\"."
+        {
+          "en": "No named decision owner — \"the architecture board\" or \"leadership\" is not an owner.",
+          "de": "Kein benannter Entscheidungseigner — „das Architekturboard“ oder „die Führung“ ist kein Eigner."
+        },
+        {
+          "en": "Success is defined only in terms of what is built, not in terms of outcomes.",
+          "de": "Erfolg ist nur darüber definiert, was gebaut wird, nicht über die Wirkung."
+        },
+        {
+          "en": "Deadline is stated but its consequence if missed is unknown or \"not yet defined\".",
+          "de": "Die Frist ist genannt, aber die Folge ihres Verstreichens ist unbekannt oder „noch nicht definiert“."
+        }
       ],
       "stop_conditions": [
-        "No decision question can be formulated → stop; the intake is premature."
+        {
+          "en": "No decision question can be formulated → stop; the intake is premature.",
+          "de": "Es lässt sich keine Entscheidungsfrage formulieren → Stopp; die Erhebung ist verfrüht."
+        }
       ]
     },
     {
@@ -291,12 +315,24 @@
         }
       ],
       "red_flags": [
-        "Budget stated as \"TBD\" for a decision with a firm deadline.",
-        "Mandate attributed to a person rather than a policy or contract.",
-        "Governance process timeline is unknown but the decision deadline is fixed."
+        {
+          "en": "Budget stated as \"TBD\" for a decision with a firm deadline.",
+          "de": "Budget als „TBD“ angegeben, bei gleichzeitig fester Entscheidungsfrist."
+        },
+        {
+          "en": "Mandate attributed to a person rather than a policy or contract.",
+          "de": "Die Vorgabe wird einer Person zugeschrieben statt einer Richtlinie oder einem Vertrag."
+        },
+        {
+          "en": "Governance process timeline is unknown but the decision deadline is fixed.",
+          "de": "Die Dauer des Governance-Verfahrens ist unbekannt, die Entscheidungsfrist steht aber fest."
+        }
       ],
       "stop_conditions": [
-        "None specific; flag for Discovery if regulatory timelines are unknown — Q3.4 is no_defaults: leave blank, mark to-verify."
+        {
+          "en": "None specific; flag for Discovery if regulatory timelines are unknown — Q3.4 is no_defaults: leave blank, mark to-verify.",
+          "de": "Keine spezifische; für Discovery vormerken, wenn regulatorische Fristen unbekannt sind — Q3.4 ist no_defaults: leer lassen, als zu verifizieren markieren."
+        }
       ]
     },
     {
@@ -394,12 +430,24 @@
         }
       ],
       "red_flags": [
-        "Only one person understands a critical path component.",
-        "No automated test suite — changes are verified manually or in production.",
-        "Master data exists in more than one system with no documented reconciliation process."
+        {
+          "en": "Only one person understands a critical path component.",
+          "de": "Nur eine Person versteht eine Komponente im kritischen Pfad."
+        },
+        {
+          "en": "No automated test suite — changes are verified manually or in production.",
+          "de": "Keine automatisierte Testsuite — Änderungen werden manuell oder in Produktion geprüft."
+        },
+        {
+          "en": "Master data exists in more than one system with no documented reconciliation process.",
+          "de": "Stammdaten liegen in mehr als einem System, ohne dokumentierten Abgleichprozess."
+        }
       ],
       "stop_conditions": [
-        "If the dark zone covers a component involved in any proposed migration path → flag as a pre-condition for Discovery work, not a Discovery finding."
+        {
+          "en": "If the dark zone covers a component involved in any proposed migration path → flag as a pre-condition for Discovery work, not a Discovery finding.",
+          "de": "Wenn die dunkle Zone eine Komponente eines vorgeschlagenen Migrationspfads betrifft → als Vorbedingung für die Discovery-Arbeit markieren, nicht als Discovery-Ergebnis."
+        }
       ]
     },
     {
@@ -486,12 +534,24 @@
         }
       ],
       "red_flags": [
-        "Shadow integrations exist that the platform team did not know about.",
-        "No one can identify who would approve a breaking change for a given consumer.",
-        "SLA commitments are verbal or email-based, not in a signed document."
+        {
+          "en": "Shadow integrations exist that the platform team did not know about.",
+          "de": "Es existieren Schattenintegrationen, von denen das Plattformteam nichts wusste."
+        },
+        {
+          "en": "No one can identify who would approve a breaking change for a given consumer.",
+          "de": "Niemand kann benennen, wer für einen bestimmten Konsumenten einer brechenden Änderung zustimmen würde."
+        },
+        {
+          "en": "SLA commitments are verbal or email-based, not in a signed document.",
+          "de": "SLA-Zusagen bestehen mündlich oder per E-Mail, nicht in einem unterzeichneten Dokument."
+        }
       ],
       "stop_conditions": [
-        "If no consumer inventory exists → treat as a pre-condition for any migration option, not as a Design input."
+        {
+          "en": "If no consumer inventory exists → treat as a pre-condition for any migration option, not as a Design input.",
+          "de": "Wenn kein Konsumenteninventar existiert → als Vorbedingung jeder Migrationsoption behandeln, nicht als Entwurfseingabe."
+        }
       ]
     },
     {
@@ -589,12 +649,24 @@
         }
       ],
       "red_flags": [
-        "Data classification is \"TBD\" or \"same as source system\" with no documented review.",
-        "No named data owner for any domain.",
-        "Retention requirements are unknown — this is a no_defaults field; leave blank, flag to-verify."
+        {
+          "en": "Data classification is \"TBD\" or \"same as source system\" with no documented review.",
+          "de": "Die Datenklassifizierung lautet „TBD“ oder „wie im Quellsystem“, ohne dokumentierte Prüfung."
+        },
+        {
+          "en": "No named data owner for any domain.",
+          "de": "Für keine Domäne ist ein Dateneigner benannt."
+        },
+        {
+          "en": "Retention requirements are unknown — this is a no_defaults field; leave blank, flag to-verify.",
+          "de": "Die Aufbewahrungsanforderungen sind unbekannt — ein no_defaults-Feld; leer lassen, als zu verifizieren markieren."
+        }
       ],
       "stop_conditions": [
-        "If Q6.1, Q6.2 and Q6.4 are all unknown → stop migration options analysis; the data posture must be established before options can be evaluated."
+        {
+          "en": "If Q6.1, Q6.2 and Q6.4 are all unknown → stop migration options analysis; the data posture must be established before options can be evaluated.",
+          "de": "Wenn Q6.1, Q6.2 und Q6.4 sämtlich unbekannt sind → Analyse der Migrationsoptionen stoppen; die Datenlage muss feststehen, bevor Optionen bewertet werden können."
+        }
       ]
     },
     {
@@ -676,12 +748,24 @@
         }
       ],
       "red_flags": [
-        "AI risk class is stated without a named Legal opinion.",
-        "Open audit findings are unresolved — their status must be known before options analysis.",
-        "Regulatory framework was last reviewed more than 2 years ago."
+        {
+          "en": "AI risk class is stated without a named Legal opinion.",
+          "de": "Eine KI-Risikoklasse wird genannt, ohne dass eine benannte rechtliche Einschätzung vorliegt."
+        },
+        {
+          "en": "Open audit findings are unresolved — their status must be known before options analysis.",
+          "de": "Offene Audit-Feststellungen sind ungeklärt — ihr Status muss vor der Optionsanalyse bekannt sein."
+        },
+        {
+          "en": "Regulatory framework was last reviewed more than 2 years ago.",
+          "de": "Der regulatorische Rahmen wurde zuletzt vor mehr als zwei Jahren geprüft."
+        }
       ],
       "stop_conditions": [
-        "If Q7.1 is unknown and the platform touches personal data → stop; the regulatory posture must be clarified before migration options can be evaluated."
+        {
+          "en": "If Q7.1 is unknown and the platform touches personal data → stop; the regulatory posture must be clarified before migration options can be evaluated.",
+          "de": "Wenn Q7.1 unbekannt ist und die Plattform personenbezogene Daten berührt → Stopp; die regulatorische Lage muss geklärt sein, bevor Migrationsoptionen bewertet werden können."
+        }
       ]
     },
     {
@@ -779,12 +863,24 @@
         }
       ],
       "red_flags": [
-        "Irreversible steps are listed as \"risks\" rather than as named, dated decision points.",
-        "Rollback is described as possible but has never been rehearsed.",
-        "Historical data migration is deferred to \"phase 2\" with no defined phase 2."
+        {
+          "en": "Irreversible steps are listed as \"risks\" rather than as named, dated decision points.",
+          "de": "Irreversible Schritte stehen als „Risiken“ da statt als benannte, datierte Entscheidungspunkte."
+        },
+        {
+          "en": "Rollback is described as possible but has never been rehearsed.",
+          "de": "Der Rückweg wird als möglich beschrieben, wurde aber nie geprobt."
+        },
+        {
+          "en": "Historical data migration is deferred to \"phase 2\" with no defined phase 2.",
+          "de": "Die Migration historischer Daten wird auf „Phase 2“ verschoben, ohne dass eine Phase 2 definiert wäre."
+        }
       ],
       "stop_conditions": [
-        "If Q8.2 is answered and the irreversible step is the first one → options must explicitly include \"defer decision and complete Discovery\" before the irreversible step is sanctioned."
+        {
+          "en": "If Q8.2 is answered and the irreversible step is the first one → options must explicitly include \"defer decision and complete Discovery\" before the irreversible step is sanctioned.",
+          "de": "Wenn Q8.2 beantwortet ist und der irreversible Schritt der erste ist → die Optionen müssen ausdrücklich „Entscheidung vertagen und Discovery abschließen“ enthalten, bevor der irreversible Schritt freigegeben wird."
+        }
       ]
     },
     {
@@ -877,12 +973,24 @@
         }
       ],
       "red_flags": [
-        "Only one person understands the deployment pipeline or the production data model.",
-        "Key knowledge holders have announced departure or have recently left.",
-        "The platform team is below minimum viable size for the maintenance burden they carry."
+        {
+          "en": "Only one person understands the deployment pipeline or the production data model.",
+          "de": "Nur eine Person versteht die Deployment-Pipeline oder das Produktivdatenmodell."
+        },
+        {
+          "en": "Key knowledge holders have announced departure or have recently left.",
+          "de": "Zentrale Wissensträger haben ihren Weggang angekündigt oder das Unternehmen kürzlich verlassen."
+        },
+        {
+          "en": "The platform team is below minimum viable size for the maintenance burden they carry.",
+          "de": "Das Plattformteam liegt unter der Mindestgröße für die Wartungslast, die es trägt."
+        }
       ],
       "stop_conditions": [
-        "If Q9.3 reveals that the sole knowledge holder is leaving within the migration window → flag as a pre-condition; knowledge transfer becomes a phase-zero activity."
+        {
+          "en": "If Q9.3 reveals that the sole knowledge holder is leaving within the migration window → flag as a pre-condition; knowledge transfer becomes a phase-zero activity.",
+          "de": "Wenn Q9.3 zeigt, dass der einzige Wissensträger innerhalb des Migrationsfensters ausscheidet → als Vorbedingung markieren; Wissenstransfer wird zur Phase-null-Aktivität."
+        }
       ]
     },
     {
@@ -974,13 +1082,28 @@
         }
       ],
       "red_flags": [
-        "No SLO exists — this is a no_defaults field; state \"none defined\", do not estimate.",
-        "Restore has never been tested — RTO/RPO targets are theoretical.",
-        "Production access is not inventoried or reviewed regularly.",
-        "Encryption at rest or in transit is unknown — leave blank, flag as to-verify."
+        {
+          "en": "No SLO exists — this is a no_defaults field; state \"none defined\", do not estimate.",
+          "de": "Es existiert kein SLO — ein no_defaults-Feld; „keines definiert“ eintragen, nicht schätzen."
+        },
+        {
+          "en": "Restore has never been tested — RTO/RPO targets are theoretical.",
+          "de": "Ein Restore wurde nie getestet — RTO/RPO-Ziele sind theoretisch."
+        },
+        {
+          "en": "Production access is not inventoried or reviewed regularly.",
+          "de": "Der Produktivzugriff ist nicht inventarisiert und wird nicht regelmäßig geprüft."
+        },
+        {
+          "en": "Encryption at rest or in transit is unknown — leave blank, flag as to-verify.",
+          "de": "Verschlüsselung im Ruhezustand oder beim Transport ist unbekannt — leer lassen, als zu verifizieren markieren."
+        }
       ],
       "stop_conditions": [
-        "If Q10.1, Q10.2, Q10.5 and Q10.6 are all unknown or blank → stop; the operational blind spot must be resolved before any migration option can be evaluated. Document this stop condition in the To-Verify register."
+        {
+          "en": "If Q10.1, Q10.2, Q10.5 and Q10.6 are all unknown or blank → stop; the operational blind spot must be resolved before any migration option can be evaluated. Document this stop condition in the To-Verify register.",
+          "de": "Wenn Q10.1, Q10.2, Q10.5 und Q10.6 sämtlich unbekannt oder leer sind → Stopp; der betriebliche blinde Fleck muss aufgelöst sein, bevor eine Migrationsoption bewertet werden kann. Diese Stop-Bedingung im To-Verify-Register dokumentieren."
+        }
       ]
     }
   ]

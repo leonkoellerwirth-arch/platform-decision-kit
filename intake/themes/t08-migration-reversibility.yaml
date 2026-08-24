@@ -68,9 +68,13 @@ hypotheses:
     falsifiable_by: "A cutover plan that names a business-side go/no-go authority and defines rollback trigger criteria in business terms."
 
 red_flags:
-  - "Irreversible steps are listed as \"risks\" rather than as named, dated decision points."
-  - "Rollback is described as possible but has never been rehearsed."
-  - "Historical data migration is deferred to \"phase 2\" with no defined phase 2."
+  - en: "Irreversible steps are listed as \"risks\" rather than as named, dated decision points."
+    de: "Irreversible Schritte stehen als „Risiken“ da statt als benannte, datierte Entscheidungspunkte."
+  - en: "Rollback is described as possible but has never been rehearsed."
+    de: "Der Rückweg wird als möglich beschrieben, wurde aber nie geprobt."
+  - en: "Historical data migration is deferred to \"phase 2\" with no defined phase 2."
+    de: "Die Migration historischer Daten wird auf „Phase 2“ verschoben, ohne dass eine Phase 2 definiert wäre."
 
 stop_conditions:
-  - "If Q8.2 is answered and the irreversible step is the first one → options must explicitly include \"defer decision and complete Discovery\" before the irreversible step is sanctioned."
+  - en: "If Q8.2 is answered and the irreversible step is the first one → options must explicitly include \"defer decision and complete Discovery\" before the irreversible step is sanctioned."
+    de: "Wenn Q8.2 beantwortet ist und der irreversible Schritt der erste ist → die Optionen müssen ausdrücklich „Entscheidung vertagen und Discovery abschließen“ enthalten, bevor der irreversible Schritt freigegeben wird."

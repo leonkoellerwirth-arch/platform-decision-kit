@@ -96,8 +96,9 @@ def question_block(q: dict[str, Any], *, with_note: bool) -> str:
     return "\n".join(lines)
 
 
-def bullets(items: list[str]) -> str:
-    return "\n".join(f"> - {i}" for i in items) if items else "> - (none defined)"
+def bullets(items: list[dict[str, str]]) -> str:
+    """Red flags and stop conditions are bilingual; the form renders the canonical EN."""
+    return "\n".join(f"> - {i['en']}" for i in items) if items else "> - (none defined)"
 
 
 def hypothesis_bullets(hs: list[dict[str, Any]]) -> str:

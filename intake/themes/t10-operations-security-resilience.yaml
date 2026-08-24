@@ -63,10 +63,15 @@ hypotheses:
     falsifiable_by: "A documented mapping of current operational controls to the target environment."
 
 red_flags:
-  - "No SLO exists — this is a no_defaults field; state \"none defined\", do not estimate."
-  - "Restore has never been tested — RTO/RPO targets are theoretical."
-  - "Production access is not inventoried or reviewed regularly."
-  - "Encryption at rest or in transit is unknown — leave blank, flag as to-verify."
+  - en: "No SLO exists — this is a no_defaults field; state \"none defined\", do not estimate."
+    de: "Es existiert kein SLO — ein no_defaults-Feld; „keines definiert“ eintragen, nicht schätzen."
+  - en: "Restore has never been tested — RTO/RPO targets are theoretical."
+    de: "Ein Restore wurde nie getestet — RTO/RPO-Ziele sind theoretisch."
+  - en: "Production access is not inventoried or reviewed regularly."
+    de: "Der Produktivzugriff ist nicht inventarisiert und wird nicht regelmäßig geprüft."
+  - en: "Encryption at rest or in transit is unknown — leave blank, flag as to-verify."
+    de: "Verschlüsselung im Ruhezustand oder beim Transport ist unbekannt — leer lassen, als zu verifizieren markieren."
 
 stop_conditions:
-  - "If Q10.1, Q10.2, Q10.5 and Q10.6 are all unknown or blank → stop; the operational blind spot must be resolved before any migration option can be evaluated. Document this stop condition in the To-Verify register."
+  - en: "If Q10.1, Q10.2, Q10.5 and Q10.6 are all unknown or blank → stop; the operational blind spot must be resolved before any migration option can be evaluated. Document this stop condition in the To-Verify register."
+    de: "Wenn Q10.1, Q10.2, Q10.5 und Q10.6 sämtlich unbekannt oder leer sind → Stopp; der betriebliche blinde Fleck muss aufgelöst sein, bevor eine Migrationsoption bewertet werden kann. Diese Stop-Bedingung im To-Verify-Register dokumentieren."

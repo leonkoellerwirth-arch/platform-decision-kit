@@ -70,9 +70,13 @@ hypotheses:
     falsifiable_by: "A mapping of all previous reversals against the people involved."
 
 red_flags:
-  - "Only one person understands the deployment pipeline or the production data model."
-  - "Key knowledge holders have announced departure or have recently left."
-  - "The platform team is below minimum viable size for the maintenance burden they carry."
+  - en: "Only one person understands the deployment pipeline or the production data model."
+    de: "Nur eine Person versteht die Deployment-Pipeline oder das Produktivdatenmodell."
+  - en: "Key knowledge holders have announced departure or have recently left."
+    de: "Zentrale Wissensträger haben ihren Weggang angekündigt oder das Unternehmen kürzlich verlassen."
+  - en: "The platform team is below minimum viable size for the maintenance burden they carry."
+    de: "Das Plattformteam liegt unter der Mindestgröße für die Wartungslast, die es trägt."
 
 stop_conditions:
-  - "If Q9.3 reveals that the sole knowledge holder is leaving within the migration window → flag as a pre-condition; knowledge transfer becomes a phase-zero activity."
+  - en: "If Q9.3 reveals that the sole knowledge holder is leaving within the migration window → flag as a pre-condition; knowledge transfer becomes a phase-zero activity."
+    de: "Wenn Q9.3 zeigt, dass der einzige Wissensträger innerhalb des Migrationsfensters ausscheidet → als Vorbedingung markieren; Wissenstransfer wird zur Phase-null-Aktivität."

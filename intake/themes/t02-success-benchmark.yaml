@@ -81,9 +81,13 @@ hypotheses:
     falsifiable_by: "A documented technical dependency that establishes the deadline independently."
 
 red_flags:
-  - "No named decision owner — \"the architecture board\" or \"leadership\" is not an owner."
-  - "Success is defined only in terms of what is built, not in terms of outcomes."
-  - "Deadline is stated but its consequence if missed is unknown or \"not yet defined\"."
+  - en: "No named decision owner — \"the architecture board\" or \"leadership\" is not an owner."
+    de: "Kein benannter Entscheidungseigner — „das Architekturboard“ oder „die Führung“ ist kein Eigner."
+  - en: "Success is defined only in terms of what is built, not in terms of outcomes."
+    de: "Erfolg ist nur darüber definiert, was gebaut wird, nicht über die Wirkung."
+  - en: "Deadline is stated but its consequence if missed is unknown or \"not yet defined\"."
+    de: "Die Frist ist genannt, aber die Folge ihres Verstreichens ist unbekannt oder „noch nicht definiert“."
 
 stop_conditions:
-  - "No decision question can be formulated → stop; the intake is premature."
+  - en: "No decision question can be formulated → stop; the intake is premature."
+    de: "Es lässt sich keine Entscheidungsfrage formulieren → Stopp; die Erhebung ist verfrüht."

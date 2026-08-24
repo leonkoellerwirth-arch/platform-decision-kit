@@ -63,9 +63,13 @@ hypotheses:
     falsifiable_by: "A dependency map that ranks consumers by data-flow criticality rather than relationship."
 
 red_flags:
-  - "Shadow integrations exist that the platform team did not know about."
-  - "No one can identify who would approve a breaking change for a given consumer."
-  - "SLA commitments are verbal or email-based, not in a signed document."
+  - en: "Shadow integrations exist that the platform team did not know about."
+    de: "Es existieren Schattenintegrationen, von denen das Plattformteam nichts wusste."
+  - en: "No one can identify who would approve a breaking change for a given consumer."
+    de: "Niemand kann benennen, wer für einen bestimmten Konsumenten einer brechenden Änderung zustimmen würde."
+  - en: "SLA commitments are verbal or email-based, not in a signed document."
+    de: "SLA-Zusagen bestehen mündlich oder per E-Mail, nicht in einem unterzeichneten Dokument."
 
 stop_conditions:
-  - "If no consumer inventory exists → treat as a pre-condition for any migration option, not as a Design input."
+  - en: "If no consumer inventory exists → treat as a pre-condition for any migration option, not as a Design input."
+    de: "Wenn kein Konsumenteninventar existiert → als Vorbedingung jeder Migrationsoption behandeln, nicht als Entwurfseingabe."

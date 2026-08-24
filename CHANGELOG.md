@@ -5,6 +5,15 @@ All notable changes to platform-decision-kit. Keep-a-Changelog style.
 ## [Unreleased]
 
 ### Added
+- **The web instrument reads the canonical source.** `app/src/themes.ts` is a loader over
+  `intake/themes.json` instead of a second, hand-maintained copy of the questions. All 55
+  questions are in the app; discovery mode is real rather than a relabelled triage.
+- **Discovery mode in the app** — the Entscheidungskopf (theme 2), the mini data inventory
+  (theme 6), stop conditions, and the pattern hypotheses shown as hypotheses and marked English.
+- **The presentation skeleton in the app** (`app/src/Deck.tsx`) — Output B's seven slides in the
+  binding order, projected verbatim from the filled form with the tags intact. Print stylesheet
+  for PDF. Layout vocabulary after Presenton (Apache-2.0); its runtime stays out.
+- `red_flags` and `stop_conditions` are bilingual in `intake/themes/*.yaml`.
 - **Canonical theme source** — `intake/themes/t01-*.yaml` … `t10-*.yaml`: 10 theme blocks,
   55 questions with stable IDs Q1.1…Q10.6, bilingual EN/DE, `no_defaults` flags on the
   security, privacy, regulatory, cost and irreversibility questions. Hypotheses live in their

@@ -77,6 +77,32 @@ Newest first. Each: date · decision · why · (superseded by …).
   instead of `src/`, `py-modules = []`, PyYAML as the only runtime dependency. *Why:* this is an
   instrument made of documents with two small tools beside it, not a service.
 
+- **2026-08-24 — The presentation is rendered in the browser as a projection, and Presenton
+  contributes design vocabulary only.** The app gained a second view: the seven-slide skeleton
+  (Output B) built from the filled form. Every line on it is an answer carried over verbatim with
+  its Basis and Verification tags — nothing summarised, ranked or inferred, because INV-7 does not
+  stop applying when the renderer is a React component instead of a model. PDF export is the
+  browser's print dialogue against a print stylesheet; no library, no upload. *Why Presenton only
+  as vocabulary:* it is Apache-2.0 and its layouts are worth learning from, but its runtime is a
+  backend plus an LLM, which INV-10 forbids on this page. We took the layout grammar — display
+  heading, rounded cards, footer marker, corner accent — and none of its code, assets or fonts.
+  *The limit, stated honestly:* the deck is a skeleton, not a finished deck; it has the structure
+  and the evidence, and a human still writes the narration.
+
+- **2026-08-24 — `red_flags` and `stop_conditions` are bilingual in the canonical source.**
+  ARCHITECTURE-SPEC §3.2 specified them as plain strings. They are now `{en, de}` pairs like every
+  other human-readable field. *Why:* the app shows them to the user, and an English-only red flag
+  on a German surface is exactly the silent language substitution INV-8 exists to prevent.
+  *Hypotheses stay English on purpose:* they are analytical prose where an unmarked translation
+  would quietly acquire authority, so the UI labels that block "Englisch — die verbindliche
+  Fassung" instead of translating it.
+
+- **2026-08-24 — The app imports `intake/themes.json`; there is no second question set.** The
+  provisional `THEMES` literal in `app/src/themes.ts` is gone; the file is now a loader over the
+  generated JSON, inlined at build time. *Why:* INV-5 was aspirational while two hand-maintained
+  copies existed. *Verified:* the built bundle contains the question text and no `fetch(` — the
+  "no network call" claim survives a grep over `dist/`.
+
 - **2026-08-24 — The Q-ID regex is bounded to themes 1–10, and that boundary is documented as a
   limit.** `QID_PATTERN` matches `[Q1.1]`…`[Q10.6]` and nothing outside that range, so a
   reference like `[Q12.9]` is invisible to `check.py` rather than reported as unknown. *Why:* the

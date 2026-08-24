@@ -65,9 +65,13 @@ hypotheses:
     falsifiable_by: "A logged, tested end-to-end erasure showing removal across all storage layers."
 
 red_flags:
-  - "Data classification is \"TBD\" or \"same as source system\" with no documented review."
-  - "No named data owner for any domain."
-  - "Retention requirements are unknown — this is a no_defaults field; leave blank, flag to-verify."
+  - en: "Data classification is \"TBD\" or \"same as source system\" with no documented review."
+    de: "Die Datenklassifizierung lautet „TBD“ oder „wie im Quellsystem“, ohne dokumentierte Prüfung."
+  - en: "No named data owner for any domain."
+    de: "Für keine Domäne ist ein Dateneigner benannt."
+  - en: "Retention requirements are unknown — this is a no_defaults field; leave blank, flag to-verify."
+    de: "Die Aufbewahrungsanforderungen sind unbekannt — ein no_defaults-Feld; leer lassen, als zu verifizieren markieren."
 
 stop_conditions:
-  - "If Q6.1, Q6.2 and Q6.4 are all unknown → stop migration options analysis; the data posture must be established before options can be evaluated."
+  - en: "If Q6.1, Q6.2 and Q6.4 are all unknown → stop migration options analysis; the data posture must be established before options can be evaluated."
+    de: "Wenn Q6.1, Q6.2 und Q6.4 sämtlich unbekannt sind → Analyse der Migrationsoptionen stoppen; die Datenlage muss feststehen, bevor Optionen bewertet werden können."

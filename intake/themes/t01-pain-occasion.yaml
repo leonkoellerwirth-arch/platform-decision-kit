@@ -66,9 +66,13 @@ hypotheses:
     falsifiable_by: "A documented operational metric that was already deteriorating before the external trigger."
 
 red_flags:
-  - "Pain described only from one stakeholder group, not cross-checked with consumers or operators."
-  - "No one has tried to fix this before — or no one knows whether it was tried."
-  - "Trigger is an external deadline; underlying operational situation is stable or unknown."
+  - en: "Pain described only from one stakeholder group, not cross-checked with consumers or operators."
+    de: "Der Schmerz wird nur aus einer Stakeholder-Gruppe beschrieben, ohne Gegenprobe bei Konsumenten oder Betrieb."
+  - en: "No one has tried to fix this before — or no one knows whether it was tried."
+    de: "Niemand hat bisher versucht, das zu beheben — oder niemand weiß, ob es versucht wurde."
+  - en: "Trigger is an external deadline; underlying operational situation is stable or unknown."
+    de: "Auslöser ist eine externe Frist; die zugrunde liegende Betriebslage ist stabil oder unbekannt."
 
 stop_conditions:
-  - "No clear pain owner and no mandate to define one → stop; clarify mandate first."
+  - en: "No clear pain owner and no mandate to define one → stop; clarify mandate first."
+    de: "Kein klarer Eigner des Schmerzes und kein Mandat, einen zu bestimmen → Stopp; zuerst das Mandat klären."

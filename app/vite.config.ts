@@ -6,7 +6,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "./",
   plugins: [react()],
-  server: { port: 5281, strictPort: true },
+  // The question set is imported from ../intake/themes.json — the same canonical source the
+  // Markdown forms are rendered from (INV-5, no drift). It sits outside the app root, so the
+  // dev server needs explicit permission to read it. In a build it is inlined into the bundle,
+  // which is what keeps the "no network call" claim true.
+  server: { port: 5281, strictPort: true, fs: { allow: [".."] } },
   preview: { port: 5282, strictPort: true },
   build: {
     // No modulepreload polyfill: it emits a fetch() of the app's own chunks. Harmless, but

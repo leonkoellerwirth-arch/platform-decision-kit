@@ -55,9 +55,13 @@ hypotheses:
     falsifiable_by: "A signed contract clause or a named policy document with the exact requirement."
 
 red_flags:
-  - "Budget stated as \"TBD\" for a decision with a firm deadline."
-  - "Mandate attributed to a person rather than a policy or contract."
-  - "Governance process timeline is unknown but the decision deadline is fixed."
+  - en: "Budget stated as \"TBD\" for a decision with a firm deadline."
+    de: "Budget als „TBD“ angegeben, bei gleichzeitig fester Entscheidungsfrist."
+  - en: "Mandate attributed to a person rather than a policy or contract."
+    de: "Die Vorgabe wird einer Person zugeschrieben statt einer Richtlinie oder einem Vertrag."
+  - en: "Governance process timeline is unknown but the decision deadline is fixed."
+    de: "Die Dauer des Governance-Verfahrens ist unbekannt, die Entscheidungsfrist steht aber fest."
 
 stop_conditions:
-  - "None specific; flag for Discovery if regulatory timelines are unknown — Q3.4 is no_defaults: leave blank, mark to-verify."
+  - en: "None specific; flag for Discovery if regulatory timelines are unknown — Q3.4 is no_defaults: leave blank, mark to-verify."
+    de: "Keine spezifische; für Discovery vormerken, wenn regulatorische Fristen unbekannt sind — Q3.4 ist no_defaults: leer lassen, als zu verifizieren markieren."

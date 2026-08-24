@@ -188,3 +188,170 @@ details.flags summary::before { content: "▸ "; }
 details.flags[open] summary::before { content: "▾ "; }
 details.flags ul { margin: 0.6rem 0 0; padding-left: 1.2rem; font-size: 0.87rem; color: var(--muted); }
 details.flags li { margin-bottom: 0.3rem; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Discovery-mode annexes: the decision head, the data inventory, and the two
+   extra disclosure blocks. Same austere register as the rest of the form.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.block.head { border-left: 3px solid var(--navy); }
+.label.wide { min-width: 11rem; }
+
+.flags.stop summary { color: var(--flag); }
+.flags.hypo summary { color: var(--navy); }
+.flags.hypo li { margin-bottom: 0.9rem; }
+.flags .marker { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+
+.inventory { margin-top: 1.25rem; }
+.inventory h3 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 0 0 0.2rem; }
+.inventory table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; }
+.inventory th {
+  text-align: left; font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--muted); padding: 0.3rem 0.4rem 0.3rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.inventory td { padding: 0.2rem 0.4rem 0.2rem 0; }
+.inventory input { width: 100%; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   The presentation skeleton.
+   Layout vocabulary after Presenton's "Executive" family (Apache-2.0): a heavy
+   display heading, rounded content cards, a footer pagination marker, and a soft
+   corner accent. Nothing is copied — no code, no assets, no font files. The type
+   is a system stack, which is what keeps the "no network call" claim true.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.deck { --accent: #4c3f8f; --accent-soft: #efedf8; margin-top: 1.5rem; }
+
+.deck-note {
+  font-size: 0.85rem; color: var(--muted); line-height: 1.55;
+  border-left: 2px solid var(--accent); padding-left: 0.9rem; margin: 0 0 1.25rem;
+}
+.deck-actions { margin-bottom: 1.5rem; }
+
+.slide {
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 2.4rem 2.4rem 3.2rem;
+  margin-bottom: 1.5rem;
+  min-height: 22rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The washed corner accent — one gradient, no image asset. */
+.slide .corner {
+  position: absolute; top: -45%; right: -22%;
+  width: 30rem; height: 30rem; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, var(--accent-soft) 0%, rgba(255,255,255,0) 68%);
+  pointer-events: none;
+}
+
+.slide h3 {
+  position: relative;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--navy-deep);
+  margin: 0 0 1.6rem;
+  text-wrap: balance;
+}
+.slide h3::after {
+  content: ""; display: block; width: 3rem; height: 3px;
+  background: var(--accent); margin-top: 0.9rem; border-radius: 2px;
+}
+
+.slide-body { position: relative; flex: 1; }
+
+.slide .marker {
+  position: absolute; left: 2.4rem; bottom: 1.5rem;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.lead {
+  font-family: var(--serif);
+  font-size: 1.5rem; line-height: 1.35; color: var(--ink);
+  margin: 0 0 1.6rem; text-wrap: pretty;
+}
+.lead.muted { font-size: 1.1rem; }
+
+.cards { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-bottom: 0.9rem; }
+.card {
+  flex: 1 1 15rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+}
+.card.accent { background: var(--accent-soft); border-color: #dcd7f0; }
+.card.flagcard { border-color: #e6c9c2; background: #fdf5f3; }
+.card h4 {
+  font-size: 1rem; font-weight: 700; color: var(--navy-deep);
+  margin: 0.15rem 0 0.5rem; letter-spacing: -0.01em;
+}
+.card-label {
+  display: inline-block; font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+.card.flagcard .card-label { color: var(--flag); }
+
+.quote { font-size: 0.92rem; line-height: 1.55; margin: 0 0 0.5rem; }
+.tagpill {
+  display: inline-block; margin-left: 0.4rem; padding: 0.05rem 0.45rem;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--card);
+  font-size: 0.7rem; color: var(--muted); vertical-align: middle;
+}
+.src { color: var(--muted); font-size: 0.8rem; }
+
+/* Label above value: inside a narrow card a side-by-side pair wraps to shreds. */
+.kv { font-size: 0.86rem; margin: 0 0 0.6rem; }
+.kv .k {
+  display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.1rem;
+}
+.kv .v { display: block; line-height: 1.45; }
+
+.ids { list-style: none; padding: 0; margin: 0.3rem 0 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.ids code { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 0.1rem 0.4rem; }
+
+.conditions { list-style: none; padding: 0; margin: 0; }
+.conditions li {
+  border-left: 3px solid var(--open); padding: 0.35rem 0 0.35rem 0.9rem; margin-bottom: 0.8rem;
+}
+.cond { display: block; font-weight: 600; color: var(--open); font-size: 0.85rem; }
+.cond-q { display: block; font-size: 0.92rem; }
+
+.reg { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.reg td { padding: 0.35rem 0.6rem 0.35rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.reg td:first-child { width: 4.5rem; }
+
+.signoff {
+  margin-top: 1.4rem; padding-top: 0.9rem; border-top: 1px solid var(--line);
+  font-size: 0.82rem; color: var(--muted); font-style: italic;
+}
+
+.credit { font-size: 0.74rem; color: var(--muted); margin-top: 1.5rem; }
+
+/* Print is the PDF export: one slide per landscape page, no browser chrome we can't control. */
+@media print {
+  @page { size: A4 landscape; margin: 12mm; }
+  body { background: #fff; }
+  .wrap { max-width: none; padding: 0; }
+  .langbar, .bar, header, .trust, .langnote, .deck-note, .deck-actions,
+  .credit, footer, .actions, .export { display: none !important; }
+  .slide {
+    break-after: page; page-break-after: always;
+    border: none; border-radius: 0; margin: 0; padding: 0 0 1.5rem;
+    min-height: auto;
+  }
+  .slide.last { break-after: auto; page-break-after: auto; }
+  .slide .corner { display: none; }
+  .card { break-inside: avoid; }
+}

@@ -60,9 +60,13 @@ hypotheses:
     falsifiable_by: "A documented regulatory applicability assessment with a named assessor and date."
 
 red_flags:
-  - "AI risk class is stated without a named Legal opinion."
-  - "Open audit findings are unresolved — their status must be known before options analysis."
-  - "Regulatory framework was last reviewed more than 2 years ago."
+  - en: "AI risk class is stated without a named Legal opinion."
+    de: "Eine KI-Risikoklasse wird genannt, ohne dass eine benannte rechtliche Einschätzung vorliegt."
+  - en: "Open audit findings are unresolved — their status must be known before options analysis."
+    de: "Offene Audit-Feststellungen sind ungeklärt — ihr Status muss vor der Optionsanalyse bekannt sein."
+  - en: "Regulatory framework was last reviewed more than 2 years ago."
+    de: "Der regulatorische Rahmen wurde zuletzt vor mehr als zwei Jahren geprüft."
 
 stop_conditions:
-  - "If Q7.1 is unknown and the platform touches personal data → stop; the regulatory posture must be clarified before migration options can be evaluated."
+  - en: "If Q7.1 is unknown and the platform touches personal data → stop; the regulatory posture must be clarified before migration options can be evaluated."
+    de: "Wenn Q7.1 unbekannt ist und die Plattform personenbezogene Daten berührt → Stopp; die regulatorische Lage muss geklärt sein, bevor Migrationsoptionen bewertet werden können."

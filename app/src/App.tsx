@@ -1,21 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
+import { Deck } from "./Deck";
 import { t, UI } from "./i18n";
 import {
+  DECISION_HEAD_FIELDS,
   pick,
   THEMES,
+  type Answer,
   type Basis,
+  type DecisionHead,
   type Lang,
   type Mode,
   type Question,
   type Verification,
 } from "./themes";
-
-interface Answer {
-  text: string;
-  basis: Basis | null;
-  source: string;
-  verification: Verification;
-}
 
 const EMPTY: Answer = { text: "", basis: null, source: "", verification: "none" };
 const BASES: Basis[] = ["fact", "statement", "assumption", "unknown"];
@@ -53,7 +50,13 @@ function initialLang(): Lang {
 export default function App() {
   const [lang, setLang] = useState<Lang>(initialLang);
   const [mode, setMode] = useState<Mode>("triage");
+  const [view, setView] = useState<"intake" | "deck">("intake");
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
+  // The Entscheidungskopf and the mini data inventory are the two annexes the briefing puts
+  // beside the questions: theme 2 carries the frame, theme 6 the data layer. Both are intake
+  // slots, not derived values — an empty cell stays empty.
+  const [head, setHead] = useState<DecisionHead>({});
+  const [rows, setRows] = useState<string[][]>([]);
   const [exported, setExported] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -166,6 +169,14 @@ export default function App() {
             {t(UI.discoveryMode, lang)}
           </button>
         </div>
+        <div className="modes" role="group" aria-label="View">
+          <button aria-pressed={view === "intake"} onClick={() => setView("intake")}>
+            {t(UI.viewIntake, lang)}
+          </button>
+          <button aria-pressed={view === "deck"} onClick={() => setView("deck")}>
+            {t(UI.viewDeck, lang)}
+          </button>
+        </div>
         <div className="counts">
           <b>{answered}</b>/{allQuestions.length} {t(UI.answered, lang)} · <b>{register.length}</b>{" "}
           {t(UI.openInRegister, lang)}
@@ -179,11 +190,23 @@ export default function App() {
         </div>
       </div>
 
-      {mode === "triage" && (
-        <p className="trust">
-          <strong>{t(UI.triageNoteLead, lang)}</strong> {t(UI.triageNoteRest, lang)}
-        </p>
-      )}
+      <p className="trust">
+        <strong>{t(mode === "triage" ? UI.triageNoteLead : UI.discoveryNoteLead, lang)}</strong>{" "}
+        {t(mode === "triage" ? UI.triageNoteRest : UI.discoveryNoteRest, lang)}
+      </p>
+
+      {view === "deck" ? (
+        <Deck
+          lang={lang}
+          mode={mode}
+          themes={visible}
+          answers={answers}
+          head={head}
+          rows={rows}
+        />
+      ) : (
+        <>
+      <DecisionHeadBlock lang={lang} head={head} onChange={setHead} />
 
       {visible.map((th) => (
         <section className="block" key={th.id}>
@@ -216,6 +239,51 @@ export default function App() {
               ))}
             </ul>
           </details>
+
+          {mode === "discovery" && (
+            <>
+              <details className="flags stop">
+                <summary>{t(UI.stopConditions, lang)}</summary>
+                <ul>
+                  {th.stopConditions.map((c) => (
+                    <li key={c.en}>{pick(c, lang)}</li>
+                  ))}
+                </ul>
+              </details>
+
+              {th.hypotheses.length > 0 && (
+                <details className="flags hypo">
+                  <summary>
+                    {t(UI.hypotheses, lang)}{" "}
+                    <span className="marker">— {t(UI.hypothesesEnglish, lang)}</span>
+                  </summary>
+                  <p className="why">{t(UI.hypothesesNote, lang)}</p>
+                  <ul>
+                    {th.hypotheses.map((h) => (
+                      <li key={h.name}>
+                        <b>{h.name}</b>
+                        <br />
+                        <span className="marker">{t(UI.scopeOfValidity, lang)}:</span>{" "}
+                        {h.scopeOfValidity}
+                        <br />
+                        <span className="marker">{t(UI.falsifiableBy, lang)}:</span>{" "}
+                        {h.falsifiableBy}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </>
+          )}
+
+          {mode === "discovery" && th.dataInventory && (
+            <DataInventoryBlock
+              lang={lang}
+              columns={th.dataInventory.columns}
+              rows={rows}
+              onChange={setRows}
+            />
+          )}
         </section>
       ))}
 
@@ -253,6 +321,8 @@ export default function App() {
       </div>
 
       {exported && <pre className="export">{exported}</pre>}
+        </>
+      )}
 
       <footer>
         {t(UI.footer, lang)}
@@ -345,6 +415,107 @@ function QuestionBlock({
           {q.noDefaults && ` ${t(UI.noDefaultsHint, lang)}`}
         </p>
       )}
+    </div>
+  );
+}
+
+/**
+ * The Entscheidungskopf (theme 2). It sits above the blocks because it is the frame everything
+ * else is measured against: a block that contradicts the decision question is a finding, and you
+ * can only see that contradiction if the frame is written down first.
+ */
+function DecisionHeadBlock({
+  lang,
+  head,
+  onChange,
+}: {
+  lang: Lang;
+  head: DecisionHead;
+  onChange: (h: DecisionHead) => void;
+}) {
+  return (
+    <section className="block head">
+      <span className="num">{t(UI.decisionHead, lang)}</span>
+      <p className="why">{t(UI.decisionHeadNote, lang)}</p>
+      {DECISION_HEAD_FIELDS.map((f) => (
+        <div className="row" key={f.key}>
+          <span className="label wide">{pick(f.label, lang)}</span>
+          <input
+            type="text"
+            style={{ flex: "1 1 18rem" }}
+            value={head[f.key] ?? ""}
+            onChange={(e) => onChange({ ...head, [f.key]: e.target.value })}
+          />
+        </div>
+      ))}
+    </section>
+  );
+}
+
+/**
+ * The mini data inventory (theme 6). A table, deliberately without a process apparatus around
+ * it: domain, classification, owner, retention, erasure path. A blank cell is a to-verify item.
+ */
+function DataInventoryBlock({
+  lang,
+  columns,
+  rows,
+  onChange,
+}: {
+  lang: Lang;
+  columns: string[];
+  rows: string[][];
+  onChange: (r: string[][]) => void;
+}) {
+  const label = (c: string): string => {
+    const known = UI.columnLabels as Record<string, { en: string; de: string }>;
+    return known[c] ? pick(known[c], lang) : c;
+  };
+  return (
+    <div className="inventory">
+      <h3>{t(UI.dataInventory, lang)}</h3>
+      <p className="why">{t(UI.dataInventoryNote, lang)}</p>
+      <table>
+        <thead>
+          <tr>
+            {columns.map((c) => (
+              <th key={c}>{label(c)}</th>
+            ))}
+            <th aria-label="actions" />
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, ri) => (
+            // eslint-disable-next-line react/no-array-index-key -- rows have no stable identity
+            <tr key={ri}>
+              {columns.map((c, ci) => (
+                <td key={c}>
+                  <input
+                    type="text"
+                    value={row[ci] ?? ""}
+                    onChange={(e) => {
+                      const next = rows.map((r) => [...r]);
+                      next[ri][ci] = e.target.value;
+                      onChange(next);
+                    }}
+                  />
+                </td>
+              ))}
+              <td>
+                <button
+                  className="tag"
+                  onClick={() => onChange(rows.filter((_, i) => i !== ri))}
+                >
+                  {t(UI.removeRow, lang)}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button className="tag" onClick={() => onChange([...rows, columns.map(() => "")])}>
+        {t(UI.addRow, lang)}
+      </button>
     </div>
   );
 }
