@@ -23,36 +23,54 @@ questions:
     text:
       en: "What exists today — list the core components, their approximate production age, and their technology stack?"
       de: "Was existiert heute — Liste der Kernkomponenten, ihr ungefähres Produktionsalter und ihr Technologie-Stack?"
+    hint:
+      en: "Components with their year and their technology, as a list."
+      de: "Komponenten mit Jahr und Technologie, als Liste."
   - id: "Q4.2"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Where does the definitive technical documentation live, and when was it last verified against the system?"
       de: "Wo lebt die maßgebliche technische Dokumentation, und wann wurde sie zuletzt gegen das System verifiziert?"
+    hint:
+      en: "Where it lives, and when it was last checked against the running system."
+      de: "Wo sie liegt, und wann sie zuletzt gegen das laufende System geprüft wurde."
   - id: "Q4.3"
     mode: [triage, discovery]
     no_defaults: false
     text:
       en: "Which parts of the system does no one currently understand well enough to predict the effect of a change?"
       de: "Welche Teile des Systems versteht niemand aktuell gut genug, um die Auswirkung einer Änderung vorherzusagen?"
+    hint:
+      en: "The component, and why nobody understands it any more."
+      de: "Die Komponente, und warum sie niemand mehr versteht."
   - id: "Q4.4"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What data does the platform manage — and what is the master data situation (single source, duplicates, ownership)?"
       de: "Welche Daten verwaltet die Plattform — und wie ist die Stammdatenlage (Einzelquelle, Duplikate, Eigentümerschaft)?"
+    hint:
+      en: "The data domains, and where the same record exists more than once."
+      de: "Die Datendomänen, und wo derselbe Datensatz mehrfach existiert."
   - id: "Q4.5"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What integrations exist — documented or not — and who knows about them?"
       de: "Welche Integrationen existieren — dokumentiert oder nicht — und wer kennt sie?"
+    hint:
+      en: "The documented count, plus the ones only mentioned in conversation."
+      de: "Die dokumentierte Zahl, plus die, die nur im Gespräch genannt wurden."
   - id: "Q4.6"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What is the current automated test coverage, and when was the last full regression run conducted?"
       de: "Wie ist die aktuelle automatisierte Testabdeckung, und wann wurde der letzte vollständige Regressionstest durchgeführt?"
+    hint:
+      en: "A percentage with its date, or say that nobody measures it."
+      de: "Eine Prozentzahl mit Datum, oder: es misst niemand."
 
 hypotheses:
   - name: "The dark zone is concentrated, not distributed"

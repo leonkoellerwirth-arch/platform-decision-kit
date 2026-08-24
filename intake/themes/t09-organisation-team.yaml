@@ -22,30 +22,45 @@ questions:
     text:
       en: "Who owns this platform — the single named person or team with accountability for its availability and evolution?"
       de: "Wer besitzt diese Plattform — die einzelne benannte Person oder das Team mit Verantwortung für Verfügbarkeit und Weiterentwicklung?"
+    hint:
+      en: "The named team or person, and whether availability sits there too."
+      de: "Das benannte Team oder die Person, und ob die Verfügbarkeit auch dort liegt."
   - id: "Q9.2"
     mode: [discovery]
     no_defaults: false
     text:
       en: "How does work reach this platform team — who initiates changes, who reviews them, and where do handoffs stall?"
       de: "Wie gelangt Arbeit zu diesem Plattformteam — wer initiiert Änderungen, wer prüft sie, und wo stocken Übergaben?"
+    hint:
+      en: "The route a change takes, and the step where it queues."
+      de: "Den Weg einer Änderung, und die Stelle, an der sie sich staut."
   - id: "Q9.3"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Where is knowledge concentrated — who are the individuals whose absence would delay or block a migration?"
       de: "Wo ist Wissen konzentriert — welche Personen wären, wenn sie fehlen, in der Lage, eine Migration zu verzögern oder zu blockieren?"
+    hint:
+      en: "How many people, and what else they are already booked for."
+      de: "Wie viele Personen, und wofür sie sonst schon eingeplant sind."
   - id: "Q9.4"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What organisational changes — restructuring, key departures, team mergers — are planned or underway that affect this work?"
       de: "Welche Organisationsänderungen — Umstrukturierungen, wichtige Abgänge, Teamfusionen — sind geplant oder im Gange und betreffen diese Arbeit?"
+    hint:
+      en: "The change, its date, and whether it is decided or rumoured."
+      de: "Die Änderung, ihr Datum, und ob sie beschlossen oder Gerücht ist."
   - id: "Q9.5"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Who are the informal decision-makers whose alignment is necessary — even if they have no formal authority over this decision?"
       de: "Wer sind die informellen Entscheidungsträger, deren Einbindung notwendig ist — auch wenn sie keine formale Befugnis für diese Entscheidung haben?"
+    hint:
+      en: "The role without formal standing whose no still stops things."
+      de: "Die Rolle ohne formale Rolle, deren Nein trotzdem alles anhält."
 
 hypotheses:
   # Conway's Law, Team Topologies (stream-aligned, platform, enabling,

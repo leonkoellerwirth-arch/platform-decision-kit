@@ -49,6 +49,9 @@ export interface Question {
   modes: Mode[];
   /** Scoping guidance carried by a few questions (Q7.3). English, like the hypotheses. */
   note?: string;
+  /** An example of the shape a usable answer has, shown while the field is empty.
+      Guidance, never a default: it is not carried into an answer nobody gave. */
+  hint?: Text;
 }
 
 /** A testable pattern with its boundary — never disguised as a question (INV-6). */
@@ -89,6 +92,7 @@ interface RawQuestion {
   no_defaults: boolean;
   text: Text;
   note?: string;
+  hint?: Text;
 }
 
 interface RawHypothesis {
@@ -133,6 +137,7 @@ export const THEMES: Theme[] = (source.themes as RawTheme[]).map((t) => ({
     noDefaults: q.no_defaults || undefined,
     modes: q.mode as Mode[],
     note: q.note ? flatten(q.note) : undefined,
+    hint: q.hint,
   })),
   hasDecisionHead: t.decision_head !== undefined,
   dataInventory: t.data_inventory_annex

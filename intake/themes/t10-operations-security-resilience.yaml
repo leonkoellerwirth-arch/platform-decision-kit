@@ -22,36 +22,54 @@ questions:
     text:
       en: "What are the current SLO/availability targets — and are they being met? If no SLO exists, state that explicitly."
       de: "Was sind die aktuellen SLO/Verfügbarkeitsziele — und werden sie eingehalten? Falls kein SLO existiert, explizit benennen."
+    hint:
+      en: "The SLO if one exists, and the availability actually measured."
+      de: "Das SLO, falls es eines gibt, und die tatsächlich gemessene Verfügbarkeit."
   - id: "Q10.2"
     mode: [discovery]
     no_defaults: true
     text:
       en: "What are the RTO and RPO targets — and when was the last restore test conducted?"
       de: "Was sind die RTO- und RPO-Ziele — und wann wurde der letzte Restore-Test durchgeführt?"
+    hint:
+      en: "RTO and RPO from the plan, and the date of the last restore test."
+      de: "RTO und RPO aus dem Konzept, und das Datum des letzten Restore-Tests."
   - id: "Q10.3"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What observability exists — what is logged, what is measured, what triggers an alert?"
       de: "Welche Observability existiert — was wird protokolliert, was gemessen, was löst einen Alert aus?"
+    hint:
+      en: "What is logged, what is measured, and what raises an alert."
+      de: "Was protokolliert, was gemessen wird, und was einen Alert auslöst."
   - id: "Q10.4"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What is the incident response process — and what is the change management process? Are they documented and followed?"
       de: "Was ist der Incident-Response-Prozess — und was ist der Change-Management-Prozess? Sind sie dokumentiert und werden sie eingehalten?"
+    hint:
+      en: "Whether both are documented, and whether they are followed."
+      de: "Ob beide dokumentiert sind, und ob sie eingehalten werden."
   - id: "Q10.5"
     mode: [discovery]
     no_defaults: true
     text:
       en: "Who has access to production systems and data — and is there a documented, reviewed identity and permissions model?"
       de: "Wer hat Zugang zu Produktivsystemen und -daten — und gibt es ein dokumentiertes, geprüftes Identitäts- und Berechtigungsmodell?"
+    hint:
+      en: "How many people have production access, and when it was last recertified."
+      de: "Wie viele Personen produktiven Zugriff haben, und wann zuletzt rezertifiziert wurde."
   - id: "Q10.6"
     mode: [discovery]
     no_defaults: true
     text:
       en: "What encryption is in place at rest and in transit — and are cryptographic keys managed separately from the data they protect?"
       de: "Welche Verschlüsselung ist im Ruhezustand und beim Transport vorhanden — und werden kryptografische Schlüssel separat von den Daten verwaltet, die sie schützen?"
+    hint:
+      en: "Encryption at rest and in transit, and where the keys are kept."
+      de: "Verschlüsselung im Ruhezustand und im Transport, und wo die Schlüssel liegen."
 
 hypotheses:
   - name: "Operational posture was sufficient for the current system but will not transfer"

@@ -26,30 +26,45 @@ questions:
     text:
       en: "What is the presenting problem in one sentence?"
       de: "Was ist das vordergründige Problem in einem Satz?"
+    hint:
+      en: "Changes take six to nine months because nobody can predict the impact."
+      de: "Änderungen dauern sechs bis neun Monate, weil niemand die Auswirkung vorhersagen kann."
   - id: "Q1.2"
     mode: [discovery]
     no_defaults: false
     text:
       en: "How long has this situation existed, and what changed to trigger a review now?"
       de: "Wie lange besteht diese Situation, und was hat sich verändert, sodass das Review jetzt stattfindet?"
+    hint:
+      en: "Name the date and the trigger: an expiring licence, an announced audit, a departure."
+      de: "Datum und Auslöser nennen: auslaufende Lizenz, angekündigte Prüfung, Weggang."
   - id: "Q1.3"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Who named this a problem — and who agrees, who does not?"
       de: "Wer hat dies als Problem benannt — und wer stimmt zu, wer nicht?"
+    hint:
+      en: "Name the role that raised it, and the one that disagrees."
+      de: "Die Rolle nennen, die es benannt hat, und die, die widerspricht."
   - id: "Q1.4"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What has already been attempted to address this situation, and what was the outcome?"
       de: "Was wurde bisher unternommen, um diese Situation zu adressieren, und was war das Ergebnis?"
+    hint:
+      en: "What was tried, and what it actually changed. Also what it did not."
+      de: "Was versucht wurde und was es wirklich geändert hat. Auch, was nicht."
   - id: "Q1.5"
     mode: [discovery]
     no_defaults: true
     text:
       en: "What is the estimated cost of inaction over 12 months — quantified, or explicitly stated as unquantified?"
       de: "Was sind die geschätzten Kosten der Untätigkeit über 12 Monate — quantifiziert oder explizit als unquantifiziert benannt?"
+    hint:
+      en: "A figure with its derivation, or say plainly that it is unquantified."
+      de: "Eine Zahl mit Herleitung, oder ausdrücklich: nicht quantifiziert."
 
 hypotheses:
   - name: "Presenting pain is a symptom, not a root cause"

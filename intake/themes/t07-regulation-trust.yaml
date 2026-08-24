@@ -22,18 +22,27 @@ questions:
     text:
       en: "What regulatory frameworks apply to this platform — stated by whom, and when was this last reviewed?"
       de: "Welche regulatorischen Rahmenbedingungen gelten für diese Plattform — von wem festgestellt, und wann zuletzt geprüft?"
+    hint:
+      en: "The named frameworks, who established them, and the date."
+      de: "Die benannten Rahmenwerke, wer sie festgestellt hat, und das Datum."
   - id: "Q7.2"
     mode: [discovery]
     no_defaults: false
     text:
       en: "When was the last external or internal audit that covered this platform, and what were the open findings?"
       de: "Wann war das letzte externe oder interne Audit, das diese Plattform abdeckte, und was waren die offenen Feststellungen?"
+    hint:
+      en: "The audit date, and the findings still open."
+      de: "Das Prüfungsdatum, und die noch offenen Feststellungen."
   - id: "Q7.3"
     mode: [triage, discovery]
     no_defaults: false
     text:
       en: "Is AI/ML in the decision subject itself — in a production system or workflow — or only in the authoring process of this analysis?"
       de: "Ist KI/ML im Entscheidungsgegenstand selbst — in einem Produktivsystem oder -workflow — oder nur im Autorenprozess dieser Analyse?"
+    hint:
+      en: "Yes or no, and where the model actually runs."
+      de: "Ja oder nein, und wo das Modell tatsächlich läuft."
     note: >
       This is a scoping question, not a checklist. If AI is in scope: the role/risk class
       per Legal remains open unless Legal has stated otherwise. Do not fill in a risk class
@@ -44,12 +53,18 @@ questions:
     text:
       en: "If AI/ML is in the decision subject: what is the role and risk class per Legal — or is this explicitly open?"
       de: "Falls KI/ML im Entscheidungsgegenstand: Was ist die Rolle und Risikoklasse laut Legal — oder ist dies explizit offen?"
+    hint:
+      en: "Role and risk class per Legal, or say Legal was not asked."
+      de: "Rolle und Risikoklasse laut Rechtsabteilung, oder: nicht befragt."
   - id: "Q7.5"
     mode: [discovery]
     no_defaults: true
     text:
       en: "What trust or certification requirements do customers, partners, or regulators impose on this platform?"
       de: "Welche Vertrauens- oder Zertifizierungsanforderungen stellen Kunden, Partner oder Behörden an diese Plattform?"
+    hint:
+      en: "The certification demanded, and what its scope actually covers."
+      de: "Die verlangte Zertifizierung, und was ihr Geltungsbereich wirklich abdeckt."
 
 hypotheses:
   - name: "Regulatory applicability was assumed, not assessed"

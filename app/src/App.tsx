@@ -862,7 +862,11 @@ function QuestionBlock({
           disabled={unknown}
           aria-label={pick(q.text, lang)}
           placeholder={
-            unknown ? t(UI.unknownPlaceholder, lang) : t(UI.answerPlaceholder, lang)
+            unknown
+              ? t(UI.unknownPlaceholder, lang)
+              : q.hint
+                ? `${t(UI.forExample, lang)} ${pick(q.hint, lang)}`
+                : t(UI.answerPlaceholder, lang)
           }
           onChange={(e) => onChange({ text: e.target.value })}
         />

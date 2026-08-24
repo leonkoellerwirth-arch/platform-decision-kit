@@ -22,36 +22,54 @@ questions:
     text:
       en: "What migration paths have been considered — even informally — and what was the reasoning for or against each?"
       de: "Welche Migrationspfade wurden erwogen — auch informell — und was war die Begründung für oder gegen jeden?"
+    hint:
+      en: "Each path considered, and the reason for or against it."
+      de: "Jeden erwogenen Pfad, und die Begründung dafür oder dagegen."
   - id: "Q8.2"
     mode: [triage, discovery]
     no_defaults: true
     text:
       en: "Which steps in any migration path under consideration are irreversible — once taken, the previous state cannot be restored?"
       de: "Welche Schritte in einem erwogenen Migrationspfad sind irreversibel — einmal vollzogen, kann der vorherige Zustand nicht wiederhergestellt werden?"
+    hint:
+      en: "The step, and what cannot be restored once it is done."
+      de: "Den Schritt, und was danach nicht mehr herstellbar ist."
   - id: "Q8.3"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What approach for running old and new in parallel — if any — has been considered, and for how long?"
       de: "Welcher Ansatz zum parallelen Betrieb von Alt und Neu — falls erwogen — wurde diskutiert, und für wie lange?"
+    hint:
+      en: "How long both run side by side, and who checked that the load holds."
+      de: "Wie lange beide parallel laufen, und wer geprüft hat, dass die Last trägt."
   - id: "Q8.4"
     mode: [discovery]
     no_defaults: false
     text:
       en: "If this migration goes wrong, what is the rollback path — and what does it cost in time and data fidelity?"
       de: "Wenn diese Migration schiefgeht, was ist der Rückweg — und was kostet er an Zeit und Datenintegrität?"
+    hint:
+      en: "The way back in steps, with its cost in time and data integrity."
+      de: "Den Rückweg in Schritten, mit seinem Preis an Zeit und Datenintegrität."
   - id: "Q8.5"
     mode: [discovery]
     no_defaults: true
     text:
       en: "Has the scenario \"return is impossible\" been explicitly evaluated and documented — not just noted as a risk?"
       de: "Wurde das Szenario \"Rückkehr ist unmöglich\" explizit bewertet und dokumentiert — nicht nur als Risiko notiert?"
+    hint:
+      en: "Yes, with the document, or no."
+      de: "Ja, mit dem Dokument, oder nein."
   - id: "Q8.6"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What data migration strategy exists for master data and historical records — particularly records with retention obligations?"
       de: "Welche Datenmigrationsstrategie gibt es für Stammdaten und historische Datensätze — insbesondere für solche mit Aufbewahrungspflichten?"
+    hint:
+      en: "The strategy for master data and for the records under retention."
+      de: "Die Strategie für Stammdaten und für die aufbewahrungspflichtigen Sätze."
 
 hypotheses:
   - name: "The dual-write window is underestimated"

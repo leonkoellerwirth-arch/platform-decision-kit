@@ -12,24 +12,24 @@ import type { Lang } from "./themes";
 
 export const UI = {
   title: {
-    en: "Platform Decision Kit — a system architect’s triage & discovery instrument for brownfield platforms",
-    de: "Platform Decision Kit — ein Triage- und Discovery-Instrument des Systemarchitekten für Brownfield-Plattformen",
+    en: "Platform Decision Kit: a system architect’s triage and discovery instrument for brownfield platforms",
+    de: "Platform Decision Kit: ein Triage- und Discovery-Instrument des Systemarchitekten für Brownfield-Plattformen",
   },
   claim: {
-    en: "A conversation yields claims, not evidence. This instrument captures a platform situation in structured hypotheses — tagged fact / statement / assumption / to-verify. It produces no recommendation. That boundary is the product.",
-    de: "Ein Gespräch liefert Behauptungen, keine Belege. Dieses Instrument erfasst eine Plattformsituation in strukturierten Hypothesen — getaggt als Fakt / Aussage / Annahme / zu verifizieren. Es erzeugt keine Empfehlung. Diese Grenze ist das Produkt.",
+    en: "A conversation yields claims, not evidence. This instrument captures a platform situation as tagged hypotheses: fact, statement, assumption, unknown. It produces no recommendation. That boundary is the product.",
+    de: "Ein Gespräch liefert Behauptungen, keine Belege. Dieses Instrument erfasst eine Plattformsituation als getaggte Hypothesen: Fakt, Aussage, Annahme, unbekannt. Es erzeugt keine Empfehlung. Diese Grenze ist das Produkt.",
   },
   trustLead: {
     en: "Everything you type stays in this browser.",
     de: "Alles, was Sie eintragen, bleibt in diesem Browser.",
   },
   trustRest: {
-    en: "There is no backend, no account, and nothing is sent anywhere — the page makes no network call after it has loaded. Export writes a Markdown file you keep.",
-    de: "Kein Backend, kein Konto, nichts wird irgendwohin gesendet — die Seite macht nach dem Laden keinen einzigen Netzaufruf. Der Export erzeugt eine Markdown-Datei, die bei Ihnen bleibt.",
+    en: "There is no backend, no account, and nothing is sent anywhere. The page makes no network call after it has loaded. Export writes a Markdown file you keep.",
+    de: "Kein Backend, kein Konto, nichts wird irgendwohin gesendet. Die Seite macht nach dem Laden keinen einzigen Netzaufruf. Der Export erzeugt eine Markdown-Datei, die bei Ihnen bleibt.",
   },
   langNote: {
     en: "English is the binding language of this kit. The German texts are translations.",
-    de: "Englisch ist die verbindliche Sprache dieses Kits. Die deutschen Texte sind Übersetzungen — sie sind vollständig nutzbar, aber nicht die maßgebliche Fassung.",
+    de: "Englisch ist die verbindliche Sprache dieses Kits. Die deutschen Texte sind Übersetzungen. Sie sind vollständig nutzbar, aber nicht die maßgebliche Fassung.",
   },
   triageMode: { en: "Triage · 20 min", de: "Triage · 20 Min" },
   discoveryMode: { en: "Discovery · 90+ min", de: "Discovery · 90+ Min" },
@@ -38,8 +38,8 @@ export const UI = {
     de: "Triage hat kein Empfehlungsrecht.",
   },
   triageNoteRest: {
-    en: "Its output is a situation picture, open points, and red flags — nothing that reads as a direction.",
-    de: "Ihr Ergebnis ist ein Lagebild, offene Punkte und Red Flags — nichts, was sich wie eine Richtung liest.",
+    en: "Its output is a situation picture, open points and red flags, and nothing that reads as a direction.",
+    de: "Ihr Ergebnis ist ein Lagebild, offene Punkte und Red Flags, und nichts, was sich wie eine Richtung liest.",
   },
   answered: { en: "answered", de: "beantwortet" },
   openInRegister: { en: "open in the register", de: "offen im Register" },
@@ -49,9 +49,10 @@ export const UI = {
   canonical: { en: "canonical", de: "kanonisch" },
   redFlags: { en: "Red flags to watch for", de: "Red Flags, auf die zu achten ist" },
   answerPlaceholder: { en: "What was observed?", de: "Was wurde beobachtet?" },
+  forExample: { en: "e.g.", de: "z. B." },
   unknownPlaceholder: {
-    en: "Unknown — deliberately left empty.",
-    de: "Unbekannt — bewusst leer gelassen.",
+    en: "Unknown, deliberately left empty.",
+    de: "Unbekannt, bewusst leer gelassen.",
   },
   basis: { en: "Basis", de: "Basis" },
   source: { en: "Source", de: "Beleg/Quelle" },
@@ -65,8 +66,8 @@ export const UI = {
     de: "Ein Fakt braucht eine Beleg-Referenz. Ohne sie ist das eine Aussage, kein Fakt.",
   },
   unknownHint: {
-    en: "Unknown — verification set to open, and it stays open.",
-    de: "Unbekannt — Verifikation auf offen gesetzt, und sie bleibt offen.",
+    en: "Unknown. The verification is set to open, and it stays open.",
+    de: "Unbekannt. Die Verifikation steht auf offen, und sie bleibt offen.",
   },
   noDefaultsHint: {
     en: "This block takes no defaults: do not fill this from experience.",
@@ -74,27 +75,27 @@ export const UI = {
   },
   // --- Discovery mode: the parts of a theme block that are not questions ---
   stopConditions: {
-    en: "Stop conditions — when to break off",
-    de: "Stop-Bedingungen — wann abzubrechen ist",
+    en: "Stop conditions: when to break off",
+    de: "Stop-Bedingungen: wann abzubrechen ist",
   },
   hypotheses: {
-    en: "Patterns & hypotheses — not questions",
-    de: "Muster & Hypothesen — keine Fragen",
+    en: "Patterns and hypotheses, not questions",
+    de: "Muster und Hypothesen, keine Fragen",
   },
   hypothesesNote: {
-    en: "Testable patterns, each with the boundary inside which it holds. Never ask these as questions — that is what turns a pattern into a leading question.",
-    de: "Prüfbare Muster, jeweils mit dem Bereich, in dem sie gelten. Diese nie als Frage stellen — genau das macht aus einem Muster eine Suggestivfrage.",
+    en: "Testable patterns, each with the boundary inside which it holds. Never ask these as questions. That is what turns a pattern into a leading question.",
+    de: "Prüfbare Muster, jeweils mit dem Bereich, in dem sie gelten. Diese nie als Frage stellen. Genau das macht aus einem Muster eine Suggestivfrage.",
   },
   hypothesesEnglish: {
     en: "canonical",
-    de: "Englisch — die verbindliche Fassung; für Hypothesen gibt es bewusst keine Übersetzung",
+    de: "Englisch, die verbindliche Fassung; für Hypothesen gibt es bewusst keine Übersetzung",
   },
   scopeOfValidity: { en: "Holds when", de: "Gilt, wenn" },
   falsifiableBy: { en: "Refuted by", de: "Widerlegt durch" },
   decisionHead: { en: "Decision head", de: "Entscheidungskopf" },
   decisionHeadNote: {
     en: "The frame the whole conversation hangs on. Fill it before the blocks, and revisit it if a block contradicts it.",
-    de: "Der Rahmen, an dem das ganze Gespräch hängt. Vor den Blöcken ausfüllen — und erneut prüfen, wenn ein Block ihm widerspricht.",
+    de: "Der Rahmen, an dem das ganze Gespräch hängt. Vor den Blöcken ausfüllen, und erneut prüfen, wenn ein Block ihm widerspricht.",
   },
   dataInventory: { en: "Mini data inventory", de: "Mini-Dateninventar" },
   dataInventoryNote: {
@@ -123,16 +124,16 @@ export const UI = {
   viewIntake: { en: "Intake", de: "Erhebung" },
   viewDeck: { en: "Presentation", de: "Präsentation" },
   deckSubtitle: {
-    en: "Presentation skeleton — Output B",
-    de: "Präsentations-Skelett — Output B",
+    en: "Presentation skeleton: Output B",
+    de: "Präsentations-Skelett: Output B",
   },
   deckNote: {
-    en: "Built from your answers alone, verbatim, with their tags. Nothing here is summarised, ranked, or inferred — there is no model in this page. Slide order is fixed by the specification.",
-    de: "Ausschließlich aus Ihren Antworten gebaut, wörtlich, mit ihren Tags. Nichts hier ist zusammengefasst, gewichtet oder abgeleitet — in dieser Seite läuft kein Modell. Die Folienreihenfolge ist durch die Spezifikation festgelegt.",
+    en: "Built from your answers alone, verbatim, with their tags. Nothing here is summarised, ranked, or inferred. No model runs in this page. Slide order is fixed by the specification.",
+    de: "Ausschließlich aus Ihren Antworten gebaut, wörtlich, mit ihren Tags. Nichts hier ist zusammengefasst, gewichtet oder abgeleitet. In dieser Seite läuft kein Modell. Die Folienreihenfolge ist durch die Spezifikation festgelegt.",
   },
   deckEmpty: {
     en: "Nothing answered yet. Fill the intake and the slides fill themselves.",
-    de: "Noch nichts beantwortet. Füllen Sie die Erhebung aus — die Folien füllen sich von selbst.",
+    de: "Noch nichts beantwortet. Füllen Sie die Erhebung aus, die Folien füllen sich von selbst.",
   },
   print: { en: "Print / save as PDF", de: "Drucken / als PDF sichern" },
   slide: { en: "Slide", de: "Folie" },
@@ -170,8 +171,8 @@ export const UI = {
     de: "Diese Richtung ist abhängig von",
   },
   noOpenDirections: {
-    en: "No open items. Nothing is pending — which is a finding, not an absence.",
-    de: "Keine offenen Punkte. Nichts steht aus — das ist ein Befund, keine Leere.",
+    en: "No open items. Nothing is pending, which is a finding rather than an absence.",
+    de: "Keine offenen Punkte. Nichts steht aus, und das ist ein Befund, keine Leere.",
   },
   irreversible: { en: "Irreversible", de: "Irreversibel" },
   deckSignoff: {
@@ -184,19 +185,19 @@ export const UI = {
   },
   registerTitle: { en: "To-verify register", de: "To-Verify-Register" },
   registerEmpty: {
-    en: "Nothing open yet. On a first pass through a brownfield platform, an empty register is a finding about the conversation — not a result about the platform.",
-    de: "Noch nichts offen. Bei einem ersten Durchgang durch eine Brownfield-Plattform ist ein leeres Register ein Befund über das Gespräch — kein Ergebnis über die Plattform.",
+    en: "Nothing open yet. On a first pass through a brownfield platform, an empty register is a finding about the conversation, not a result about the platform.",
+    de: "Noch nichts offen. Bei einem ersten Durchgang durch eine Brownfield-Plattform ist ein leeres Register ein Befund über das Gespräch, kein Ergebnis über die Plattform.",
   },
   exportButton: { en: "Export as Markdown", de: "Als Markdown exportieren" },
   copyButton: { en: "Copy to clipboard", de: "In die Zwischenablage kopieren" },
   copied: { en: "Copied.", de: "Kopiert." },
   footer: {
-    en: "Band 3 of the series, after the governance toolkit and the approval blueprint. The thread: verification instead of trust — here applied to the architect’s own work.",
-    de: "Band 3 der Reihe, nach dem Governance-Toolkit und dem Freigabe-Blueprint. Der rote Faden: Verifikation statt Vertrauen — hier angewandt auf die Arbeit des Architekten selbst.",
+    en: "Band 3 of the series, after the governance toolkit and the approval blueprint. The thread: verification instead of trust, here applied to the architect’s own work.",
+    de: "Band 3 der Reihe, nach dem Governance-Toolkit und dem Freigabe-Blueprint. Der rote Faden: Verifikation statt Vertrauen, hier angewandt auf die Arbeit des Architekten selbst.",
   },
   wip: {
-    en: "Both question sets are generated from intake/themes/ — the same canonical source the Markdown forms are rendered from. Neither can drift from the other; the gate re-renders and diffs.",
-    de: "Beide Fragensätze werden aus intake/themes/ erzeugt — derselben kanonischen Quelle, aus der auch die Markdown-Formulare gerendert werden. Keiner kann vom anderen abweichen; der Gate rendert neu und vergleicht.",
+    en: "Both question sets are generated from intake/themes/, the same canonical source the Markdown forms are rendered from. Neither can drift from the other; the gate re-renders and diffs.",
+    de: "Beide Fragensätze werden aus intake/themes/ erzeugt, derselben kanonischen Quelle, aus der auch die Markdown-Formulare gerendert werden. Keiner kann vom anderen abweichen; der Gate rendert neu und vergleicht.",
   },
   basisLabels: {
     fact: { en: "fact", de: "Fakt" },
@@ -212,8 +213,8 @@ export const UI = {
   // Export document
   exportTitle: { en: "Intake", de: "Intake" },
   exportNote: {
-    en: "Conversation note, not an authoritative source. A statement with an open verification stays a statement — it never becomes a fact by being written down.",
-    de: "Gesprächsnotiz, keine autoritative Quelle. Eine Aussage mit offener Verifikation bleibt eine Aussage — sie wird nicht zum Fakt, weil sie aufgeschrieben wurde.",
+    en: "Conversation note, not an authoritative source. A statement with an open verification stays a statement. It never becomes a fact by being written down.",
+    de: "Gesprächsnotiz, keine autoritative Quelle. Eine Aussage mit offener Verifikation bleibt eine Aussage. Sie wird nicht zum Fakt, weil sie aufgeschrieben wurde.",
   },
   exportLangNote: {
     en: "Language: English (canonical).",
@@ -230,8 +231,8 @@ export const UI = {
 
   // --- EvidenceGrid and navigation ---
   evidenceGrid: {
-    en: "Evidence grid — basis × verification",
-    de: "Beleggitter — Basis × Verifikation",
+    en: "Evidence grid: basis by verification",
+    de: "Beleggitter: Basis mal Verifikation",
   },
   keyboardHint: {
     en: "1–4 basis · Q/W/E verification (outside text fields)",
@@ -254,8 +255,8 @@ export const UI = {
   infoToggle: { en: "About this page", de: "Hinweis zu dieser Seite" },
   loadDemo: { en: "Load the worked example", de: "Beispiel laden" },
   loadDemoHint: {
-    en: "Nothing recorded yet. You can load the worked example — an invented energy utility — to see what a finished pass looks like.",
-    de: "Noch nichts erfasst. Sie können das Beispiel laden — ein erfundener Energieversorger — um zu sehen, wie ein fertiger Durchgang aussieht.",
+    en: "Nothing recorded yet. You can load the worked example, an invented energy utility, to see what a finished pass looks like.",
+    de: "Noch nichts erfasst. Sie können das Beispiel laden, einen erfundenen Energieversorger, um zu sehen, wie ein fertiger Durchgang aussieht.",
   },
   clearAll: { en: "Clear everything", de: "Alles zurücksetzen" },
   clearAllConfirm: {
@@ -315,8 +316,8 @@ export const UI = {
   notClassified: { en: "not classified yet", de: "noch nicht eingeordnet" },
   clearCell: { en: "Clear", de: "Zurücksetzen" },
   ruleUnknown: {
-    en: "An unknown carries no outstanding choice — it is open, and only open.",
-    de: "Ein Unbekannt trägt keine offene Wahl — es ist offen, und nur offen.",
+    en: "An unknown carries no outstanding choice. It is open, and only open.",
+    de: "Ein Unbekannt trägt keine offene Wahl. Es ist offen, und nur offen.",
   },
 } as const;
 

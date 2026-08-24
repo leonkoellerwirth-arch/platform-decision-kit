@@ -1,6 +1,6 @@
 # Intake — Discovery
 
-> Gesprächsnotiz, keine autoritative Quelle. Eine Aussage mit offener Verifikation bleibt eine Aussage — sie wird nicht zum Fakt, weil sie aufgeschrieben wurde.
+> Gesprächsnotiz, keine autoritative Quelle. Eine Aussage mit offener Verifikation bleibt eine Aussage. Sie wird nicht zum Fakt, weil sie aufgeschrieben wurde.
 > Sprache: Deutsch (Übersetzung; verbindlich ist die englische Fassung). Die Frage-IDs sind sprachneutral.
 
 ## 1. Schmerz & Anlass

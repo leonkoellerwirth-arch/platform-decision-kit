@@ -76,6 +76,12 @@ def question_block(q: dict[str, Any], *, with_note: bool) -> str:
         "",
         f"*[DE] {q['text']['de']}*",
         "",
+    ]
+    # An example of the shape a usable answer has. It is guidance for the person filling the
+    # form, never a default: nothing here may be carried into an answer that was not given.
+    if q.get("hint"):
+        lines += [f"> e.g. {q['hint']['en']}", ""]
+    lines += [
         "**Answer:** [free text]",
         "",
         "**Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown",

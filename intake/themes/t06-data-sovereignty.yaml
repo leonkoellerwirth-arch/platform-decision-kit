@@ -22,30 +22,45 @@ questions:
     text:
       en: "What data classifications apply to data this platform stores or processes — and who validated that classification?"
       de: "Welche Datenklassifizierungen gelten für Daten, die diese Plattform speichert oder verarbeitet — und wer hat sie validiert?"
+    hint:
+      en: "The classification, who established it, and when."
+      de: "Die Klassifizierung, wer sie festgestellt hat, und wann."
   - id: "Q6.2"
     mode: [discovery]
     no_defaults: true
     text:
       en: "Where does personal data enter the platform, and under what legal basis is it processed?"
       de: "Wo treten personenbezogene Daten in die Plattform ein, und unter welcher Rechtsgrundlage werden sie verarbeitet?"
+    hint:
+      en: "The entry points, and the legal basis for each of them."
+      de: "Die Eintrittspunkte, und die Rechtsgrundlage für jeden davon."
   - id: "Q6.3"
     mode: [discovery]
     no_defaults: true
     text:
       en: "Who is the named data owner for each major data domain processed by this platform?"
       de: "Wer ist der benannte Dateneigner für jede wesentliche Datendomäne, die von dieser Plattform verarbeitet wird?"
+    hint:
+      en: "One named owner per domain, or the domains that have none."
+      de: "Ein benannter Eigner je Domäne, oder die Domänen, die keinen haben."
   - id: "Q6.4"
     mode: [discovery]
     no_defaults: true
     text:
       en: "What are the documented retention requirements, and is there a working erasure path that has been tested?"
       de: "Was sind die dokumentierten Aufbewahrungsanforderungen, und gibt es einen funktionierenden Löschpfad, der getestet wurde?"
+    hint:
+      en: "The retention period, and whether erasure has ever been tested."
+      de: "Die Aufbewahrungsfrist, und ob Löschen je getestet wurde."
   - id: "Q6.5"
     mode: [discovery]
     no_defaults: true
     text:
       en: "Does data processed by this platform cross jurisdictions or leave the organisation's direct control?"
       de: "Überqueren von dieser Plattform verarbeitete Daten Jurisdiktionen oder verlassen sie die direkte Kontrolle der Organisation?"
+    hint:
+      en: "Where the data sits, the backup route included."
+      de: "Wo die Daten liegen, die Backup-Strecke eingeschlossen."
 
 data_inventory_annex:
   type: table

@@ -29,6 +29,8 @@
 
 *[DE] Was ist das vordergründige Problem in einem Satz?*
 
+> e.g. Changes take six to nine months because nobody can predict the impact.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -44,6 +46,8 @@
 #### Q2.1 — What is the primary decision question — stated as a question with a yes/no or option-selecting answer?
 
 *[DE] Was ist die primäre Entscheidungsfrage — als Frage formuliert, die mit Ja/Nein oder einer Optionswahl beantwortet werden kann?*
+
+> e.g. Phrase it as a question with a yes/no or an option choice, and a date.
 
 **Answer:** [free text]
 
@@ -61,6 +65,8 @@
 
 *[DE] Welche Architektur- oder Technologievorgaben sind fest — d.h. in dieser Entscheidung nicht zur Diskussion gestellt?*
 
+> e.g. Data centre, target language, identity provider: whatever is not up for debate.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -76,6 +82,8 @@
 #### Q4.3 — Which parts of the system does no one currently understand well enough to predict the effect of a change?
 
 *[DE] Welche Teile des Systems versteht niemand aktuell gut genug, um die Auswirkung einer Änderung vorherzusagen?*
+
+> e.g. The component, and why nobody understands it any more.
 
 **Answer:** [free text]
 
@@ -93,6 +101,8 @@
 
 *[DE] Welche Konsumenten sind geschäftskritisch, und welche Verfügbarkeit oder Latenz erwarten sie?*
 
+> e.g. Which ones stop the business, and the availability they expect.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -108,6 +118,8 @@
 #### Q6.1 — What data classifications apply to data this platform stores or processes — and who validated that classification?
 
 *[DE] Welche Datenklassifizierungen gelten für Daten, die diese Plattform speichert oder verarbeitet — und wer hat sie validiert?*
+
+> e.g. The classification, who established it, and when.
 
 **Answer:** [free text]
 
@@ -125,6 +137,8 @@
 
 *[DE] Ist KI/ML im Entscheidungsgegenstand selbst — in einem Produktivsystem oder -workflow — oder nur im Autorenprozess dieser Analyse?*
 
+> e.g. Yes or no, and where the model actually runs.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -140,6 +154,8 @@
 #### Q8.2 — Which steps in any migration path under consideration are irreversible — once taken, the previous state cannot be restored?
 
 *[DE] Welche Schritte in einem erwogenen Migrationspfad sind irreversibel — einmal vollzogen, kann der vorherige Zustand nicht wiederhergestellt werden?*
+
+> e.g. The step, and what cannot be restored once it is done.
 
 **Answer:** [free text]
 
@@ -157,6 +173,8 @@
 
 *[DE] Wer besitzt diese Plattform — die einzelne benannte Person oder das Team mit Verantwortung für Verfügbarkeit und Weiterentwicklung?*
 
+> e.g. The named team or person, and whether availability sits there too.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -172,6 +190,8 @@
 #### Q10.1 — What are the current SLO/availability targets — and are they being met? If no SLO exists, state that explicitly.
 
 *[DE] Was sind die aktuellen SLO/Verfügbarkeitsziele — und werden sie eingehalten? Falls kein SLO existiert, explizit benennen.*
+
+> e.g. The SLO if one exists, and the availability actually measured.
 
 **Answer:** [free text]
 

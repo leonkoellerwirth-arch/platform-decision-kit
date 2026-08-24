@@ -1,6 +1,6 @@
 # Intake — Discovery
 
-> Conversation note, not an authoritative source. A statement with an open verification stays a statement — it never becomes a fact by being written down.
+> Conversation note, not an authoritative source. A statement with an open verification stays a statement. It never becomes a fact by being written down.
 > Language: English (canonical).
 
 ## 1. Pain & Occasion

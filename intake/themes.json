@@ -22,6 +22,10 @@
           "text": {
             "en": "What is the presenting problem in one sentence?",
             "de": "Was ist das vordergründige Problem in einem Satz?"
+          },
+          "hint": {
+            "en": "Changes take six to nine months because nobody can predict the impact.",
+            "de": "Änderungen dauern sechs bis neun Monate, weil niemand die Auswirkung vorhersagen kann."
           }
         },
         {
@@ -33,6 +37,10 @@
           "text": {
             "en": "How long has this situation existed, and what changed to trigger a review now?",
             "de": "Wie lange besteht diese Situation, und was hat sich verändert, sodass das Review jetzt stattfindet?"
+          },
+          "hint": {
+            "en": "Name the date and the trigger: an expiring licence, an announced audit, a departure.",
+            "de": "Datum und Auslöser nennen: auslaufende Lizenz, angekündigte Prüfung, Weggang."
           }
         },
         {
@@ -44,6 +52,10 @@
           "text": {
             "en": "Who named this a problem — and who agrees, who does not?",
             "de": "Wer hat dies als Problem benannt — und wer stimmt zu, wer nicht?"
+          },
+          "hint": {
+            "en": "Name the role that raised it, and the one that disagrees.",
+            "de": "Die Rolle nennen, die es benannt hat, und die, die widerspricht."
           }
         },
         {
@@ -55,6 +67,10 @@
           "text": {
             "en": "What has already been attempted to address this situation, and what was the outcome?",
             "de": "Was wurde bisher unternommen, um diese Situation zu adressieren, und was war das Ergebnis?"
+          },
+          "hint": {
+            "en": "What was tried, and what it actually changed. Also what it did not.",
+            "de": "Was versucht wurde und was es wirklich geändert hat. Auch, was nicht."
           }
         },
         {
@@ -66,6 +82,10 @@
           "text": {
             "en": "What is the estimated cost of inaction over 12 months — quantified, or explicitly stated as unquantified?",
             "de": "Was sind die geschätzten Kosten der Untätigkeit über 12 Monate — quantifiziert oder explizit als unquantifiziert benannt?"
+          },
+          "hint": {
+            "en": "A figure with its derivation, or say plainly that it is unquantified.",
+            "de": "Eine Zahl mit Herleitung, oder ausdrücklich: nicht quantifiziert."
           }
         }
       ],
@@ -126,6 +146,10 @@
           "text": {
             "en": "What is the primary decision question — stated as a question with a yes/no or option-selecting answer?",
             "de": "Was ist die primäre Entscheidungsfrage — als Frage formuliert, die mit Ja/Nein oder einer Optionswahl beantwortet werden kann?"
+          },
+          "hint": {
+            "en": "Phrase it as a question with a yes/no or an option choice, and a date.",
+            "de": "Als Frage formulieren, mit Ja/Nein oder Optionswahl, und mit Datum."
           }
         },
         {
@@ -137,6 +161,10 @@
           "text": {
             "en": "Who is the decision owner — the single named person accountable for the outcome?",
             "de": "Wer ist der Entscheidungseigner — die einzelne benannte Person, die für das Ergebnis verantwortlich ist?"
+          },
+          "hint": {
+            "en": "One named role, and whether the authority is in writing.",
+            "de": "Eine benannte Rolle, und ob die Befugnis schriftlich hinterlegt ist."
           }
         },
         {
@@ -148,6 +176,10 @@
           "text": {
             "en": "What is explicitly in scope for this decision?",
             "de": "Was liegt explizit im Scope dieser Entscheidung?"
+          },
+          "hint": {
+            "en": "The systems and layers this decision is allowed to change.",
+            "de": "Die Systeme und Schichten, die diese Entscheidung ändern darf."
           }
         },
         {
@@ -159,6 +191,10 @@
           "text": {
             "en": "What is explicitly out of scope for this decision?",
             "de": "Was liegt explizit außerhalb des Scope dieser Entscheidung?"
+          },
+          "hint": {
+            "en": "The systems this decision explicitly does not touch.",
+            "de": "Die Systeme, die diese Entscheidung ausdrücklich nicht anfasst."
           }
         },
         {
@@ -170,6 +206,10 @@
           "text": {
             "en": "What is the decision deadline, and what happens — explicitly — if it passes without a decision?",
             "de": "Was ist die Entscheidungsfrist, und was passiert — explizit — wenn sie ohne Entscheidung verstreicht?"
+          },
+          "hint": {
+            "en": "The date, and what happens on the day after it passes.",
+            "de": "Das Datum, und was am Tag danach passiert, wenn nichts entschieden ist."
           }
         },
         {
@@ -181,6 +221,10 @@
           "text": {
             "en": "What does success look like in 12 months — in terms that a neutral observer could verify?",
             "de": "Wie sieht Erfolg in 12 Monaten aus — in Begriffen, die ein neutraler Beobachter verifizieren könnte?"
+          },
+          "hint": {
+            "en": "A sentence a neutral observer could check in twelve months.",
+            "de": "Ein Satz, den ein neutraler Beobachter in zwölf Monaten prüfen könnte."
           }
         },
         {
@@ -192,6 +236,10 @@
           "text": {
             "en": "Who must be satisfied for this to be considered a good outcome, and by what criteria do they judge it?",
             "de": "Wer muss mit dem Ergebnis zufrieden sein, und nach welchen Kriterien beurteilt er es?"
+          },
+          "hint": {
+            "en": "Who signs it off, and by which written criteria.",
+            "de": "Wer abnimmt, und nach welchen schriftlich vorliegenden Kriterien."
           }
         }
       ],
@@ -259,6 +307,10 @@
           "text": {
             "en": "What architecture or technology mandates are fixed — i.e., not open for discussion in this decision?",
             "de": "Welche Architektur- oder Technologievorgaben sind fest — d.h. in dieser Entscheidung nicht zur Diskussion gestellt?"
+          },
+          "hint": {
+            "en": "Data centre, target language, identity provider: whatever is not up for debate.",
+            "de": "Rechenzentrum, Zielsprache, Identitätsanbieter: was nicht zur Debatte steht."
           }
         },
         {
@@ -270,6 +322,10 @@
           "text": {
             "en": "What budget envelope exists for this initiative — or is there none defined?",
             "de": "Welchen Budgetrahmen gibt es für diese Initiative — oder ist keiner definiert?"
+          },
+          "hint": {
+            "en": "The budget line, and whether this initiative has its own share of it.",
+            "de": "Die Budgetlinie, und ob diese Initiative einen eigenen Anteil daran hat."
           }
         },
         {
@@ -281,6 +337,10 @@
           "text": {
             "en": "What is the current maturity phase of this platform — how long has it been in production, and what is the cadence of changes?",
             "de": "Was ist die aktuelle Reifephase der Plattform — wie lange ist sie in Produktion, und wie häufig wird sie geändert?"
+          },
+          "hint": {
+            "en": "Years in production, releases per year, how many of them are maintenance only.",
+            "de": "Jahre in Produktion, Releases pro Jahr, wie viele davon reine Wartung."
           }
         },
         {
@@ -292,6 +352,10 @@
           "text": {
             "en": "What regulatory or audit commitments constrain the timeline of any change?",
             "de": "Welche regulatorischen oder Audit-Verpflichtungen schränken den Zeitplan einer Änderung ein?"
+          },
+          "hint": {
+            "en": "The named regulation, the audit date, and who established both.",
+            "de": "Die benannte Vorschrift, den Prüfungstermin, und wer beides festgestellt hat."
           }
         },
         {
@@ -303,6 +367,10 @@
           "text": {
             "en": "What governance process must any significant platform decision pass through, and how long does it take?",
             "de": "Welchen Governance-Prozess muss eine bedeutende Plattformentscheidung durchlaufen, und wie lange dauert er?"
+          },
+          "hint": {
+            "en": "The bodies it passes, the written duration, and the observed one.",
+            "de": "Die Gremien, die vorgeschriebene Dauer, und die erfahrungsgemäße."
           }
         }
       ],
@@ -356,6 +424,10 @@
           "text": {
             "en": "What exists today — list the core components, their approximate production age, and their technology stack?",
             "de": "Was existiert heute — Liste der Kernkomponenten, ihr ungefähres Produktionsalter und ihr Technologie-Stack?"
+          },
+          "hint": {
+            "en": "Components with their year and their technology, as a list.",
+            "de": "Komponenten mit Jahr und Technologie, als Liste."
           }
         },
         {
@@ -367,6 +439,10 @@
           "text": {
             "en": "Where does the definitive technical documentation live, and when was it last verified against the system?",
             "de": "Wo lebt die maßgebliche technische Dokumentation, und wann wurde sie zuletzt gegen das System verifiziert?"
+          },
+          "hint": {
+            "en": "Where it lives, and when it was last checked against the running system.",
+            "de": "Wo sie liegt, und wann sie zuletzt gegen das laufende System geprüft wurde."
           }
         },
         {
@@ -379,6 +455,10 @@
           "text": {
             "en": "Which parts of the system does no one currently understand well enough to predict the effect of a change?",
             "de": "Welche Teile des Systems versteht niemand aktuell gut genug, um die Auswirkung einer Änderung vorherzusagen?"
+          },
+          "hint": {
+            "en": "The component, and why nobody understands it any more.",
+            "de": "Die Komponente, und warum sie niemand mehr versteht."
           }
         },
         {
@@ -390,6 +470,10 @@
           "text": {
             "en": "What data does the platform manage — and what is the master data situation (single source, duplicates, ownership)?",
             "de": "Welche Daten verwaltet die Plattform — und wie ist die Stammdatenlage (Einzelquelle, Duplikate, Eigentümerschaft)?"
+          },
+          "hint": {
+            "en": "The data domains, and where the same record exists more than once.",
+            "de": "Die Datendomänen, und wo derselbe Datensatz mehrfach existiert."
           }
         },
         {
@@ -401,6 +485,10 @@
           "text": {
             "en": "What integrations exist — documented or not — and who knows about them?",
             "de": "Welche Integrationen existieren — dokumentiert oder nicht — und wer kennt sie?"
+          },
+          "hint": {
+            "en": "The documented count, plus the ones only mentioned in conversation.",
+            "de": "Die dokumentierte Zahl, plus die, die nur im Gespräch genannt wurden."
           }
         },
         {
@@ -412,6 +500,10 @@
           "text": {
             "en": "What is the current automated test coverage, and when was the last full regression run conducted?",
             "de": "Wie ist die aktuelle automatisierte Testabdeckung, und wann wurde der letzte vollständige Regressionstest durchgeführt?"
+          },
+          "hint": {
+            "en": "A percentage with its date, or say that nobody measures it.",
+            "de": "Eine Prozentzahl mit Datum, oder: es misst niemand."
           }
         }
       ],
@@ -471,6 +563,10 @@
           "text": {
             "en": "Who are the current consumers of this platform — list them and describe how they integrate (sync, async, batch, event)?",
             "de": "Wer sind die aktuellen Konsumenten dieser Plattform — Liste und Beschreibung der Integration (sync, async, Batch, Event)?"
+          },
+          "hint": {
+            "en": "Name each consumer and how it connects: sync, batch, straight to the database.",
+            "de": "Jeden Konsumenten nennen und wie er anbindet: sync, Batch, direkt auf die Datenbank."
           }
         },
         {
@@ -483,6 +579,10 @@
           "text": {
             "en": "Which consumers are business-critical, and what availability or latency do they require?",
             "de": "Welche Konsumenten sind geschäftskritisch, und welche Verfügbarkeit oder Latenz erwarten sie?"
+          },
+          "hint": {
+            "en": "Which ones stop the business, and the availability they expect.",
+            "de": "Welche den Betrieb anhalten, und welche Verfügbarkeit sie erwarten."
           }
         },
         {
@@ -494,6 +594,10 @@
           "text": {
             "en": "Are there consumers who have built workarounds, undocumented integrations, or shadow copies of platform data?",
             "de": "Gibt es Konsumenten, die Workarounds, undokumentierte Integrationen oder Schattenkopien von Plattformdaten angelegt haben?"
+          },
+          "hint": {
+            "en": "The workaround, who built it, and why it exists.",
+            "de": "Den Workaround, wer ihn gebaut hat, und warum es ihn gibt."
           }
         },
         {
@@ -505,6 +609,10 @@
           "text": {
             "en": "Which interfaces are formally contracted or covered by an SLA — and which are informally used?",
             "de": "Welche Schnittstellen sind formal vertraglich vereinbart oder durch SLAs abgedeckt — und welche werden informell genutzt?"
+          },
+          "hint": {
+            "en": "Which interfaces have an SLA in writing, and which are only assumed.",
+            "de": "Welche Schnittstellen ein schriftliches SLA haben, und welche nur angenommen sind."
           }
         },
         {
@@ -516,6 +624,10 @@
           "text": {
             "en": "Who has the authority to accept a breaking interface change on behalf of each consumer — and is that person reachable?",
             "de": "Wer hat die Befugnis, im Namen jedes Konsumenten eine brechende Schnittstellenänderung zu akzeptieren — und ist diese Person erreichbar?"
+          },
+          "hint": {
+            "en": "One name per consumer, or say the person cannot be reached.",
+            "de": "Ein Name je Konsument, oder: die Person ist nicht erreichbar."
           }
         }
       ],
@@ -576,6 +688,10 @@
           "text": {
             "en": "What data classifications apply to data this platform stores or processes — and who validated that classification?",
             "de": "Welche Datenklassifizierungen gelten für Daten, die diese Plattform speichert oder verarbeitet — und wer hat sie validiert?"
+          },
+          "hint": {
+            "en": "The classification, who established it, and when.",
+            "de": "Die Klassifizierung, wer sie festgestellt hat, und wann."
           }
         },
         {
@@ -587,6 +703,10 @@
           "text": {
             "en": "Where does personal data enter the platform, and under what legal basis is it processed?",
             "de": "Wo treten personenbezogene Daten in die Plattform ein, und unter welcher Rechtsgrundlage werden sie verarbeitet?"
+          },
+          "hint": {
+            "en": "The entry points, and the legal basis for each of them.",
+            "de": "Die Eintrittspunkte, und die Rechtsgrundlage für jeden davon."
           }
         },
         {
@@ -598,6 +718,10 @@
           "text": {
             "en": "Who is the named data owner for each major data domain processed by this platform?",
             "de": "Wer ist der benannte Dateneigner für jede wesentliche Datendomäne, die von dieser Plattform verarbeitet wird?"
+          },
+          "hint": {
+            "en": "One named owner per domain, or the domains that have none.",
+            "de": "Ein benannter Eigner je Domäne, oder die Domänen, die keinen haben."
           }
         },
         {
@@ -609,6 +733,10 @@
           "text": {
             "en": "What are the documented retention requirements, and is there a working erasure path that has been tested?",
             "de": "Was sind die dokumentierten Aufbewahrungsanforderungen, und gibt es einen funktionierenden Löschpfad, der getestet wurde?"
+          },
+          "hint": {
+            "en": "The retention period, and whether erasure has ever been tested.",
+            "de": "Die Aufbewahrungsfrist, und ob Löschen je getestet wurde."
           }
         },
         {
@@ -620,6 +748,10 @@
           "text": {
             "en": "Does data processed by this platform cross jurisdictions or leave the organisation's direct control?",
             "de": "Überqueren von dieser Plattform verarbeitete Daten Jurisdiktionen oder verlassen sie die direkte Kontrolle der Organisation?"
+          },
+          "hint": {
+            "en": "Where the data sits, the backup route included.",
+            "de": "Wo die Daten liegen, die Backup-Strecke eingeschlossen."
           }
         }
       ],
@@ -690,6 +822,10 @@
           "text": {
             "en": "What regulatory frameworks apply to this platform — stated by whom, and when was this last reviewed?",
             "de": "Welche regulatorischen Rahmenbedingungen gelten für diese Plattform — von wem festgestellt, und wann zuletzt geprüft?"
+          },
+          "hint": {
+            "en": "The named frameworks, who established them, and the date.",
+            "de": "Die benannten Rahmenwerke, wer sie festgestellt hat, und das Datum."
           }
         },
         {
@@ -701,6 +837,10 @@
           "text": {
             "en": "When was the last external or internal audit that covered this platform, and what were the open findings?",
             "de": "Wann war das letzte externe oder interne Audit, das diese Plattform abdeckte, und was waren die offenen Feststellungen?"
+          },
+          "hint": {
+            "en": "The audit date, and the findings still open.",
+            "de": "Das Prüfungsdatum, und die noch offenen Feststellungen."
           }
         },
         {
@@ -714,6 +854,10 @@
             "en": "Is AI/ML in the decision subject itself — in a production system or workflow — or only in the authoring process of this analysis?",
             "de": "Ist KI/ML im Entscheidungsgegenstand selbst — in einem Produktivsystem oder -workflow — oder nur im Autorenprozess dieser Analyse?"
           },
+          "hint": {
+            "en": "Yes or no, and where the model actually runs.",
+            "de": "Ja oder nein, und wo das Modell tatsächlich läuft."
+          },
           "note": "This is a scoping question, not a checklist. If AI is in scope: the role/risk class per Legal remains open unless Legal has stated otherwise. Do not fill in a risk class without a Legal statement — Q7.4 is a no_defaults field.\n"
         },
         {
@@ -725,6 +869,10 @@
           "text": {
             "en": "If AI/ML is in the decision subject: what is the role and risk class per Legal — or is this explicitly open?",
             "de": "Falls KI/ML im Entscheidungsgegenstand: Was ist die Rolle und Risikoklasse laut Legal — oder ist dies explizit offen?"
+          },
+          "hint": {
+            "en": "Role and risk class per Legal, or say Legal was not asked.",
+            "de": "Rolle und Risikoklasse laut Rechtsabteilung, oder: nicht befragt."
           }
         },
         {
@@ -736,6 +884,10 @@
           "text": {
             "en": "What trust or certification requirements do customers, partners, or regulators impose on this platform?",
             "de": "Welche Vertrauens- oder Zertifizierungsanforderungen stellen Kunden, Partner oder Behörden an diese Plattform?"
+          },
+          "hint": {
+            "en": "The certification demanded, and what its scope actually covers.",
+            "de": "Die verlangte Zertifizierung, und was ihr Geltungsbereich wirklich abdeckt."
           }
         }
       ],
@@ -789,6 +941,10 @@
           "text": {
             "en": "What migration paths have been considered — even informally — and what was the reasoning for or against each?",
             "de": "Welche Migrationspfade wurden erwogen — auch informell — und was war die Begründung für oder gegen jeden?"
+          },
+          "hint": {
+            "en": "Each path considered, and the reason for or against it.",
+            "de": "Jeden erwogenen Pfad, und die Begründung dafür oder dagegen."
           }
         },
         {
@@ -801,6 +957,10 @@
           "text": {
             "en": "Which steps in any migration path under consideration are irreversible — once taken, the previous state cannot be restored?",
             "de": "Welche Schritte in einem erwogenen Migrationspfad sind irreversibel — einmal vollzogen, kann der vorherige Zustand nicht wiederhergestellt werden?"
+          },
+          "hint": {
+            "en": "The step, and what cannot be restored once it is done.",
+            "de": "Den Schritt, und was danach nicht mehr herstellbar ist."
           }
         },
         {
@@ -812,6 +972,10 @@
           "text": {
             "en": "What approach for running old and new in parallel — if any — has been considered, and for how long?",
             "de": "Welcher Ansatz zum parallelen Betrieb von Alt und Neu — falls erwogen — wurde diskutiert, und für wie lange?"
+          },
+          "hint": {
+            "en": "How long both run side by side, and who checked that the load holds.",
+            "de": "Wie lange beide parallel laufen, und wer geprüft hat, dass die Last trägt."
           }
         },
         {
@@ -823,6 +987,10 @@
           "text": {
             "en": "If this migration goes wrong, what is the rollback path — and what does it cost in time and data fidelity?",
             "de": "Wenn diese Migration schiefgeht, was ist der Rückweg — und was kostet er an Zeit und Datenintegrität?"
+          },
+          "hint": {
+            "en": "The way back in steps, with its cost in time and data integrity.",
+            "de": "Den Rückweg in Schritten, mit seinem Preis an Zeit und Datenintegrität."
           }
         },
         {
@@ -834,6 +1002,10 @@
           "text": {
             "en": "Has the scenario \"return is impossible\" been explicitly evaluated and documented — not just noted as a risk?",
             "de": "Wurde das Szenario \"Rückkehr ist unmöglich\" explizit bewertet und dokumentiert — nicht nur als Risiko notiert?"
+          },
+          "hint": {
+            "en": "Yes, with the document, or no.",
+            "de": "Ja, mit dem Dokument, oder nein."
           }
         },
         {
@@ -845,6 +1017,10 @@
           "text": {
             "en": "What data migration strategy exists for master data and historical records — particularly records with retention obligations?",
             "de": "Welche Datenmigrationsstrategie gibt es für Stammdaten und historische Datensätze — insbesondere für solche mit Aufbewahrungspflichten?"
+          },
+          "hint": {
+            "en": "The strategy for master data and for the records under retention.",
+            "de": "Die Strategie für Stammdaten und für die aufbewahrungspflichtigen Sätze."
           }
         }
       ],
@@ -905,6 +1081,10 @@
           "text": {
             "en": "Who owns this platform — the single named person or team with accountability for its availability and evolution?",
             "de": "Wer besitzt diese Plattform — die einzelne benannte Person oder das Team mit Verantwortung für Verfügbarkeit und Weiterentwicklung?"
+          },
+          "hint": {
+            "en": "The named team or person, and whether availability sits there too.",
+            "de": "Das benannte Team oder die Person, und ob die Verfügbarkeit auch dort liegt."
           }
         },
         {
@@ -916,6 +1096,10 @@
           "text": {
             "en": "How does work reach this platform team — who initiates changes, who reviews them, and where do handoffs stall?",
             "de": "Wie gelangt Arbeit zu diesem Plattformteam — wer initiiert Änderungen, wer prüft sie, und wo stocken Übergaben?"
+          },
+          "hint": {
+            "en": "The route a change takes, and the step where it queues.",
+            "de": "Den Weg einer Änderung, und die Stelle, an der sie sich staut."
           }
         },
         {
@@ -927,6 +1111,10 @@
           "text": {
             "en": "Where is knowledge concentrated — who are the individuals whose absence would delay or block a migration?",
             "de": "Wo ist Wissen konzentriert — welche Personen wären, wenn sie fehlen, in der Lage, eine Migration zu verzögern oder zu blockieren?"
+          },
+          "hint": {
+            "en": "How many people, and what else they are already booked for.",
+            "de": "Wie viele Personen, und wofür sie sonst schon eingeplant sind."
           }
         },
         {
@@ -938,6 +1126,10 @@
           "text": {
             "en": "What organisational changes — restructuring, key departures, team mergers — are planned or underway that affect this work?",
             "de": "Welche Organisationsänderungen — Umstrukturierungen, wichtige Abgänge, Teamfusionen — sind geplant oder im Gange und betreffen diese Arbeit?"
+          },
+          "hint": {
+            "en": "The change, its date, and whether it is decided or rumoured.",
+            "de": "Die Änderung, ihr Datum, und ob sie beschlossen oder Gerücht ist."
           }
         },
         {
@@ -949,6 +1141,10 @@
           "text": {
             "en": "Who are the informal decision-makers whose alignment is necessary — even if they have no formal authority over this decision?",
             "de": "Wer sind die informellen Entscheidungsträger, deren Einbindung notwendig ist — auch wenn sie keine formale Befugnis für diese Entscheidung haben?"
+          },
+          "hint": {
+            "en": "The role without formal standing whose no still stops things.",
+            "de": "Die Rolle ohne formale Rolle, deren Nein trotzdem alles anhält."
           }
         }
       ],
@@ -1015,6 +1211,10 @@
           "text": {
             "en": "What are the current SLO/availability targets — and are they being met? If no SLO exists, state that explicitly.",
             "de": "Was sind die aktuellen SLO/Verfügbarkeitsziele — und werden sie eingehalten? Falls kein SLO existiert, explizit benennen."
+          },
+          "hint": {
+            "en": "The SLO if one exists, and the availability actually measured.",
+            "de": "Das SLO, falls es eines gibt, und die tatsächlich gemessene Verfügbarkeit."
           }
         },
         {
@@ -1026,6 +1226,10 @@
           "text": {
             "en": "What are the RTO and RPO targets — and when was the last restore test conducted?",
             "de": "Was sind die RTO- und RPO-Ziele — und wann wurde der letzte Restore-Test durchgeführt?"
+          },
+          "hint": {
+            "en": "RTO and RPO from the plan, and the date of the last restore test.",
+            "de": "RTO und RPO aus dem Konzept, und das Datum des letzten Restore-Tests."
           }
         },
         {
@@ -1037,6 +1241,10 @@
           "text": {
             "en": "What observability exists — what is logged, what is measured, what triggers an alert?",
             "de": "Welche Observability existiert — was wird protokolliert, was gemessen, was löst einen Alert aus?"
+          },
+          "hint": {
+            "en": "What is logged, what is measured, and what raises an alert.",
+            "de": "Was protokolliert, was gemessen wird, und was einen Alert auslöst."
           }
         },
         {
@@ -1048,6 +1256,10 @@
           "text": {
             "en": "What is the incident response process — and what is the change management process? Are they documented and followed?",
             "de": "Was ist der Incident-Response-Prozess — und was ist der Change-Management-Prozess? Sind sie dokumentiert und werden sie eingehalten?"
+          },
+          "hint": {
+            "en": "Whether both are documented, and whether they are followed.",
+            "de": "Ob beide dokumentiert sind, und ob sie eingehalten werden."
           }
         },
         {
@@ -1059,6 +1271,10 @@
           "text": {
             "en": "Who has access to production systems and data — and is there a documented, reviewed identity and permissions model?",
             "de": "Wer hat Zugang zu Produktivsystemen und -daten — und gibt es ein dokumentiertes, geprüftes Identitäts- und Berechtigungsmodell?"
+          },
+          "hint": {
+            "en": "How many people have production access, and when it was last recertified.",
+            "de": "Wie viele Personen produktiven Zugriff haben, und wann zuletzt rezertifiziert wurde."
           }
         },
         {
@@ -1070,6 +1286,10 @@
           "text": {
             "en": "What encryption is in place at rest and in transit — and are cryptographic keys managed separately from the data they protect?",
             "de": "Welche Verschlüsselung ist im Ruhezustand und beim Transport vorhanden — und werden kryptografische Schlüssel separat von den Daten verwaltet, die sie schützen?"
+          },
+          "hint": {
+            "en": "Encryption at rest and in transit, and where the keys are kept.",
+            "de": "Verschlüsselung im Ruhezustand und im Transport, und wo die Schlüssel liegen."
           }
         }
       ],

@@ -44,6 +44,8 @@
 
 *[DE] Was ist das vordergründige Problem in einem Satz?*
 
+> e.g. Changes take six to nine months because nobody can predict the impact.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -59,6 +61,8 @@
 #### Q1.2 — How long has this situation existed, and what changed to trigger a review now?
 
 *[DE] Wie lange besteht diese Situation, und was hat sich verändert, sodass das Review jetzt stattfindet?*
+
+> e.g. Name the date and the trigger: an expiring licence, an announced audit, a departure.
 
 **Answer:** [free text]
 
@@ -76,6 +80,8 @@
 
 *[DE] Wer hat dies als Problem benannt — und wer stimmt zu, wer nicht?*
 
+> e.g. Name the role that raised it, and the one that disagrees.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -92,6 +98,8 @@
 
 *[DE] Was wurde bisher unternommen, um diese Situation zu adressieren, und was war das Ergebnis?*
 
+> e.g. What was tried, and what it actually changed. Also what it did not.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -107,6 +115,8 @@
 #### Q1.5 — What is the estimated cost of inaction over 12 months — quantified, or explicitly stated as unquantified?
 
 *[DE] Was sind die geschätzten Kosten der Untätigkeit über 12 Monate — quantifiziert oder explizit als unquantifiziert benannt?*
+
+> e.g. A figure with its derivation, or say plainly that it is unquantified.
 
 **Answer:** [free text]
 
@@ -146,6 +156,8 @@
 
 *[DE] Was ist die primäre Entscheidungsfrage — als Frage formuliert, die mit Ja/Nein oder einer Optionswahl beantwortet werden kann?*
 
+> e.g. Phrase it as a question with a yes/no or an option choice, and a date.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -161,6 +173,8 @@
 #### Q2.2 — Who is the decision owner — the single named person accountable for the outcome?
 
 *[DE] Wer ist der Entscheidungseigner — die einzelne benannte Person, die für das Ergebnis verantwortlich ist?*
+
+> e.g. One named role, and whether the authority is in writing.
 
 **Answer:** [free text]
 
@@ -178,6 +192,8 @@
 
 *[DE] Was liegt explizit im Scope dieser Entscheidung?*
 
+> e.g. The systems and layers this decision is allowed to change.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -193,6 +209,8 @@
 #### Q2.4 — What is explicitly out of scope for this decision?
 
 *[DE] Was liegt explizit außerhalb des Scope dieser Entscheidung?*
+
+> e.g. The systems this decision explicitly does not touch.
 
 **Answer:** [free text]
 
@@ -210,6 +228,8 @@
 
 *[DE] Was ist die Entscheidungsfrist, und was passiert — explizit — wenn sie ohne Entscheidung verstreicht?*
 
+> e.g. The date, and what happens on the day after it passes.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -226,6 +246,8 @@
 
 *[DE] Wie sieht Erfolg in 12 Monaten aus — in Begriffen, die ein neutraler Beobachter verifizieren könnte?*
 
+> e.g. A sentence a neutral observer could check in twelve months.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -241,6 +263,8 @@
 #### Q2.7 — Who must be satisfied for this to be considered a good outcome, and by what criteria do they judge it?
 
 *[DE] Wer muss mit dem Ergebnis zufrieden sein, und nach welchen Kriterien beurteilt er es?*
+
+> e.g. Who signs it off, and by which written criteria.
 
 **Answer:** [free text]
 
@@ -275,6 +299,8 @@
 
 *[DE] Welche Architektur- oder Technologievorgaben sind fest — d.h. in dieser Entscheidung nicht zur Diskussion gestellt?*
 
+> e.g. Data centre, target language, identity provider: whatever is not up for debate.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -290,6 +316,8 @@
 #### Q3.2 — What budget envelope exists for this initiative — or is there none defined?
 
 *[DE] Welchen Budgetrahmen gibt es für diese Initiative — oder ist keiner definiert?*
+
+> e.g. The budget line, and whether this initiative has its own share of it.
 
 **Answer:** [free text]
 
@@ -311,6 +339,8 @@
 
 *[DE] Was ist die aktuelle Reifephase der Plattform — wie lange ist sie in Produktion, und wie häufig wird sie geändert?*
 
+> e.g. Years in production, releases per year, how many of them are maintenance only.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -326,6 +356,8 @@
 #### Q3.4 — What regulatory or audit commitments constrain the timeline of any change?
 
 *[DE] Welche regulatorischen oder Audit-Verpflichtungen schränken den Zeitplan einer Änderung ein?*
+
+> e.g. The named regulation, the audit date, and who established both.
 
 **Answer:** [free text]
 
@@ -346,6 +378,8 @@
 #### Q3.5 — What governance process must any significant platform decision pass through, and how long does it take?
 
 *[DE] Welchen Governance-Prozess muss eine bedeutende Plattformentscheidung durchlaufen, und wie lange dauert er?*
+
+> e.g. The bodies it passes, the written duration, and the observed one.
 
 **Answer:** [free text]
 
@@ -381,6 +415,8 @@
 
 *[DE] Was existiert heute — Liste der Kernkomponenten, ihr ungefähres Produktionsalter und ihr Technologie-Stack?*
 
+> e.g. Components with their year and their technology, as a list.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -396,6 +432,8 @@
 #### Q4.2 — Where does the definitive technical documentation live, and when was it last verified against the system?
 
 *[DE] Wo lebt die maßgebliche technische Dokumentation, und wann wurde sie zuletzt gegen das System verifiziert?*
+
+> e.g. Where it lives, and when it was last checked against the running system.
 
 **Answer:** [free text]
 
@@ -413,6 +451,8 @@
 
 *[DE] Welche Teile des Systems versteht niemand aktuell gut genug, um die Auswirkung einer Änderung vorherzusagen?*
 
+> e.g. The component, and why nobody understands it any more.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -428,6 +468,8 @@
 #### Q4.4 — What data does the platform manage — and what is the master data situation (single source, duplicates, ownership)?
 
 *[DE] Welche Daten verwaltet die Plattform — und wie ist die Stammdatenlage (Einzelquelle, Duplikate, Eigentümerschaft)?*
+
+> e.g. The data domains, and where the same record exists more than once.
 
 **Answer:** [free text]
 
@@ -445,6 +487,8 @@
 
 *[DE] Welche Integrationen existieren — dokumentiert oder nicht — und wer kennt sie?*
 
+> e.g. The documented count, plus the ones only mentioned in conversation.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -460,6 +504,8 @@
 #### Q4.6 — What is the current automated test coverage, and when was the last full regression run conducted?
 
 *[DE] Wie ist die aktuelle automatisierte Testabdeckung, und wann wurde der letzte vollständige Regressionstest durchgeführt?*
+
+> e.g. A percentage with its date, or say that nobody measures it.
 
 **Answer:** [free text]
 
@@ -495,6 +541,8 @@
 
 *[DE] Wer sind die aktuellen Konsumenten dieser Plattform — Liste und Beschreibung der Integration (sync, async, Batch, Event)?*
 
+> e.g. Name each consumer and how it connects: sync, batch, straight to the database.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -510,6 +558,8 @@
 #### Q5.2 — Which consumers are business-critical, and what availability or latency do they require?
 
 *[DE] Welche Konsumenten sind geschäftskritisch, und welche Verfügbarkeit oder Latenz erwarten sie?*
+
+> e.g. Which ones stop the business, and the availability they expect.
 
 **Answer:** [free text]
 
@@ -527,6 +577,8 @@
 
 *[DE] Gibt es Konsumenten, die Workarounds, undokumentierte Integrationen oder Schattenkopien von Plattformdaten angelegt haben?*
 
+> e.g. The workaround, who built it, and why it exists.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -543,6 +595,8 @@
 
 *[DE] Welche Schnittstellen sind formal vertraglich vereinbart oder durch SLAs abgedeckt — und welche werden informell genutzt?*
 
+> e.g. Which interfaces have an SLA in writing, and which are only assumed.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -558,6 +612,8 @@
 #### Q5.5 — Who has the authority to accept a breaking interface change on behalf of each consumer — and is that person reachable?
 
 *[DE] Wer hat die Befugnis, im Namen jedes Konsumenten eine brechende Schnittstellenänderung zu akzeptieren — und ist diese Person erreichbar?*
+
+> e.g. One name per consumer, or say the person cannot be reached.
 
 **Answer:** [free text]
 
@@ -599,6 +655,8 @@
 
 *[DE] Welche Datenklassifizierungen gelten für Daten, die diese Plattform speichert oder verarbeitet — und wer hat sie validiert?*
 
+> e.g. The classification, who established it, and when.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -618,6 +676,8 @@
 #### Q6.2 — Where does personal data enter the platform, and under what legal basis is it processed?
 
 *[DE] Wo treten personenbezogene Daten in die Plattform ein, und unter welcher Rechtsgrundlage werden sie verarbeitet?*
+
+> e.g. The entry points, and the legal basis for each of them.
 
 **Answer:** [free text]
 
@@ -639,6 +699,8 @@
 
 *[DE] Wer ist der benannte Dateneigner für jede wesentliche Datendomäne, die von dieser Plattform verarbeitet wird?*
 
+> e.g. One named owner per domain, or the domains that have none.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -659,6 +721,8 @@
 
 *[DE] Was sind die dokumentierten Aufbewahrungsanforderungen, und gibt es einen funktionierenden Löschpfad, der getestet wurde?*
 
+> e.g. The retention period, and whether erasure has ever been tested.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -678,6 +742,8 @@
 #### Q6.5 — Does data processed by this platform cross jurisdictions or leave the organisation's direct control?
 
 *[DE] Überqueren von dieser Plattform verarbeitete Daten Jurisdiktionen oder verlassen sie die direkte Kontrolle der Organisation?*
+
+> e.g. Where the data sits, the backup route included.
 
 **Answer:** [free text]
 
@@ -716,6 +782,8 @@
 
 *[DE] Welche regulatorischen Rahmenbedingungen gelten für diese Plattform — von wem festgestellt, und wann zuletzt geprüft?*
 
+> e.g. The named frameworks, who established them, and the date.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -736,6 +804,8 @@
 
 *[DE] Wann war das letzte externe oder interne Audit, das diese Plattform abdeckte, und was waren die offenen Feststellungen?*
 
+> e.g. The audit date, and the findings still open.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -752,6 +822,8 @@
 
 *[DE] Ist KI/ML im Entscheidungsgegenstand selbst — in einem Produktivsystem oder -workflow — oder nur im Autorenprozess dieser Analyse?*
 
+> e.g. Yes or no, and where the model actually runs.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -767,6 +839,8 @@
 #### Q7.4 — If AI/ML is in the decision subject: what is the role and risk class per Legal — or is this explicitly open?
 
 *[DE] Falls KI/ML im Entscheidungsgegenstand: Was ist die Rolle und Risikoklasse laut Legal — oder ist dies explizit offen?*
+
+> e.g. Role and risk class per Legal, or say Legal was not asked.
 
 **Answer:** [free text]
 
@@ -787,6 +861,8 @@
 #### Q7.5 — What trust or certification requirements do customers, partners, or regulators impose on this platform?
 
 *[DE] Welche Vertrauens- oder Zertifizierungsanforderungen stellen Kunden, Partner oder Behörden an diese Plattform?*
+
+> e.g. The certification demanded, and what its scope actually covers.
 
 **Answer:** [free text]
 
@@ -826,6 +902,8 @@
 
 *[DE] Welche Migrationspfade wurden erwogen — auch informell — und was war die Begründung für oder gegen jeden?*
 
+> e.g. Each path considered, and the reason for or against it.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -841,6 +919,8 @@
 #### Q8.2 — Which steps in any migration path under consideration are irreversible — once taken, the previous state cannot be restored?
 
 *[DE] Welche Schritte in einem erwogenen Migrationspfad sind irreversibel — einmal vollzogen, kann der vorherige Zustand nicht wiederhergestellt werden?*
+
+> e.g. The step, and what cannot be restored once it is done.
 
 **Answer:** [free text]
 
@@ -862,6 +942,8 @@
 
 *[DE] Welcher Ansatz zum parallelen Betrieb von Alt und Neu — falls erwogen — wurde diskutiert, und für wie lange?*
 
+> e.g. How long both run side by side, and who checked that the load holds.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -878,6 +960,8 @@
 
 *[DE] Wenn diese Migration schiefgeht, was ist der Rückweg — und was kostet er an Zeit und Datenintegrität?*
 
+> e.g. The way back in steps, with its cost in time and data integrity.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -893,6 +977,8 @@
 #### Q8.5 — Has the scenario "return is impossible" been explicitly evaluated and documented — not just noted as a risk?
 
 *[DE] Wurde das Szenario "Rückkehr ist unmöglich" explizit bewertet und dokumentiert — nicht nur als Risiko notiert?*
+
+> e.g. Yes, with the document, or no.
 
 **Answer:** [free text]
 
@@ -913,6 +999,8 @@
 #### Q8.6 — What data migration strategy exists for master data and historical records — particularly records with retention obligations?
 
 *[DE] Welche Datenmigrationsstrategie gibt es für Stammdaten und historische Datensätze — insbesondere für solche mit Aufbewahrungspflichten?*
+
+> e.g. The strategy for master data and for the records under retention.
 
 **Answer:** [free text]
 
@@ -949,6 +1037,8 @@
 
 *[DE] Wer besitzt diese Plattform — die einzelne benannte Person oder das Team mit Verantwortung für Verfügbarkeit und Weiterentwicklung?*
 
+> e.g. The named team or person, and whether availability sits there too.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -964,6 +1054,8 @@
 #### Q9.2 — How does work reach this platform team — who initiates changes, who reviews them, and where do handoffs stall?
 
 *[DE] Wie gelangt Arbeit zu diesem Plattformteam — wer initiiert Änderungen, wer prüft sie, und wo stocken Übergaben?*
+
+> e.g. The route a change takes, and the step where it queues.
 
 **Answer:** [free text]
 
@@ -981,6 +1073,8 @@
 
 *[DE] Wo ist Wissen konzentriert — welche Personen wären, wenn sie fehlen, in der Lage, eine Migration zu verzögern oder zu blockieren?*
 
+> e.g. How many people, and what else they are already booked for.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -997,6 +1091,8 @@
 
 *[DE] Welche Organisationsänderungen — Umstrukturierungen, wichtige Abgänge, Teamfusionen — sind geplant oder im Gange und betreffen diese Arbeit?*
 
+> e.g. The change, its date, and whether it is decided or rumoured.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -1012,6 +1108,8 @@
 #### Q9.5 — Who are the informal decision-makers whose alignment is necessary — even if they have no formal authority over this decision?
 
 *[DE] Wer sind die informellen Entscheidungsträger, deren Einbindung notwendig ist — auch wenn sie keine formale Befugnis für diese Entscheidung haben?*
+
+> e.g. The role without formal standing whose no still stops things.
 
 **Answer:** [free text]
 
@@ -1047,6 +1145,8 @@
 
 *[DE] Was sind die aktuellen SLO/Verfügbarkeitsziele — und werden sie eingehalten? Falls kein SLO existiert, explizit benennen.*
 
+> e.g. The SLO if one exists, and the availability actually measured.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -1066,6 +1166,8 @@
 #### Q10.2 — What are the RTO and RPO targets — and when was the last restore test conducted?
 
 *[DE] Was sind die RTO- und RPO-Ziele — und wann wurde der letzte Restore-Test durchgeführt?*
+
+> e.g. RTO and RPO from the plan, and the date of the last restore test.
 
 **Answer:** [free text]
 
@@ -1087,6 +1189,8 @@
 
 *[DE] Welche Observability existiert — was wird protokolliert, was gemessen, was löst einen Alert aus?*
 
+> e.g. What is logged, what is measured, and what raises an alert.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -1103,6 +1207,8 @@
 
 *[DE] Was ist der Incident-Response-Prozess — und was ist der Change-Management-Prozess? Sind sie dokumentiert und werden sie eingehalten?*
 
+> e.g. Whether both are documented, and whether they are followed.
+
 **Answer:** [free text]
 
 **Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
@@ -1118,6 +1224,8 @@
 #### Q10.5 — Who has access to production systems and data — and is there a documented, reviewed identity and permissions model?
 
 *[DE] Wer hat Zugang zu Produktivsystemen und -daten — und gibt es ein dokumentiertes, geprüftes Identitäts- und Berechtigungsmodell?*
+
+> e.g. How many people have production access, and when it was last recertified.
 
 **Answer:** [free text]
 
@@ -1138,6 +1246,8 @@
 #### Q10.6 — What encryption is in place at rest and in transit — and are cryptographic keys managed separately from the data they protect?
 
 *[DE] Welche Verschlüsselung ist im Ruhezustand und beim Transport vorhanden — und werden kryptografische Schlüssel separat von den Daten verwaltet, die sie schützen?*
+
+> e.g. Encryption at rest and in transit, and where the keys are kept.
 
 **Answer:** [free text]
 

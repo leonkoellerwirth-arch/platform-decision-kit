@@ -23,30 +23,45 @@ questions:
     text:
       en: "Who are the current consumers of this platform — list them and describe how they integrate (sync, async, batch, event)?"
       de: "Wer sind die aktuellen Konsumenten dieser Plattform — Liste und Beschreibung der Integration (sync, async, Batch, Event)?"
+    hint:
+      en: "Name each consumer and how it connects: sync, batch, straight to the database."
+      de: "Jeden Konsumenten nennen und wie er anbindet: sync, Batch, direkt auf die Datenbank."
   - id: "Q5.2"
     mode: [triage, discovery]
     no_defaults: false
     text:
       en: "Which consumers are business-critical, and what availability or latency do they require?"
       de: "Welche Konsumenten sind geschäftskritisch, und welche Verfügbarkeit oder Latenz erwarten sie?"
+    hint:
+      en: "Which ones stop the business, and the availability they expect."
+      de: "Welche den Betrieb anhalten, und welche Verfügbarkeit sie erwarten."
   - id: "Q5.3"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Are there consumers who have built workarounds, undocumented integrations, or shadow copies of platform data?"
       de: "Gibt es Konsumenten, die Workarounds, undokumentierte Integrationen oder Schattenkopien von Plattformdaten angelegt haben?"
+    hint:
+      en: "The workaround, who built it, and why it exists."
+      de: "Den Workaround, wer ihn gebaut hat, und warum es ihn gibt."
   - id: "Q5.4"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Which interfaces are formally contracted or covered by an SLA — and which are informally used?"
       de: "Welche Schnittstellen sind formal vertraglich vereinbart oder durch SLAs abgedeckt — und welche werden informell genutzt?"
+    hint:
+      en: "Which interfaces have an SLA in writing, and which are only assumed."
+      de: "Welche Schnittstellen ein schriftliches SLA haben, und welche nur angenommen sind."
   - id: "Q5.5"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Who has the authority to accept a breaking interface change on behalf of each consumer — and is that person reachable?"
       de: "Wer hat die Befugnis, im Namen jedes Konsumenten eine brechende Schnittstellenänderung zu akzeptieren — und ist diese Person erreichbar?"
+    hint:
+      en: "One name per consumer, or say the person cannot be reached."
+      de: "Ein Name je Konsument, oder: die Person ist nicht erreichbar."
 
 hypotheses:
   - name: "Informal consumers will surface only when broken"

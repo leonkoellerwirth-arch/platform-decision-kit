@@ -22,42 +22,63 @@ questions:
     text:
       en: "What is the primary decision question — stated as a question with a yes/no or option-selecting answer?"
       de: "Was ist die primäre Entscheidungsfrage — als Frage formuliert, die mit Ja/Nein oder einer Optionswahl beantwortet werden kann?"
+    hint:
+      en: "Phrase it as a question with a yes/no or an option choice, and a date."
+      de: "Als Frage formulieren, mit Ja/Nein oder Optionswahl, und mit Datum."
   - id: "Q2.2"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Who is the decision owner — the single named person accountable for the outcome?"
       de: "Wer ist der Entscheidungseigner — die einzelne benannte Person, die für das Ergebnis verantwortlich ist?"
+    hint:
+      en: "One named role, and whether the authority is in writing."
+      de: "Eine benannte Rolle, und ob die Befugnis schriftlich hinterlegt ist."
   - id: "Q2.3"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What is explicitly in scope for this decision?"
       de: "Was liegt explizit im Scope dieser Entscheidung?"
+    hint:
+      en: "The systems and layers this decision is allowed to change."
+      de: "Die Systeme und Schichten, die diese Entscheidung ändern darf."
   - id: "Q2.4"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What is explicitly out of scope for this decision?"
       de: "Was liegt explizit außerhalb des Scope dieser Entscheidung?"
+    hint:
+      en: "The systems this decision explicitly does not touch."
+      de: "Die Systeme, die diese Entscheidung ausdrücklich nicht anfasst."
   - id: "Q2.5"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What is the decision deadline, and what happens — explicitly — if it passes without a decision?"
       de: "Was ist die Entscheidungsfrist, und was passiert — explizit — wenn sie ohne Entscheidung verstreicht?"
+    hint:
+      en: "The date, and what happens on the day after it passes."
+      de: "Das Datum, und was am Tag danach passiert, wenn nichts entschieden ist."
   - id: "Q2.6"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What does success look like in 12 months — in terms that a neutral observer could verify?"
       de: "Wie sieht Erfolg in 12 Monaten aus — in Begriffen, die ein neutraler Beobachter verifizieren könnte?"
+    hint:
+      en: "A sentence a neutral observer could check in twelve months."
+      de: "Ein Satz, den ein neutraler Beobachter in zwölf Monaten prüfen könnte."
   - id: "Q2.7"
     mode: [discovery]
     no_defaults: false
     text:
       en: "Who must be satisfied for this to be considered a good outcome, and by what criteria do they judge it?"
       de: "Wer muss mit dem Ergebnis zufrieden sein, und nach welchen Kriterien beurteilt er es?"
+    hint:
+      en: "Who signs it off, and by which written criteria."
+      de: "Wer abnimmt, und nach welchen schriftlich vorliegenden Kriterien."
 
 decision_head:
   decision_question: null

@@ -21,30 +21,45 @@ questions:
     text:
       en: "What architecture or technology mandates are fixed — i.e., not open for discussion in this decision?"
       de: "Welche Architektur- oder Technologievorgaben sind fest — d.h. in dieser Entscheidung nicht zur Diskussion gestellt?"
+    hint:
+      en: "Data centre, target language, identity provider: whatever is not up for debate."
+      de: "Rechenzentrum, Zielsprache, Identitätsanbieter: was nicht zur Debatte steht."
   - id: "Q3.2"
     mode: [discovery]
     no_defaults: true
     text:
       en: "What budget envelope exists for this initiative — or is there none defined?"
       de: "Welchen Budgetrahmen gibt es für diese Initiative — oder ist keiner definiert?"
+    hint:
+      en: "The budget line, and whether this initiative has its own share of it."
+      de: "Die Budgetlinie, und ob diese Initiative einen eigenen Anteil daran hat."
   - id: "Q3.3"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What is the current maturity phase of this platform — how long has it been in production, and what is the cadence of changes?"
       de: "Was ist die aktuelle Reifephase der Plattform — wie lange ist sie in Produktion, und wie häufig wird sie geändert?"
+    hint:
+      en: "Years in production, releases per year, how many of them are maintenance only."
+      de: "Jahre in Produktion, Releases pro Jahr, wie viele davon reine Wartung."
   - id: "Q3.4"
     mode: [discovery]
     no_defaults: true
     text:
       en: "What regulatory or audit commitments constrain the timeline of any change?"
       de: "Welche regulatorischen oder Audit-Verpflichtungen schränken den Zeitplan einer Änderung ein?"
+    hint:
+      en: "The named regulation, the audit date, and who established both."
+      de: "Die benannte Vorschrift, den Prüfungstermin, und wer beides festgestellt hat."
   - id: "Q3.5"
     mode: [discovery]
     no_defaults: false
     text:
       en: "What governance process must any significant platform decision pass through, and how long does it take?"
       de: "Welchen Governance-Prozess muss eine bedeutende Plattformentscheidung durchlaufen, und wie lange dauert er?"
+    hint:
+      en: "The bodies it passes, the written duration, and the observed one."
+      de: "Die Gremien, die vorgeschriebene Dauer, und die erfahrungsgemäße."
 
 hypotheses:
   - name: "Stated mandates are softer than they appear"
