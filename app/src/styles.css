@@ -1,357 +1,1714 @@
-/* The house line: navy, calm, a lot of whitespace, Georgia against a system sans. */
-:root {
-  --navy: #2e4b63;
-  --navy-deep: #22394b;
-  --ink: #1c2530;
-  --muted: #5c6b7a;
-  --line: #d9e1e8;
-  --paper: #f7f9fb;
-  --card: #ffffff;
-  --flag: #a4341f;
-  --open: #8a5a00;
+/* =========================================================
+   Platform Decision Kit — component styles.
+   Tokens from ./styles/theme.css (house design system).
+   Components never use raw hex — only tokens from theme.css.
+   Themes: paper (light) and ink (dark), toggled via [data-theme] on :root.
+========================================================= */
 
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+@import "./styles/theme.css";
+
+/* ── Font stacks (system fallbacks; variable fonts not installed — no network call) ── */
+:root {
+  --font-ui:      "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", system-ui, sans-serif;
+  --font-serif:   "Fraunces Variable", Fraunces, Georgia, "Times New Roman", serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Semantic aliases for deck compatibility */
+  --navy-deep: var(--accent-strong);
+  --navy:      var(--accent);
+  --card:      var(--surface);
+  --flag:      var(--danger);
+  --ink:       var(--text);
+  --paper:     var(--bg);
+  --open:      var(--warn);
 }
 
-* { box-sizing: border-box; }
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; }
 
+/* ── Base ── */
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
+  background-color: var(--bg);
+  background-image: var(--body-wash);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-ui);
   font-size: 16px;
   line-height: 1.6;
+  letter-spacing: 0.002em;
   -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
 }
 
-.wrap { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
-
-header h1 {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 1.9rem;
-  line-height: 1.25;
-  color: var(--navy-deep);
-  margin: 0 0 0.75rem;
+/* Paper-fibre grain — fixed, pointer-transparent overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
 }
 
-.claim {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  color: var(--muted);
-  border-left: 3px solid var(--line);
-  padding-left: 1rem;
-  margin: 0 0 2rem;
+#root {
+  position: relative;
+  z-index: 1;
 }
 
-.trust {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--navy);
-  padding: 0.85rem 1.1rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-bottom: 2rem;
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
 }
-.trust strong { color: var(--navy-deep); }
 
-.bar {
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   App shell
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.app {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2.5rem;
+  flex-direction: column;
+  min-height: 100dvh;
 }
 
-.modes { display: flex; border: 1px solid var(--line); background: var(--card); }
-.modes button {
+/* ── Header — one bar ──────────────────────────────────────────────────────
+   Brand, mode, view, meters and the two toggles share a single sticky row.
+   Two bands became one; the block rail moved into the block card. That is
+   about 110px of vertical space handed back to the questions.
+
+   The HeroUI controls in here are sized down from their defaults: this is an
+   instrument bar, not a landing page. Colour comes from the token bridge, so
+   nothing below repeats a value that theme.css already owns.
+   ────────────────────────────────────────────────────────────────────────── */
+.appbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0 1.1rem;
+  padding-top: env(safe-area-inset-top);
+  min-height: calc(3.1rem + env(safe-area-inset-top));
+  background-color: var(--surface);
+  background-image: var(--relief);
+  box-shadow: inset 0 1px 0 0 var(--edge-light), 0 1px 0 0 var(--line);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+/* The build stamps itself into the bar. Quiet — it is a fact you look up, not one
+   you are told — but always on screen, so a screenshot carries its own provenance. */
+.brand-version {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  padding: 0.1rem 0.34rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bg);
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: help;
+}
+
+.footer-version { font-family: var(--font-mono); font-size: 0.74rem; }
+
+.brand-short {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--accent-strong);
+  letter-spacing: 0.04em;
+  font-size: 0.88rem;
+  flex-shrink: 0;
+}
+
+/* The meters push right; everything before them stays left-packed. */
+.appbar-meters {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.appbar-stats {
+  font-size: 0.76rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.appbar-stats b { color: var(--accent-strong); font-weight: 600; font-family: var(--font-mono); }
+.appbar-stats .defect b { color: var(--danger); }
+
+/* ── HeroUI in the bar ── */
+.appbar .toggle-button-group { flex-shrink: 0; }
+
+.appbar .button,
+.appbar .toggle-button {
+  font-size: 0.8rem;
+}
+
+.view-tabs { flex-shrink: 0; }
+.view-tabs .tab { font-size: 0.82rem; }
+
+.tab-count { margin-left: 0.35rem; }
+
+/* ── Footer — one line, and a notice that folds away ── */
+.app-footer {
+  margin-top: auto;
+  padding: 0.5rem 1.5rem;
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.footer-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
   border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+}
+
+.footer-info:hover { color: var(--accent-strong); background: var(--surface-2); }
+.footer-info[aria-expanded="true"] { color: var(--accent-strong); background: var(--accent-soft); }
+.footer-info:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.footer-note {
+  flex: 1 0 100%;
+  padding: 0.2rem 0 0.4rem;
+  line-height: 1.5;
+  max-width: 78ch;
+}
+
+.footer-note p { margin: 0 0 0.35rem; }
+.footer-note strong { color: var(--text); }
+
+.footer-sep { opacity: 0.4; }
+
+/* ── Main content area ── */
+/* 900px was the reading measure of a single column of prose. The question card has been
+   two columns since the redesign — sentence left, board right — and at 900px that left the
+   text 428px wide next to a 336px board, on a window with 780px to spare. The measure that
+   still matters is the one for reading, and it is enforced on the text itself (.qtext),
+   not on the whole page. */
+.main {
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  padding-bottom: 4rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Block navigation rail
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── The block rail, now inside the block's own header ──────────────────────
+   It used to sit on its own band above the card at 44px chips plus 12px of
+   padding. Inside the header it is a compact row of numbers between the two
+   arrows — same targets, no band. ────────────────────────────────────────── */
+.block-rail {
+  display: flex;
+  gap: 0.2rem;
+  overflow-x: auto;
+  padding: 0 0.15rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.block-rail::-webkit-scrollbar { display: none; }
+
+.rail-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.85rem;
+  height: 1.85rem;
+  padding: 0 0.3rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
   background: transparent;
   font: inherit;
-  font-size: 0.9rem;
-  padding: 0.5rem 1.1rem;
-  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
   color: var(--muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease),
+    background var(--dur-1) var(--ease),
+    transform 250ms var(--ease);
 }
-.modes button[aria-pressed="true"] { background: var(--navy); color: #fff; }
 
-.counts { font-size: 0.85rem; color: var(--muted); }
-.counts b { color: var(--navy-deep); font-weight: 600; }
+.rail-btn:hover { color: var(--text); background: var(--surface-2); }
+.rail-btn:active { transform: scale(0.94); }
 
-section.block {
-  background: var(--card);
+.rail-btn.on {
+  border-color: var(--accent-strong);
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+
+.rail-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+/* Open-item indicator dot */
+.rail-dot {
+  position: absolute;
+  top: 0.12rem;
+  right: 0.12rem;
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 50%;
+  background: var(--brass);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Block view
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.block-view {
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  box-shadow: inset 0 1px 0 0 var(--edge-light), var(--shadow-1);
   border: 1px solid var(--line);
-  padding: 1.5rem 1.5rem 1.25rem;
+  border-radius: var(--r-lg);
+  padding: 1.6rem 1.8rem 1.9rem;
   margin-bottom: 1.25rem;
 }
-section.block > h2 {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 1.2rem;
-  color: var(--navy-deep);
-  margin: 0 0 0.2rem;
+
+.block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
 }
-.num { color: var(--muted); font-size: 0.85rem; letter-spacing: 0.04em; }
-.de { color: var(--muted); font-size: 0.85rem; font-style: italic; }
-.why { color: var(--muted); font-size: 0.9rem; margin: 0.6rem 0 1.25rem; }
 
-.q { border-top: 1px solid var(--line); padding-top: 1.1rem; margin-top: 1.1rem; }
-.q:first-of-type { border-top: 0; margin-top: 0; }
-.qid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: var(--navy); }
-.qtext { margin: 0.15rem 0 0.15rem; }
-.qde { color: var(--muted); font-size: 0.87rem; margin: 0 0 0.8rem; }
+.block-meta { flex: 1; min-width: 0; }
 
+/* Block number and title on one line — the number was costing a line of its own. */
+.block-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  margin-right: 0.55rem;
+}
+
+.block-title {
+  display: inline;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.12rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.block-other {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.1rem;
+}
+
+.block-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.why {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  border-left: 2px solid var(--accent-soft);
+  padding-left: 1rem;
+  margin: 0.8rem 0 1.6rem;
+  line-height: 1.6;
+}
+
+/* Die Erhebung füllt das Fenster.
+   Ein Triage-Block hat genau eine Frage, und darunter blieben 385px Nichts stehen — die
+   Karte hörte auf, bevor das Fenster es tat. Die Karte reicht jetzt bis zum Fuß, und den
+   Zugewinn bekommt nicht die Polsterung, sondern das Antwortfeld: Platz, in den man
+   schreiben kann. Reicht der Inhalt über das Fenster hinaus — Discovery, sieben Fragen je
+   Block — ist nichts zu verteilen, und die Regeln tun nichts. */
+.main-intake {
+  display: flex;
+  flex-direction: column;
+  /* Die 4rem Fußpolster stammen aus der Zeit, in der die Erhebung eine lange Liste war
+     und man unter der letzten Frage Luft brauchte. Die Karte reicht jetzt bis unten. */
+  padding-bottom: 1.25rem;
+}
+
+.main-intake .block-view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-intake .q:last-of-type {
+  flex: 1;
+  min-height: 0;
+  /* Das Raster steht sonst auf `align-items: start`, und dann bleibt die Textspalte so
+     hoch wie ihr Inhalt — der Zugewinn käme nie unten an. */
+  align-items: stretch;
+}
+
+.main-intake .q:last-of-type .q-main {
+  min-height: 0;
+}
+
+/* Das Gitter bleibt oben; nur die Schreibspalte nimmt die Höhe mit. */
+.main-intake .q:last-of-type .q-aside { align-self: start; }
+
+.main-intake .q:last-of-type .q-answer {
+  flex: 1 1 auto;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Question card — two columns from `lg`: the sentence left, the board right.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.q {
+  border-top: 1px solid var(--line);
+  padding: 1.9rem 0 0.6rem 1rem;
+  margin-top: 1.8rem;
+  outline: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  transition: box-shadow var(--dur-1) var(--ease);
+}
+
+/* The board next to the answer, not under it. Fifty-five questions stacked the old way
+   cost roughly a screen and a half each; side by side a question is one glance. */
+@media (min-width: 62rem) {
+  .q {
+    grid-template-columns: minmax(0, 1fr) 23rem;
+    gap: 2.4rem;
+  }
+}
+
+.q:first-of-type { border-top: 0; margin-top: 0; padding-top: 0; }
+
+.q-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The active question carries one brass edge — the same warm accent the fields
+   take on focus, so "you are here" and "this has focus" are the same colour. */
+.q-active { box-shadow: inset 2px 0 0 0 var(--brass); }
+.q-active .qid { color: var(--accent-strong); }
+
+.q-head { margin-bottom: 0.85rem; }
+
+.qid {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+  transition: color var(--dur-1) var(--ease);
+}
+
+/* The question keeps a reading measure even though the column is wider now — 110
+   characters a line is not a question, it is a paragraph. The fields below use the
+   full width. */
+.qtext {
+  max-width: 62ch;
+  margin: 0.1rem 0 0.1rem;
+  font-size: 0.97rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* The other language is a gloss, not a second question — it reads at gloss weight. */
+.qde {
+  max-width: 68ch;
+  font-size: 0.79rem;
+  color: var(--muted);
+  margin: 0.15rem 0 0;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.marker {
+  font-style: normal;
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  background: var(--surface-2);
+  border-radius: 4px;
+  padding: 0.08rem 0.3rem;
+  margin-left: 0.35rem;
+  white-space: nowrap;
+}
+
+/* Textarea */
 textarea, input[type="text"] {
   width: 100%;
   font: inherit;
-  font-size: 0.95rem;
-  padding: 0.55rem 0.7rem;
+  font-size: 0.92rem;
+  padding: 0.6rem 0.75rem;
   border: 1px solid var(--line);
-  background: #fff;
-  color: var(--ink);
-  border-radius: 0;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
+  -webkit-appearance: none;
 }
-textarea { min-height: 4.5rem; resize: vertical; }
-textarea:focus, input:focus { outline: 2px solid var(--navy); outline-offset: -1px; }
 
-.row { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-top: 0.7rem; }
-.label { font-size: 0.8rem; color: var(--muted); min-width: 5.5rem; }
+/* Height is set from the content by useAutoGrow — `resize` would be overwritten on the
+   next keystroke, and an inner scrollbar is exactly the thing being fixed. */
+textarea {
+  resize: none;
+  overflow: hidden;
+}
 
-.tag {
-  border: 1px solid var(--line);
-  background: #fff;
-  font: inherit;
-  font-size: 0.82rem;
-  padding: 0.28rem 0.7rem;
-  cursor: pointer;
+/* Die Antwort ist die Schreibfläche der Erhebung, und im Fenster war senkrecht Platz
+   übrig. Ein größerer Anfangsraum lädt zum Schreiben ein; wächst der Text darüber
+   hinaus, wächst das Feld mit. */
+.q-answer { min-height: 10rem; }
+
+textarea:focus, input[type="text"]:focus {
+  border-color: var(--brass);
+  box-shadow: var(--focus-ring);
+}
+
+textarea:disabled {
+  background: var(--surface-2);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+/* Source row — a caption and a field, not a second headline. The caption sits at the top
+   because the field is no longer one line high. */
+.source-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-top: 0.85rem;
+}
+
+.source-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 0.65rem;
+}
+
+/* The field takes the rest of the row and grows with what is in it. */
+.source-field {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.4rem;
+  font-size: 0.87rem;
+  padding: 0.45rem 0.7rem;
+  line-height: 1.45;
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: var(--warn);
+  margin-top: 0.4rem;
+  line-height: 1.45;
+}
+
+.hint.flag { color: var(--danger); }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Evidence Grid — the instrument's core
+   INV-2: basis × verification — two axes that never collapse.
+   Colour codes the verification axis (outstanding work) only, and inside the
+   board it is spent on exactly one cell: the chosen one. Filled rows are gone;
+   a filled grey row reads "disabled" in every convention there is.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.q-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.q-aside-title {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
   color: var(--muted);
 }
-.tag[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
 
-.hint { font-size: 0.8rem; color: var(--open); margin-top: 0.45rem; }
-.hint.flag { color: var(--flag); }
+.eg { min-width: 0; }
 
-.register { background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--open); padding: 1.5rem; margin-top: 2.5rem; }
-.register h2 { font-family: var(--serif); font-weight: 400; font-size: 1.2rem; color: var(--navy-deep); margin: 0 0 0.75rem; }
-.register ul { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; }
-.register li { margin-bottom: 0.35rem; }
-.register .empty { color: var(--muted); font-size: 0.9rem; margin: 0; }
+/* Stacked (tablet portrait and below) the board would stretch to the full text measure
+   and each cell would end up 250px wide for 48px of height. Cap it: a target that wide
+   is not easier to hit, it just looks unresolved. */
+@media (max-width: 61.99rem) {
+  .eg { max-width: 34rem; }
+}
 
-.actions { display: flex; gap: 0.6rem; margin-top: 2rem; flex-wrap: wrap; }
-.actions button {
+/* Hairlines are the gaps: the board's own background shows through at 1px. */
+.eg-board {
+  display: grid;
+  grid-template-columns: auto repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+/* Corner — names both axes and points along each. */
+.eg-corner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.55rem;
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  box-shadow: inset 0 1px 0 0 var(--edge-light);
+  white-space: nowrap;
+}
+
+.eg-axis {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  line-height: 1.2;
+}
+
+.eg-axis i { font-style: normal; opacity: 0.55; }
+.eg-axis-x { color: var(--accent-strong); }
+.eg-axis-y { color: var(--muted); }
+
+/* ── Column heads: the basis axis. Form, never colour. ── */
+.eg-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.16rem;
+  padding: 0.5rem 0.15rem 0.45rem;
+  min-height: 3.1rem;
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  box-shadow: inset 0 1px 0 0 var(--edge-light);
+  border: 0;
   font: inherit;
+  font-size: 0.63rem;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  color: var(--muted);
+  text-align: center;
+  cursor: pointer;
+  transition: color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease);
+}
+
+/* The four basis words differ in length by a factor of three ("Fakt" … "assumption").
+   Hyphenate rather than break mid-word: a column head reading "assumpti / on" is worse
+   than one reading "assump- / tion". */
+.eg-col-label {
+  hyphens: auto;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.eg-col .mark {
   font-size: 0.9rem;
-  padding: 0.55rem 1.2rem;
-  border: 1px solid var(--navy);
-  background: var(--navy);
-  color: #fff;
-  cursor: pointer;
-}
-.actions button.ghost { background: transparent; color: var(--navy); }
-
-pre.export {
-  background: #fff;
-  border: 1px solid var(--line);
-  padding: 1rem;
-  font-size: 0.8rem;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  margin-top: 1rem;
+  color: var(--text-soft);
+  opacity: 0.5;
+  transition: opacity var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
 }
 
-footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 1rem; }
-footer a { color: var(--navy); }
+.eg-col:hover { color: var(--text); }
+.eg-col:hover .mark { opacity: 0.85; }
 
-/* Language switch — top right, above the title, so the choice is made before reading. */
-.langbar { display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }
+.eg-col.on {
+  color: var(--text);
+  font-weight: 500;
+  background-color: var(--accent-soft);
+}
+.eg-col.on .mark { opacity: 1; color: var(--accent-strong); }
 
-.langnote {
-  font-size: 0.83rem;
+/* The chosen column is marked at its foot, so the eye can run straight down it. */
+.eg-col.on::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: var(--brass);
+}
+
+/* ── Row heads: the verification axis. Colour lives on the edge marker. ── */
+.eg-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.4rem 0 0;
+  min-height: 3.3rem;
+  min-width: 4.7rem;
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  border: 0;
+  font: inherit;
+  font-size: 0.71rem;
   color: var(--muted);
-  margin: -1rem 0 2rem;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease);
 }
 
-.qde .marker { font-style: normal; font-size: 0.78rem; opacity: 0.8; }
+.eg-row-bar {
+  width: 3px;
+  align-self: stretch;
+  border-radius: 0 2px 2px 0;
+  background: var(--line-2);
+  transition: background var(--dur-1) var(--ease);
+}
 
-details.flags { margin-top: 1.25rem; border-top: 1px solid var(--line); padding-top: 0.9rem; }
+.eg-row-label { flex: 1; padding-left: 0.1rem; }
+
+.eg-row.v-open .eg-row-bar { background: var(--brass); }
+.eg-row.v-blocked .eg-row-bar { background: var(--signal); }
+
+.eg-row:hover { color: var(--text); }
+
+.eg-row.on { color: var(--text); font-weight: 500; }
+.eg-row.on.v-none { background-color: var(--surface-2); }
+.eg-row.on.v-open { background-color: color-mix(in srgb, var(--brass) 12%, var(--surface)); }
+.eg-row.on.v-blocked { background-color: color-mix(in srgb, var(--signal) 12%, var(--surface)); }
+.eg-row.on.v-open .eg-row-label { color: var(--brass-deep); }
+.eg-row.on.v-blocked .eg-row-label { color: var(--signal); }
+
+/* ── Cells: quiet targets. The glyph belongs to the column, so a cell only shows it
+      on hover (a preview of the pick) and solid once chosen. ── */
+.eg-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.3rem;
+  padding: 0;
+  background-color: var(--surface);
+  border: 0;
+  cursor: pointer;
+  transition: background-color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
+}
+
+/* The target dot: an empty cell still has to read as tappable. */
+.eg-cell::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--line-2);
+  transition: opacity var(--dur-1) var(--ease);
+}
+
+.eg-cell .mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-soft);
+  opacity: 0;
+  transition: opacity var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+
+.eg-cell:not(.off):hover {
+  background-color: color-mix(in srgb, var(--brass) 8%, var(--surface));
+}
+.eg-cell:not(.off):hover::before { opacity: 0; }
+.eg-cell:not(.off):hover .mark { opacity: 0.45; }
+
+/* The one place colour is spent inside the board. */
+.eg-cell.on::before { opacity: 0; }
+.eg-cell.on .mark { opacity: 1; }
+
+.eg-cell.on.v-none {
+  background-color: var(--accent-soft);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+.eg-cell.on.v-none .mark { color: var(--accent-strong); }
+
+.eg-cell.on.v-open {
+  background-color: color-mix(in srgb, var(--brass) 16%, var(--surface));
+  box-shadow: inset 0 0 0 2px var(--brass);
+}
+.eg-cell.on.v-open .mark { color: var(--brass-deep); }
+
+.eg-cell.on.v-blocked {
+  background-color: color-mix(in srgb, var(--signal) 14%, var(--surface));
+  box-shadow: inset 0 0 0 2px var(--signal);
+}
+.eg-cell.on.v-blocked .mark { color: var(--signal); }
+
+/* INV-4 drawn rather than silently enforced: an unknown is always open, so the other
+   two cells of that column are struck through — recessed and crossed, which is a rule,
+   not the grey of a passive row. */
+.eg-cell.off {
+  cursor: not-allowed;
+  background-color: var(--bg);
+  background-image: linear-gradient(
+    to top right,
+    transparent calc(50% - 0.5px),
+    var(--line-2) calc(50% - 0.5px),
+    var(--line-2) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+.eg-cell.off::before { display: none; }
+
+/* Focus ring per the design system: box-shadow, never a browser outline. */
+.eg-board :focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  z-index: 1;
+}
+
+/* Keyboard hints — pointless on a tablet, and the tablet is where this is used. */
+.eg kbd {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  line-height: 1;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.1rem 0.24rem;
+}
+
+@media (pointer: coarse) {
+  .eg kbd { display: none; }
+  .eg-cell, .eg-row { min-height: 3rem; }
+}
+
+/* ── The pair, read back in words. ── */
+.eg-readout {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text);
+  min-height: 1.4rem;
+}
+
+.eg-readout.empty { color: var(--muted); font-style: italic; }
+.eg-readout .mark { font-size: 0.78rem; color: var(--text-soft); }
+.eg-readout-sep { color: var(--line-2); }
+.eg-readout-basis { font-weight: 500; }
+.eg-readout.v-none .eg-readout-verif { color: var(--muted); }
+.eg-readout.v-open .eg-readout-verif { color: var(--brass-deep); font-weight: 500; }
+.eg-readout.v-blocked .eg-readout-verif { color: var(--signal); font-weight: 500; }
+
+.eg-clear {
+  margin-left: auto;
+  background: none;
+  border: 0;
+  padding: 0.1rem 0.15rem;
+  font: inherit;
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: color var(--dur-1) var(--ease);
+}
+.eg-clear:hover { color: var(--accent-strong); }
+.eg-clear:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: 4px; }
+
+/* ── Mark shapes (basis glyphs) ── */
+/* Unicode geometric forms — inherit colour from currentColor, scale with font-size. */
+
+.mark { display: inline-flex; align-items: center; justify-content: center; font-size: 1em; }
+
+.m-fact::before        { content: "\25CF"; }
+.m-statement::before   { content: "\25CB"; }
+.m-assumption::before  { content: "\25B2"; }
+.m-unknown::before     { content: "\2014"; }
+
+/* GridSummary mini overview ── */
+.gridmini {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.5px;
+  width: 3rem;
+  height: 2.1rem;
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--line);
+  flex-shrink: 0;
+}
+
+.dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  font-size: 0.42rem;
+}
+
+/* Tokens, not raw rgba: the old literals were a second copy of --brass/--signal that
+   did not follow the theme into `ink`. Same rule as the board above. */
+.dot.v-none { background: var(--surface); color: var(--muted); }
+.dot.v-open { background: color-mix(in srgb, var(--brass) 14%, var(--surface)); color: var(--brass-deep); }
+.dot.v-blocked { background: color-mix(in srgb, var(--signal) 12%, var(--surface)); color: var(--signal); }
+.dot.off { background: var(--bg); opacity: 0.5; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Keyboard hint bar
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.kb-hint {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.kb-hint code {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Register view — the payoff, turned to show the client
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.register-view {}
+
+.register-header { margin-bottom: 1.25rem; }
+
+.register-header h2 {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin: 0 0 0.4rem;
+}
+
+.register-payoff {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  border-left: 3px solid var(--warn);
+  padding-left: 0.85rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.register-empty {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 1.5rem;
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: inset 0 1px 0 0 var(--edge-light);
+}
+
+.register-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.register-item {
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  box-shadow: inset 0 1px 0 0 var(--edge-light), var(--shadow-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 1rem 1.25rem;
+  border-left-width: 3px;
+}
+
+.register-item.v-open { border-left-color: var(--warn); }
+.register-item.v-blocked { border-left-color: var(--danger); }
+
+.register-item-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.register-qid {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.register-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+}
+
+.register-tag.v-open { background: color-mix(in srgb, var(--brass) 14%, var(--surface)); color: var(--brass-deep); }
+.register-tag.v-blocked { background: color-mix(in srgb, var(--signal) 12%, var(--surface)); color: var(--signal); }
+
+.register-qtext {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0 0 0.3rem;
+  line-height: 1.4;
+}
+
+.register-answer {
+  font-size: 0.87rem;
+  color: var(--text-soft);
+  margin: 0;
+  border-left: 2px solid var(--line);
+  padding-left: 0.65rem;
+  font-style: italic;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Discovery annexes: decision head, data inventory, flag disclosures
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.head-block {
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.head-block-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent-strong);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-width: 5.5rem;
+  white-space: nowrap;
+}
+
+.label.wide { min-width: 10rem; }
+
+/* details disclosures */
+details.flags {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.85rem;
+}
+
 details.flags summary {
   cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--flag);
+  font-size: 0.82rem;
+  color: var(--danger);
   list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  user-select: none;
 }
+
 details.flags summary::-webkit-details-marker { display: none; }
-details.flags summary::before { content: "▸ "; }
-details.flags[open] summary::before { content: "▾ "; }
-details.flags ul { margin: 0.6rem 0 0; padding-left: 1.2rem; font-size: 0.87rem; color: var(--muted); }
+details.flags summary::before { content: "▸"; font-size: 0.7rem; }
+details.flags[open] summary::before { content: "▾"; }
+
+details.flags ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
 details.flags li { margin-bottom: 0.3rem; }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Discovery-mode annexes: the decision head, the data inventory, and the two
-   extra disclosure blocks. Same austere register as the rest of the form.
-   ───────────────────────────────────────────────────────────────────────────── */
+details.flags.stop summary { color: var(--danger); }
+details.flags.hypo summary { color: var(--accent); }
+details.flags.hypo li { margin-bottom: 0.75rem; }
 
-.block.head { border-left: 3px solid var(--navy); }
-.label.wide { min-width: 11rem; }
+details.flags .marker { font-size: 0.75rem; color: var(--muted); }
 
-.flags.stop summary { color: var(--flag); }
-.flags.hypo summary { color: var(--navy); }
-.flags.hypo li { margin-bottom: 0.9rem; }
-.flags .marker { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
-
+/* Data inventory */
 .inventory { margin-top: 1.25rem; }
-.inventory h3 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 0 0 0.2rem; }
-.inventory table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; }
-.inventory th {
-  text-align: left; font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.06em; color: var(--muted); padding: 0.3rem 0.4rem 0.3rem 0;
-  border-bottom: 1px solid var(--line);
+
+.inventory h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0 0 0.2rem;
+  color: var(--text);
 }
-.inventory td { padding: 0.2rem 0.4rem 0.2rem 0; }
+
+.inventory table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; overflow-x: auto; display: block; }
+.inventory th {
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  padding: 0.3rem 0.5rem 0.3rem 0;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.inventory td { padding: 0.2rem 0.5rem 0.2rem 0; }
 .inventory input { width: 100%; }
 
+/* ── Tag button (add/remove row in inventory) ── */
+.tag {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  color: var(--muted);
+  transition: border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+.tag:hover { border-color: var(--line-2); color: var(--text); }
+
 /* ─────────────────────────────────────────────────────────────────────────────
-   The presentation skeleton.
-   Layout vocabulary after Presenton's "Executive" family (Apache-2.0): a heavy
-   display heading, rounded content cards, a footer pagination marker, and a soft
-   corner accent. Nothing is copied — no code, no assets, no font files. The type
-   is a system stack, which is what keeps the "no network call" claim true.
+   Actions and export
    ───────────────────────────────────────────────────────────────────────────── */
 
-.deck { --accent: #4c3f8f; --accent-soft: #efedf8; margin-top: 1.5rem; }
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--accent-strong);
+  background: var(--accent-strong);
+  color: var(--surface);
+  cursor: pointer;
+  transition: opacity var(--dur-1) var(--ease);
+}
+
+.actions button:hover { opacity: 0.88; }
+
+.actions button.ghost {
+  background: transparent;
+  color: var(--accent-strong);
+}
+
+.actions button.ghost:hover { background: var(--accent-soft); opacity: 1; }
+
+pre.export {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin-top: 0.75rem;
+  color: var(--text-soft);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   The presentation skeleton (Deck).
+   Layout vocabulary after Presenton's "Executive" family (Apache-2.0), rebuilt
+   on the house tokens. No local palette: DESIGNSYSTEM.md rule 1 says components
+   consume tokens and never raw hex, and rule 3 fixes blue as the primary accent.
+   An earlier draft overrode --accent with a purple of its own; it is gone. The
+   deck is the same instrument as the intake and has to look like it, especially
+   on the slide the client is looking at.
+   Print stylesheet preserves the 7-slide order.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.deck { margin-top: 1rem; }
 
 .deck-note {
-  font-size: 0.85rem; color: var(--muted); line-height: 1.55;
-  border-left: 2px solid var(--accent); padding-left: 0.9rem; margin: 0 0 1.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.55;
+  border-left: 2px solid var(--accent);
+  padding-left: 0.9rem;
+  margin: 0 0 1.1rem;
 }
-.deck-actions { margin-bottom: 1.5rem; }
+
+.deck-actions { margin-bottom: 1.25rem; }
+
+.deck-actions button {
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--accent-strong);
+  background: var(--accent-strong);
+  color: var(--surface);
+  cursor: pointer;
+}
+
+.deck-actions button:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.deck-actions button:hover { border-color: var(--brass); }
 
 .slide {
   position: relative;
   overflow: hidden;
-  background: var(--card);
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  box-shadow: inset 0 1px 0 0 var(--edge-light), var(--shadow-1);
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: var(--r-lg);
   padding: 2.4rem 2.4rem 3.2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   min-height: 22rem;
   display: flex;
   flex-direction: column;
 }
 
-/* The washed corner accent — one gradient, no image asset. */
+/* The slide's top light. The earlier version faded a radial blob to opaque white,
+   which on the ink theme read as a grey smear across the corner — a rendering fault,
+   not a design. This is the house --sheen instead: it is defined per theme, so it
+   lifts on paper and stays dark on ink. */
 .slide .corner {
-  position: absolute; top: -45%; right: -22%;
-  width: 30rem; height: 30rem; border-radius: 50%;
-  background: radial-gradient(circle at 50% 50%, var(--accent-soft) 0%, rgba(255,255,255,0) 68%);
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 9rem;
+  background: var(--sheen);
   pointer-events: none;
 }
 
 .slide h3 {
   position: relative;
-  font-family: var(--sans);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: 2rem;
   line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--navy-deep);
+  letter-spacing: -0.025em;
+  color: var(--text);
   margin: 0 0 1.6rem;
   text-wrap: balance;
 }
+
 .slide h3::after {
-  content: ""; display: block; width: 3rem; height: 3px;
-  background: var(--accent); margin-top: 0.9rem; border-radius: 2px;
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3px;
+  background: var(--accent);
+  margin-top: 0.9rem;
+  border-radius: 2px;
 }
 
 .slide-body { position: relative; flex: 1; }
 
 .slide .marker {
-  position: absolute; left: 2.4rem; bottom: 1.5rem;
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--muted);
+  position: absolute;
+  left: 2.4rem;
+  bottom: 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .lead {
-  font-family: var(--serif);
-  font-size: 1.5rem; line-height: 1.35; color: var(--ink);
-  margin: 0 0 1.6rem; text-wrap: pretty;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 1.35;
+  color: var(--text);
+  margin: 0 0 1.6rem;
+  text-wrap: pretty;
 }
-.lead.muted { font-size: 1.1rem; }
+
+.lead.muted, .muted { font-size: 0.92rem; color: var(--muted); }
 
 .cards { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-bottom: 0.9rem; }
+
 .card {
   flex: 1 1 15rem;
-  background: var(--paper);
+  background-color: var(--bg);
+  background-image: var(--relief-soft);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   padding: 1.1rem 1.2rem;
 }
-.card.accent { background: var(--accent-soft); border-color: #dcd7f0; }
-.card.flagcard { border-color: #e6c9c2; background: #fdf5f3; }
-.card h4 {
-  font-size: 1rem; font-weight: 700; color: var(--navy-deep);
-  margin: 0.15rem 0 0.5rem; letter-spacing: -0.01em;
+
+.card.accent { background: var(--accent-soft); border-color: var(--line-2); }
+.card.flagcard {
+  border-color: color-mix(in srgb, var(--signal) 32%, var(--line));
+  background: color-mix(in srgb, var(--signal) 5%, var(--surface));
 }
+
+.card h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0.15rem 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
 .card-label {
-  display: inline-block; font-size: 0.66rem; font-weight: 700;
-  letter-spacing: 0.11em; text-transform: uppercase; color: var(--accent);
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
   margin-bottom: 0.35rem;
 }
-.card.flagcard .card-label { color: var(--flag); }
+
+.card.flagcard .card-label { color: var(--danger); }
 
 .quote { font-size: 0.92rem; line-height: 1.55; margin: 0 0 0.5rem; }
+
 .tagpill {
-  display: inline-block; margin-left: 0.4rem; padding: 0.05rem 0.45rem;
-  border: 1px solid var(--line); border-radius: 999px; background: var(--card);
-  font-size: 0.7rem; color: var(--muted); vertical-align: middle;
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.7rem;
+  color: var(--muted);
+  vertical-align: middle;
 }
+
 .src { color: var(--muted); font-size: 0.8rem; }
 
-/* Label above value: inside a narrow card a side-by-side pair wraps to shreds. */
 .kv { font-size: 0.86rem; margin: 0 0 0.6rem; }
 .kv .k {
-  display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.07em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 0.1rem;
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.1rem;
 }
 .kv .v { display: block; line-height: 1.45; }
 
 .ids { list-style: none; padding: 0; margin: 0.3rem 0 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
-.ids code { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 0.1rem 0.4rem; }
+.ids code {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
 
 .conditions { list-style: none; padding: 0; margin: 0; }
 .conditions li {
-  border-left: 3px solid var(--open); padding: 0.35rem 0 0.35rem 0.9rem; margin-bottom: 0.8rem;
+  border-left: 3px solid var(--warn);
+  padding: 0.35rem 0 0.35rem 0.9rem;
+  margin-bottom: 0.8rem;
 }
-.cond { display: block; font-weight: 600; color: var(--open); font-size: 0.85rem; }
+.cond { display: block; font-weight: 600; color: var(--warn); font-size: 0.85rem; }
 .cond-q { display: block; font-size: 0.92rem; }
 
 .reg { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
 .reg td { padding: 0.35rem 0.6rem 0.35rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
 .reg td:first-child { width: 4.5rem; }
+.reg code { font-family: var(--font-mono); font-size: 0.75rem; }
 
+/* The sign-off is a statement, not a footnote. It now leads slide 7 and is built to be
+   read from the back of the room: full size, upright, on the primary accent's own soft
+   ground. Wording untouched — the gate checks it verbatim. */
 .signoff {
-  margin-top: 1.4rem; padding-top: 0.9rem; border-top: 1px solid var(--line);
-  font-size: 0.82rem; color: var(--muted); font-style: italic;
+  margin: 0 0 1.1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  font-size: 1rem;
+  line-height: 1.45;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--accent-strong);
 }
 
-.credit { font-size: 0.74rem; color: var(--muted); margin-top: 1.5rem; }
+.credit { font-size: 0.74rem; color: var(--muted); margin-top: 1.25rem; }
 
-/* Print is the PDF export: one slide per landscape page, no browser chrome we can't control. */
+/* ─────────────────────────────────────────────────────────────────────────────
+   Print — one slide per landscape A4 page
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   The presentation tab IS the presentation.
+   One 16:9 slide across the width it has. No stack, no scrolling.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* The intake's 900px reading measure is right for a form and wrong for a slide.
+   The deck view also owns exactly the height that is left over after the bar and the
+   footer, and clips instead of growing — a presentation that scrolls is not one. */
+.main-wide {
+  max-width: 1680px;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  padding-bottom: 0.9rem;
+}
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Hidden on screen, printed on paper — see @media print below. */
+.deck-stack { display: none; }
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex: 1;
+  min-height: 0;
+}
+
+/* In full screen the stage owns the whole surface and paints its own ground. */
+.stage:fullscreen {
+  padding: 1.4rem 1.4rem 1rem;
+  background-color: var(--bg);
+  background-image: var(--body-wash);
+}
+
+.stage-frame {
+  display: grid;
+  place-items: center;
+  flex: 1;
+  min-height: 0;
+  /* Size container: lets the slide be measured against the box it sits in, which is
+     the only honest reference. Viewport maths breaks the moment the bar wraps. */
+  container-type: size;
+}
+
+/* The slide box: 16:9, as large as the space allows in whichever direction runs out
+   first. Both maxima plus the aspect ratio do the arithmetic — no viewport maths that
+   goes wrong the moment the bar wraps. */
+.fit {
+  /* Whichever runs out first — width or height — decides. 16:9 stays exact. */
+  width: min(100cqw, 100cqh * 16 / 9);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-2);
+}
+
+/* The canvas is a fixed 1280×720 box; only the scale changes. */
+.fit-canvas {
+  transform-origin: top left;
+  flex-shrink: 0;
+}
+
+.stage .slide {
+  height: 100%;
+  margin: 0;
+  border-radius: var(--r-lg);
+  /* The folio marker sits absolutely at the foot of the slide. On the one slide whose
+     content scrolls, the rows used to pass underneath it and collide. The bottom padding
+     keeps that lane clear. */
+  padding: 2.6rem 3rem 3.4rem;
+  overflow: auto;
+}
+
+.stage-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.deck .deck-note,
+.deck .credit { flex-shrink: 0; }
+
+.stage-count {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.stage-dots { display: flex; gap: 0.3rem; margin-left: 0.3rem; }
+
+.stage-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--line-2);
+  cursor: pointer;
+  transition: background var(--dur-1) var(--ease), transform var(--dur-1) var(--ease);
+}
+
+.stage-dot:hover { background: var(--brass); }
+.stage-dot.on { background: var(--accent-strong); transform: scale(1.3); }
+.stage-dot:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.stage-hint {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.deck .deck-note { margin: 0.7rem 0 0; font-size: 0.72rem; }
+.deck .credit { margin: 0.35rem 0 0; }
+
+@media (max-width: 62rem) {
+  .stage-hint { display: none; }
+  .fit { width: 100%; }
+}
+
 @media print {
-  @page { size: A4 landscape; margin: 12mm; }
-  body { background: #fff; }
-  .wrap { max-width: none; padding: 0; }
-  .langbar, .bar, header, .trust, .langnote, .deck-note, .deck-actions,
-  .credit, footer, .actions, .export { display: none !important; }
-  .slide {
-    break-after: page; page-break-after: always;
-    border: none; border-radius: 0; margin: 0; padding: 0 0 1.5rem;
-    min-height: auto;
+  /* The page IS the slide. A projector slide is 1280×720; making the sheet the same box
+     means the PDF has exactly one page per slide and needs no pagination hints at all —
+     the earlier A4 version turned seven slides into eighteen pages with three headings
+     stranded on their own. What the room sees is now what the sheet shows. */
+  @page { size: 1280px 720px; margin: 0; }
+
+  body {
+    background: white !important; /* paper, not a token */
+    background-image: none !important;
   }
+
+  body::before { display: none; }
+
+  .appbar, .toolbar, .block-rail, .block-view, .register-view,
+  .actions, .export, .app-footer, .kb-hint,
+  .deck-note, .deck-actions, .credit,
+  .stage { display: none !important; }
+
+  /* The stack is what prints — the stage is a screen affordance only. */
+  .deck-stack { display: block !important; }
+
+  /* …and the deck view's screen layout has to be undone first. On screen it fits itself
+     into the leftover viewport height and clips (`flex: 1 1 0` + `overflow: hidden`), which
+     is exactly right for a presentation and exactly wrong for a print: the sheet inherited
+     a 1050px-tall box and the whole deck came out as ONE page. Print flows; only screens
+     have a viewport. */
+  .app { display: block; min-height: 0; }
+
+  .main-wide {
+    display: block;
+    flex: none;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .deck { display: block; flex: none; min-height: 0; }
+
+  .main { max-width: none; padding: 0; }
+  .deck-stack { width: 1280px; }
+
+  .deck { margin: 0; }
+
+  .slide {
+    break-after: page;
+    page-break-after: always;
+    width: 1280px;
+    /* min-height, not height, and no clipping: a slide that holds more than a slide can
+       hold must run onto a second sheet, never lose its tail. Five of the seven fit; the
+       two list slides — the undecided directions and the open points — do not, and that
+       is a fact about the intake, not about the layout. */
+    min-height: 720px;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 3rem 3.4rem 2rem;
+    min-height: 0;
+    background: white !important; /* paper, not a token */
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+
   .slide.last { break-after: auto; page-break-after: auto; }
   .slide .corner { display: none; }
-  .card { break-inside: avoid; }
+
+  /* Seven slides had become seventeen pages, with "OPTIONEN" alone on one of them.
+     A slide that genuinely does not fit — the open-points list — may run over; a
+     heading separated from its own content may not. Keep titles with what follows,
+     never split a card, and take the type down a notch so the six short slides land
+     on one page each. */
+  .deck { font-size: 1rem; }
+
+  /* The slide is a flex column with overflow:hidden on screen. Both are poison for
+     pagination: Chromium ignores break-* hints inside a flex container, and a clipped
+     box cannot fragment at all. In print the slide is a plain block again. */
+  .slide {
+    display: block;
+    overflow: visible;
+    min-height: 0;
+    /* Now that the slide is an ordinary block, this is the lever that works:
+       Chromium honours break-inside on a block that fits a page and ignores it on
+       one that cannot — so the six short slides land whole, and the open-points
+       list is allowed to run over. */
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* The folio marker must never be the only thing on a page — it belongs to the
+     slide above it. */
+  .slide .marker {
+    position: static;
+    display: block;
+    margin-top: 0.5rem;
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .slide .slide-body { flex: none; }
+
+  .slide h3 { break-after: avoid; page-break-after: avoid; font-size: 1.6rem; }
+  .slide h3 + *, .slide .slide-body { break-before: avoid; page-break-before: avoid; }
+  .slide .lead { break-after: avoid; page-break-after: avoid; }
+  .cards { break-inside: avoid; page-break-inside: avoid; }
+  .card, .cond, .kv, .reg { break-inside: avoid; page-break-inside: avoid; }
+  .signoff { break-before: avoid; page-break-before: avoid; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Responsive — iPad portrait (768px) and landscape (1024px)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .main { padding: 1rem; padding-bottom: 3rem; }
+  .appbar { padding: 0 1rem; }
+  .toolbar { padding: 0.5rem 1rem; }
+  .app-footer { padding: 1rem; }
+  .block-view { padding: 1.1rem; }
+}
+
+@media (max-width: 640px) {
+  .appbar-stats { display: none; }
+  .brand-mode { display: none; }
+  .main { padding: 0.75rem; padding-bottom: 3rem; }
+  .block-view { padding: 0.9rem; border-radius: var(--r-md); }
+  .slide { padding: 1.5rem 1.5rem 2.5rem; min-height: auto; }
+  .slide h3 { font-size: 1.5rem; }
+  .lead { font-size: 1.1rem; }
+  .cards { flex-direction: column; }
+
+  /* Board: the row-head column gives way first; cells stay above 44px. */
+  .eg-board { grid-template-columns: 4.4rem repeat(4, minmax(0, 1fr)); }
+  .eg-row { min-width: 0; font-size: 0.66rem; }
+  .eg-col { font-size: 0.62rem; }
+}
+
+/* Safe area for iPad notch/home indicator */
+@supports (padding: max(0px)) {
+  .appbar {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+  .toolbar {
+    padding-left: max(0.6rem, env(safe-area-inset-left));
+    padding-right: max(0.6rem, env(safe-area-inset-right));
+  }
+  .main {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
 }

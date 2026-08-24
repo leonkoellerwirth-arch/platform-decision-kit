@@ -1,0 +1,100 @@
+/* =========================================================
+   HeroUI v3 → Haus-Designsystem.
+
+   HeroUI leitet fast seine gesamte Oberfläche (Hover, Soft-Varianten, Ränder,
+   Separatoren) per color-mix aus einem kleinen Satz semantischer Basis-Tokens ab.
+   Setzt man diese Basis auf die Haus-Tokens, färbt sich die ganze Bibliothek mit.
+
+   Zwei Dinge machen das sauber:
+
+   1. Namensgleichheit. HeroUI und theme.css heißen an fünf Stellen gleich —
+      --surface, --muted, --accent, --warning, --danger. Die werden hier bewusst
+      NICHT noch einmal deklariert: theme.css definiert sie bereits, und weil diese
+      Datei ungelayert ist, gewinnt sie gegen HeroUIs @layer base. Eine Zeile
+      `--surface: var(--surface)` wäre ein Zyklus und damit ungültig.
+   2. Ungelayert schlägt gelayert. Alles hier steht außerhalb von @layer und
+      überschreibt deshalb HeroUIs Default-Theme, ohne dass Reihenfolge oder
+      Spezifität eine Rolle spielen.
+
+   HeroUIs Dunkel-Theme hängt an .dark / [data-theme="dark"] und greift bei uns
+   nie — das Haus heißt paper und ink. Deshalb steht der Block in allen drei
+   Scopes: die Zuordnung ist identisch, die Haus-Tokens darunter sind es nicht.
+
+   Regel unverändert: kein rohes Hex. theme.css bleibt die einzige Stelle mit
+   Farbliteralen.
+========================================================= */
+
+:root,
+[data-theme="paper"],
+[data-theme="ink"] {
+  /* Grundflächen */
+  --background: var(--bg);
+  --foreground: var(--text);
+
+  --surface-foreground: var(--text);
+  --surface-secondary: var(--surface-2);
+  --surface-secondary-foreground: var(--text);
+  --surface-tertiary: var(--bg);
+  --surface-tertiary-foreground: var(--text);
+
+  /* Overlays: Tooltip, Popover, Menü */
+  --overlay: var(--surface);
+  --overlay-foreground: var(--text);
+
+  /* „default" ist HeroUIs neutrale Füllung. Nicht der Mint-Napf (--surface-2):
+     Mint ist der SEKUNDÄRE Akzent des Hauses und trägt Bedeutung. Als Grundton
+     unter jeder neutralen Schaltfläche würde er die Leiste grün einfärben und
+     dem Mint seine Aussage nehmen. Neutral ist hier der kühle Seitenton. */
+  --default: var(--bg);
+  --default-foreground: var(--text);
+
+  /* Schrift auf Akzentfläche. DESIGNSYSTEM.md führt das als offenen Punkt und
+     nennt --surface als die Antwort, die in beiden Themes trägt: Weiß auf dunklem
+     Blau (paper), dunkles Navy auf hellem Blau (ink). */
+  --accent-foreground: var(--surface);
+
+  /* Status. Die Namen laufen hier auseinander: das Haus sagt --ok und --warn,
+     HeroUI sagt --success und --warning. Nur --danger heißt in beiden gleich und
+     braucht deshalb keine Zeile. */
+  --success: var(--ok);
+  --warning: var(--warn);
+  --success-foreground: var(--surface);
+  --warning-foreground: var(--surface);
+  --danger-foreground: var(--surface);
+
+  /* Linien */
+  --border: var(--line);
+  --border-width: 1px;
+  --separator: var(--line);
+  --link: var(--accent-strong);
+
+  /* Fokus ist Messing — der warme Markenakzent, ausdrücklich nicht grün. */
+  --focus: var(--brass);
+
+  --segment: var(--surface);
+  --segment-foreground: var(--text);
+
+  /* Radien */
+  --radius: var(--r-sm);
+  --field-radius: var(--r-sm);
+
+  /* Eingabefelder. HeroUI liefert sie randlos aus (--field-border: transparent,
+     --field-border-width: 0px); das Haus hat eine sichtbare Haarlinie, die im
+     Fokus auf Messing wechselt. */
+  --field-background: var(--surface);
+  --field-foreground: var(--text);
+  --field-placeholder: var(--muted);
+  --field-border: var(--line);
+  --field-border-width: 1px;
+  --field-border-hover: var(--line-2);
+  --field-border-focus: var(--brass);
+  --field-focus: var(--surface);
+  --field-hover: var(--surface);
+  --field-shadow: none;
+
+  /* Elevation aus dem Haus statt HeroUIs neutralem Grau-Schatten */
+  --surface-shadow: var(--shadow-1);
+  --overlay-shadow: var(--shadow-2);
+
+  --backdrop: color-mix(in srgb, var(--text) 45%, transparent);
+}

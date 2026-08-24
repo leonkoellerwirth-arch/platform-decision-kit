@@ -14,6 +14,10 @@
 //
 // PDF export is the browser's own print dialogue against the @media print rules. No library.
 
+import { Children, useCallback, useEffect, useRef, useState } from "react";
+
+import { Button } from "@heroui/react";
+
 import { t, UI } from "./i18n";
 import {
   DECISION_HEAD_FIELDS,
@@ -88,13 +92,11 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
     return i && i.text !== "" ? i.text : t(UI.notEstimated, lang);
   };
 
-  return (
-    <section className="deck">
-      <p className="deck-note">{t(UI.deckNote, lang)}</p>
-      <div className="deck-actions">
-        <button onClick={() => window.print()}>{t(UI.print, lang)}</button>
-      </div>
-
+  // The seven slides are collected into an array rather than emitted straight into the
+  // page, because the same slides have to serve three surfaces: the scrolling stack, the
+  // presenter's full-screen stage, and the print sheet. Children.toArray keys them for us.
+  const deck = (
+    <>
       <Slide n={1} lang={lang} title={t(UI.deckTitles.s1, lang)}>
         <Lead item={have("Q1.1")} lang={lang} />
         <Cards>
@@ -115,18 +117,18 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
 
       <Slide n={2} lang={lang} title={t(UI.deckTitles.s2, lang)}>
         <Cards>
-          <Card label="Q2.6">
+          <Card label={t(UI.cardSuccess, lang)}>
             <Quote item={have("Q2.6")} lang={lang} />
           </Card>
-          <Card label="Q2.7">
+          <Card label={t(UI.cardJudge, lang)}>
             <Quote item={have("Q2.7")} lang={lang} />
           </Card>
         </Cards>
         <Cards>
-          <Card label="Q2.3">
+          <Card label={t(UI.cardInScope, lang)}>
             <Quote item={have("Q2.3")} lang={lang} />
           </Card>
-          <Card label="Q2.4">
+          <Card label={t(UI.cardOutOfScope, lang)}>
             <Quote item={have("Q2.4")} lang={lang} />
           </Card>
         </Cards>
@@ -186,10 +188,10 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
           <Card label={t(UI.irreversible, lang)} flag>
             <Quote item={have("Q8.2")} lang={lang} />
           </Card>
-          <Card label="Q8.4">
+          <Card label={t(UI.cardWayBack, lang)}>
             <Quote item={have("Q8.4")} lang={lang} />
           </Card>
-          <Card label="Q8.5">
+          <Card label={t(UI.cardIrreversibilityAssessed, lang)}>
             <Quote item={have("Q8.5")} lang={lang} />
           </Card>
         </Cards>
@@ -197,8 +199,14 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
 
       <Slide n={6} lang={lang} title={t(UI.deckTitles.s6, lang)}>
         <Cards>
-          {["Q9.1", "Q9.3", "Q9.5"].map((id) => (
-            <Card key={id} label={id}>
+          {(
+            [
+              ["Q9.1", UI.cardPlatformOwner],
+              ["Q9.3", UI.cardKeyPeople],
+              ["Q9.5", UI.cardVetoChain],
+            ] as const
+          ).map(([id, label]) => (
+            <Card key={id} label={t(label, lang)}>
               <Quote item={have(id)} lang={lang} />
             </Card>
           ))}
@@ -211,6 +219,11 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
       </Slide>
 
       <Slide n={7} lang={lang} title={t(UI.deckTitles.s7, lang)} last>
+        {/* The sign-off leads. It is the finding of the instrument — "this is a discovery
+            brief, no recommendation, nothing here is decision-ready" — and it stood in
+            grey italics after thirty-nine table rows, where nobody in the room ever read
+            it. The wording is unchanged; the gate asserts it verbatim. */}
+        <p className="signoff">{t(UI.deckSignoff, lang)}</p>
         {openItems.length === 0 ? (
           <p className="muted">{t(UI.noOpenDirections, lang)}</p>
         ) : (
@@ -228,13 +241,185 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
             </tbody>
           </table>
         )}
-        <p className="signoff">{t(UI.deckSignoff, lang)}</p>
       </Slide>
+    </>
+  );
+  const slides = Children.toArray(deck.props.children);
+
+  return <Presenter lang={lang} mode={mode} slides={slides} />;
+}
+
+/**
+ * The deck, as a deck.
+ *
+ * The first version of this view was a stack you scrolled, capped at the intake's reading
+ * width. That is the wrong shape twice over: a slide is landscape and a deck is paged, and
+ * a column of portrait cards is neither. The tab now *is* the presentation — one 16:9 slide
+ * filling the width it has, arrow keys to move, and "Präsentieren" only asks the browser for
+ * full screen. There is nothing to discover and nothing to scroll.
+ *
+ * The stack stays mounted but hidden, because printing prints the stack: seven slides, one
+ * page each.
+ */
+function Presenter({
+  lang,
+  mode,
+  slides,
+}: {
+  lang: Lang;
+  mode: Mode;
+  slides: React.ReactNode[];
+}) {
+  const [i, setI] = useState(0);
+  const n = slides.length;
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  const go = useCallback(
+    (d: number) => setI((prev) => Math.min(n - 1, Math.max(0, prev + d))),
+    [n],
+  );
+
+  const fullscreen = useCallback(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    if (document.fullscreenElement) void document.exitFullscreen().catch(() => {});
+    else void el.requestFullscreen?.().catch(() => {});
+  }, []);
+
+  // The keys a presenter's hands already know. This component only exists while the
+  // presentation tab is open, so nothing here can shadow the intake's own shortcuts.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null;
+      if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA")) return;
+      switch (e.key) {
+        case "ArrowRight":
+        case "PageDown":
+        case " ":
+          e.preventDefault();
+          go(1);
+          break;
+        case "ArrowLeft":
+        case "PageUp":
+          e.preventDefault();
+          go(-1);
+          break;
+        case "Home":
+          e.preventDefault();
+          setI(0);
+          break;
+        case "End":
+          e.preventDefault();
+          setI(n - 1);
+          break;
+        case "f":
+        case "F":
+          e.preventDefault();
+          fullscreen();
+          break;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [go, n, fullscreen]);
+
+  return (
+    <section className="deck">
+      <div className="stage" ref={stageRef}>
+        <div className="stage-frame">
+          <Fit>{slides[i]}</Fit>
+        </div>
+
+        <div className="stage-bar">
+          <Button variant="ghost" size="sm" isIconOnly isDisabled={i === 0}
+                  aria-label={t(UI.presentPrev, lang)} onPress={() => go(-1)}>
+            &#8592;
+          </Button>
+          <span className="stage-count">
+            {t(UI.slide, lang)} {i + 1} / {n}
+          </span>
+          <Button variant="ghost" size="sm" isIconOnly isDisabled={i === n - 1}
+                  aria-label={t(UI.presentNext, lang)} onPress={() => go(1)}>
+            &#8594;
+          </Button>
+
+          <div className="stage-dots">
+            {slides.map((_, k) => (
+              <button
+                key={k}
+                type="button"
+                className={`stage-dot${k === i ? " on" : ""}`}
+                aria-label={`${t(UI.slide, lang)} ${k + 1}`}
+                onClick={() => setI(k)}
+              />
+            ))}
+          </div>
+
+          <span className="stage-hint">{t(UI.presentHint, lang)}</span>
+
+          <Button variant="primary" size="sm" onPress={fullscreen}>
+            {t(UI.present, lang)}
+          </Button>
+          <Button variant="outline" size="sm" onPress={() => window.print()}>
+            {t(UI.print, lang)}
+          </Button>
+        </div>
+      </div>
+
+      <p className="deck-note">{t(UI.deckNote, lang)}</p>
+
+      {/* Hidden on screen, printed on paper. */}
+      <div className="deck-stack">{slides}</div>
 
       <p className="credit">
         {t(UI.deckDesignCredit, lang)} · {mode === "triage" ? "TRIAGE" : "DISCOVERY"}
       </p>
     </section>
+  );
+}
+
+/**
+ * The slide canvas.
+ *
+ * A slide is 1280 × 720 — a fixed box, like the one a projector actually has — and the
+ * whole box is scaled to whatever room the stage has. That is one multiplication, not a
+ * measuring loop: the first version measured the content, scaled it, and thereby changed
+ * the thing it had just measured, which settled at the shrink floor on every slide.
+ *
+ * Fixed also means honest. What the room sees is the same box the PDF prints, so a slide
+ * that overflows here overflows there too — you find it while rehearsing, not on stage.
+ * The open-points register is the one slide that does overflow, by nature: thirty-nine
+ * items were never a projection surface. It scrolls inside its canvas rather than being
+ * silently cropped.
+ */
+const CANVAS_W = 1280;
+const CANVAS_H = 720;
+
+function Fit({ children }: { children: React.ReactNode }) {
+  const box = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const measure = () => {
+      const b = box.current;
+      if (!b) return;
+      setScale(Math.min(b.clientWidth / CANVAS_W, b.clientHeight / CANVAS_H));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (box.current) ro.observe(box.current);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div className="fit" ref={box}>
+      <div
+        className="fit-canvas"
+        style={{ width: CANVAS_W, height: CANVAS_H, transform: `scale(${scale})` }}
+      >
+        {children}
+      </div>
+    </div>
   );
 }
 

@@ -1,0 +1,143 @@
+/* =========================================================
+   Verbatim copy — dev/base/standards/extra/theme.css
+   Quelle: leonkoellerwirth.de design tokens. Nicht lokal bearbeiten.
+   Änderungen immer an der Quelle vornehmen und hierher propagieren.
+
+   leonkoellerwirth.de — design tokens. The single source of truth
+   for colour, elevation, radius, motion.
+
+   Palette: a cool, calm pairing of soft blue (#E3ECF3) and soft mint
+   (#EBF4EE) — clean and professional, fitting regulated/critical work.
+   Blue is the PRIMARY accent (links, numbers, labels, primary CTA);
+   mint is the SECONDARY accent (live status, positive outcomes, the
+   call button). The dark theme complements with a deep cool navy ground
+   and brighter blue/mint accents.
+
+   Components NEVER use raw hex / raw Tailwind palette — they consume the
+   `lk-*` utilities bridged from these vars in ui.css. Flipping [data-theme]
+   flips every consumer at once. This file + ui.css are the ONLY places raw
+   hex is allowed.
+========================================================= */
+
+:root,
+[data-theme="paper"] {
+  /* Surfaces — cool blue-white page, clean white cards, soft mint wells */
+  --bg:         #eef3f8; /* soft cool blue-white */
+  --surface:    #ffffff; /* cards, header */
+  --surface-2:  #e8f1ec; /* mint well — badges, recessed blocks */
+
+  /* Text — deep cool navy on light */
+  --text:       #14222e; /* near-ink, cool */
+  --text-soft:  #3a4f5d; /* body lede */
+  --muted:      #586c7b; /* labels, meta — clears WCAG AA (~4.9:1) */
+
+  /* Primary accent — blue */
+  --accent:        #3a78b0; /* mid — dots, logo ring, hovers */
+  --accent-strong: #235d8f; /* deep — links, numbers, labels, kicker */
+  --accent-soft:   rgba(58, 120, 176, 0.1);
+
+  /* Secondary accent — mint / sage green */
+  --accent2:        #4a9b78;
+  --accent2-strong: #2f6f53;
+  --accent2-soft:   rgba(74, 155, 120, 0.12);
+
+  /* Brass — the warm brand accent carried over from the executive pitch. Used for
+     tag hovers and field focus; deliberately NOT green. */
+  --brass:      #a87c3a;
+  --brass-deep: #8a6326;
+
+  /* Signal — the single catchy red "dot" accent (logo tip, diagram core). Used very
+     sparingly as a focal pop against navy + brass; never as a fill area. */
+  --signal:     #d23a2a;
+
+  /* Lines — cool hairlines */
+  --line:    #d4e0e9;
+  --line-2:  #bccdda;
+
+  /* Page wash — a soft blue lift behind the hero */
+  --body-wash: radial-gradient(120% 80% at 50% -10%, #e3ecf3 0%, rgba(238, 243, 248, 0) 56%);
+  --grain-opacity: 0.22;
+
+  /* Material relief — the brand's signature card/section craft (adapted from the
+     Freyja "lamination" idea into a COOL, instrument-grade key). One luminous brass
+     top edge + a faint cool gradient ground give surfaces depth without flat-card
+     genericness. Never a colour block; always subtle. */
+  --relief:       linear-gradient(154deg, #eaf1f8 0%, #f3f7fb 48%, #ffffff 100%);
+  --relief-soft:  linear-gradient(160deg, #f3f7fb 0%, #fafcfe 52%, #ffffff 100%);
+  --sheen:        linear-gradient(180deg, rgba(58, 120, 176, 0.05) 0%, rgba(238, 243, 248, 0) 38%);
+  --edge-light:   rgba(168, 124, 58, 0.45); /* brass luminous top edge — the crafted detail */
+
+  /* Status */
+  --ok:     #2f6f53;
+  --warn:   #b06f1f;
+  --danger: #b3203f;
+
+  /* Radius */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+
+  /* Elevation — soft, cool-tinted */
+  --shadow-1: 0 1px 2px rgba(20, 34, 46, 0.05), 0 18px 50px -28px rgba(20, 34, 46, 0.28);
+  --shadow-2: 0 1px 2px rgba(20, 34, 46, 0.06), 0 28px 60px -30px rgba(20, 34, 46, 0.38);
+
+  /* Motion */
+  --dur-1: 180ms;
+  --dur-2: 420ms;
+  --ease:  cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Focus ring — blue */
+  --focus-ring: 0 0 0 3px rgba(58, 120, 176, 0.34);
+
+  color-scheme: light;
+}
+
+/* Dark theme — complements the light palette: a deep cool navy ground with
+   brighter blue + mint accents. Every token a component consumes is redefined so
+   flipping [data-theme] flips the whole UI at once. */
+[data-theme="ink"] {
+  --bg:         #0f1820; /* deep cool navy */
+  --surface:    #16212b;
+  --surface-2:  #1d2a36;
+
+  --text:       #e9eef3; /* cool white */
+  --text-soft:  #bcc9d3;
+  --muted:      #8395a2;
+
+  --accent:        #5aa0db; /* brighter blue for dark */
+  --accent-strong: #82b9e8;
+  --accent-soft:   rgba(90, 160, 219, 0.16);
+
+  --accent2:        #5cc093; /* brighter mint for dark */
+  --accent2-strong: #82d3ac;
+  --accent2-soft:   rgba(92, 192, 147, 0.16);
+
+  --brass:      #cb9d5a; /* warmer/brighter brass to read on deep navy */
+  --brass-deep: #b6863f;
+
+  --signal:     #f0685a; /* brighter red to pop on the deep navy ground */
+
+  --line:    rgba(233, 238, 243, 0.12);
+  --line-2:  rgba(233, 238, 243, 0.22);
+
+  --body-wash: radial-gradient(120% 80% at 50% -10%, rgba(34, 64, 92, 0.5) 0%, rgba(15, 24, 32, 0) 58%);
+  --grain-opacity: 0.18;
+
+  /* Material relief — dark "instrument" variant: a faint cool gradient lift + a
+     brightened brass top edge so cards/sections read as crafted metal on navy. */
+  --relief:       linear-gradient(154deg, #18242f 0%, #131e28 48%, #0f1820 100%);
+  --relief-soft:  linear-gradient(160deg, #1a2632 0%, #16212b 52%, #131d26 100%);
+  --sheen:        linear-gradient(180deg, rgba(90, 160, 219, 0.07) 0%, rgba(15, 24, 32, 0) 38%);
+  --edge-light:   rgba(203, 157, 90, 0.32); /* brass luminous top edge (brightened) */
+
+  --ok:     #5cc093;
+  --warn:   #d8a23e;
+  --danger: #e0648a;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 18px 50px -28px rgba(0, 0, 0, 0.7);
+  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.55), 0 28px 60px -30px rgba(0, 0, 0, 0.75);
+
+  --focus-ring: 0 0 0 3px rgba(90, 160, 219, 0.45);
+
+  color-scheme: dark;
+}

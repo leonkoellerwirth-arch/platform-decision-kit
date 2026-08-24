@@ -1,0 +1,158 @@
+/* =========================================================
+   Utility-Brücke + Signaturflächen.
+
+   Übernommen aus rag-approval-blueprint/app/src/styles/ui.css (Band 2 derselben
+   Reihe), das seinerseits leonkoellerwirth.de/src/styles/ui.css nachbildet.
+   Die Regeln aus dev/base/standards/extra/DESIGNSYSTEM.md gelten unverändert:
+   Komponenten verwenden niemals rohes Hex, sondern ausschließlich die Tokens
+   aus theme.css. Themes heißen paper und ink.
+
+   Die @layer base des Originals (body-wash, Papierfaser-Korn, Fokusring)
+   steht in diesem Repo bereits am Kopf von styles.css und ist hier bewusst
+   nicht doppelt aufgeführt.
+========================================================= */
+
+@theme inline {
+  --color-lk-bg: var(--bg);
+  --color-lk-surface: var(--surface);
+  --color-lk-surface-2: var(--surface-2);
+  --color-lk-ink: var(--text);
+  --color-lk-soft: var(--text-soft);
+  --color-lk-muted: var(--muted);
+  --color-lk-accent: var(--accent);
+  --color-lk-accent-strong: var(--accent-strong);
+  --color-lk-accent-soft: var(--accent-soft);
+  --color-lk-accent2: var(--accent2);
+  --color-lk-accent2-strong: var(--accent2-strong);
+  --color-lk-accent2-soft: var(--accent2-soft);
+  --color-lk-brass: var(--brass);
+  --color-lk-brass-deep: var(--brass-deep);
+  --color-lk-signal: var(--signal);
+  --color-lk-line: var(--line);
+  --color-lk-line-2: var(--line-2);
+  --color-lk-ok: var(--ok);
+  --color-lk-warn: var(--warn);
+  --color-lk-danger: var(--danger);
+
+  --radius-lk-sm: var(--r-sm);
+  --radius-lk-md: var(--r-md);
+  --radius-lk-lg: var(--r-lg);
+
+  --shadow-lk-1: var(--shadow-1);
+  --shadow-lk-2: var(--shadow-2);
+
+  --font-ui: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", Fraunces, Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Die Farbbrücke in JEDEM Theme-Scope neu auflösen — @theme bildet sie nur auf
+   :root ab, sodass ein verschachtelter [data-theme]-Bereich sonst die Farben des
+   falschen Themes erbte. */
+[data-theme="paper"],
+[data-theme="ink"] {
+  --color-lk-bg: var(--bg);
+  --color-lk-surface: var(--surface);
+  --color-lk-surface-2: var(--surface-2);
+  --color-lk-ink: var(--text);
+  --color-lk-soft: var(--text-soft);
+  --color-lk-muted: var(--muted);
+  --color-lk-accent: var(--accent);
+  --color-lk-accent-strong: var(--accent-strong);
+  --color-lk-accent-soft: var(--accent-soft);
+  --color-lk-accent2: var(--accent2);
+  --color-lk-accent2-strong: var(--accent2-strong);
+  --color-lk-accent2-soft: var(--accent2-soft);
+  --color-lk-brass: var(--brass);
+  --color-lk-brass-deep: var(--brass-deep);
+  --color-lk-signal: var(--signal);
+  --color-lk-line: var(--line);
+  --color-lk-line-2: var(--line-2);
+  --color-lk-ok: var(--ok);
+  --color-lk-warn: var(--warn);
+  --color-lk-danger: var(--danger);
+}
+
+@layer components {
+  .hairline {
+    height: 1px;
+    background: var(--line);
+    border: 0;
+  }
+
+  /* Die Signaturfläche des Hauses: kühler Materialverlauf + EINE leuchtende
+     Messing-Oberkante. Ersetzt flaches Karten-Weiß überall. */
+  .lk-card {
+    background-color: var(--surface);
+    background-image: var(--relief-soft);
+    box-shadow:
+      inset 0 1px 0 0 var(--edge-light),
+      var(--shadow-1);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .lk-panel {
+    background-color: var(--surface);
+    background-image: var(--relief);
+    box-shadow: inset 0 1px 0 0 var(--edge-light);
+    border: 1px solid var(--line);
+  }
+  .lk-card-hover {
+    transition:
+      box-shadow var(--dur-1) var(--ease),
+      border-color var(--dur-1) var(--ease);
+  }
+  .lk-card-hover:hover {
+    box-shadow:
+      inset 0 1px 0 0 var(--edge-light),
+      var(--shadow-2);
+    border-color: var(--line-2);
+  }
+
+  /* Eingaben: Messing für den Fokus — der warme Markenakzent, ausdrücklich nicht grün. */
+  .lk-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    padding: 0.55rem 0.7rem;
+    font-size: 0.925rem;
+    transition: border-color var(--dur-1) var(--ease);
+  }
+  .lk-input:focus {
+    border-color: var(--brass);
+  }
+  .lk-input::placeholder {
+    color: var(--muted);
+  }
+
+  .lk-btn {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    padding: 0.42rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      border-color var(--dur-1) var(--ease),
+      color var(--dur-1) var(--ease);
+  }
+  .lk-btn:hover {
+    border-color: var(--line-2);
+    color: var(--accent-strong);
+  }
+  /* Schrift auf dem Akzent: --surface trägt in beiden Themes korrekt —
+     Weiß auf dunklem Blau (paper), dunkles Navy auf hellem Blau (ink). */
+  .lk-btn-primary {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+    color: var(--surface);
+    font-weight: 500;
+  }
+  .lk-btn-primary:hover {
+    opacity: 0.92;
+    color: var(--surface);
+  }
+}

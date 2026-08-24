@@ -19,3 +19,6 @@ app/dev-dist/
 
 # Architecture spec — internal implementation blueprint, not part of the public artifact.
 ARCHITECTURE-SPEC.md
+
+# Design review — internal draft, same category as ARCHITECTURE-SPEC.md above.
+.planning/

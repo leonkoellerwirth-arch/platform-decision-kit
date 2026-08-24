@@ -1,0 +1,19 @@
+/* Einstiegspunkt der Stile.
+
+   Reihenfolge ist hier Architektur, nicht Geschmack:
+
+   1. @heroui/styles zieht Tailwind v4, HeroUIs Basis, seine Komponenten und sein
+      Default-Theme — alles in @layer base/components/theme/utilities.
+   2. theme.css bringt die Haus-Tokens. Ungelayert, gewinnt damit gegen HeroUIs
+      gleichnamige Defaults (--surface, --muted, --accent, --warning, --danger).
+   3. ui.css ist die Utility-Brücke des Hauses (lk-*) und die Signaturflächen.
+   4. heroui-bridge.css setzt HeroUIs übrige semantische Tokens auf die Haus-Tokens.
+   5. styles.css sind die Komponenten dieses Repos. Ebenfalls ungelayert — Tailwinds
+      preflight liegt in @layer base und kann sie deshalb nicht verschieben. */
+
+@import "@heroui/styles";
+
+@import "./styles/theme.css";
+@import "./styles/ui.css";
+@import "./styles/heroui-bridge.css";
+@import "./styles.css";

@@ -227,6 +227,78 @@ export const UI = {
     en: "_No open point recorded. On a first pass that is a finding, not a result._",
     de: "_Kein offener Punkt erfasst. Bei einem ersten Durchgang ist das ein Befund, kein Ergebnis._",
   },
+
+  // --- EvidenceGrid and navigation ---
+  evidenceGrid: {
+    en: "Evidence grid — basis × verification",
+    de: "Beleggitter — Basis × Verifikation",
+  },
+  keyboardHint: {
+    en: "1–4 basis · Q/W/E verification (outside text fields)",
+    de: "1–4 Basis · Q/W/E Verifikation (außerhalb von Textfeldern)",
+  },
+  activeFor: {
+    en: "active for",
+    de: "aktiv für",
+  },
+  nextBlock: { en: "Next block", de: "Nächster Block" },
+  prevBlock: { en: "Previous block", de: "Vorheriger Block" },
+  viewRegister: { en: "Register", de: "Register" },
+  blockNav: { en: "Block navigator", de: "Block-Navigation" },
+  registerPayoff: {
+    en: "These are the items that must be verified before any direction is decision-ready. Turn the screen and show this to the client.",
+    de: "Das sind die Punkte, die verifiziert sein müssen, bevor eine Richtung entscheidungsreif ist. Den Bildschirm umdrehen und dem Kunden zeigen.",
+  },
+  themeToggle: { en: "Switch theme", de: "Theme wechseln" },
+  versionLabel: { en: "Build", de: "Build" },
+  infoToggle: { en: "About this page", de: "Hinweis zu dieser Seite" },
+
+  // --- Presenter mode ---
+  present: { en: "Present", de: "Präsentieren" },
+  presentExit: { en: "Exit", de: "Beenden" },
+  presentPrev: { en: "Previous slide", de: "Vorherige Folie" },
+  presentNext: { en: "Next slide", de: "Nächste Folie" },
+  presentHint: {
+    en: "← → or space to move · F for full screen · Esc to leave",
+    de: "← → oder Leertaste zum Blättern · F für Vollbild · Esc zum Beenden",
+  },
+  fullscreen: { en: "Full screen", de: "Vollbild" },
+
+  // --- Slide card labels ---
+  //
+  // A card used to be headed by the question it came from: "Q9.5". The Q-ID is what an
+  // auditor needs to trace the line back to the intake, and it is the wrong thing to put
+  // in front of a room — nobody knows what Q9.5 means, so the eye finds no anchor and the
+  // slide reads as a table of numbers. The ID does not disappear; it stays inline in the
+  // answer, in brackets, where tracing happens. Only the heading changes, from a locator
+  // into a name. These are the concepts the specification already names in §5.
+  cardSuccess: { en: "Success definition", de: "Erfolgsdefinition" },
+  cardJudge: { en: "Who judges", de: "Wer urteilt" },
+  cardInScope: { en: "In scope", de: "Im Scope" },
+  cardOutOfScope: { en: "Out of scope", de: "Außerhalb des Scope" },
+  cardWayBack: { en: "The way back", de: "Rückweg" },
+  cardIrreversibilityAssessed: {
+    en: "Irreversibility assessed",
+    de: "Irreversibilitäts-Bewertung",
+  },
+  cardPlatformOwner: { en: "Platform ownership", de: "Plattformverantwortung" },
+  cardKeyPeople: { en: "Key people", de: "Schlüsselpersonen" },
+  cardVetoChain: { en: "Informal veto chain", de: "Informelle Veto-Kette" },
+  versionTitle: {
+    en: "Version and commit this build came from. A trailing + means it was built from an uncommitted working tree.",
+    de: "Version und Commit dieses Builds. Ein angehängtes + heißt: aus einem uncommitteten Arbeitsstand gebaut.",
+  },
+
+  // --- Classification panel ---
+  classify: { en: "Classification", de: "Einordnung" },
+  basisCaption: { en: "what kind of knowledge", de: "welche Art von Wissen" },
+  verificationCaption: { en: "what work is outstanding", de: "was noch offen ist" },
+  notClassified: { en: "not classified yet", de: "noch nicht eingeordnet" },
+  clearCell: { en: "Clear", de: "Zurücksetzen" },
+  ruleUnknown: {
+    en: "An unknown carries no outstanding choice — it is open, and only open.",
+    de: "Ein Unbekannt trägt keine offene Wahl — es ist offen, und nur offen.",
+  },
 } as const;
 
 /** Look up a UI string in the active language. */
