@@ -100,6 +100,14 @@ bold display headings, rounded content cards, a footer pagination marker, soft c
 No code, assets or font files are copied from it, and its runtime, a backend plus a model, stays
 out, because the browser-only property is an invariant here.
 
+## A worked example
+
+[`demo/`](demo/) holds one full Discovery pass for an invented mid-sized energy utility: the filled
+intake in both question languages and the seven-slide deck as a PDF. All 55 questions are
+answered, and the instrument still arrives at no recommendation, which is the point of the
+example. A clickable version, the whole instrument in a single HTML file with the answers already
+in it, is attached to the v0.1.0 release.
+
 ## Layout
 
 ```
@@ -114,6 +122,7 @@ pipeline/               the agent prompt specification
 app/                    the browser-only web instrument (Vite, React, TypeScript, Tailwind v4)
 app/src/EvidenceGrid.tsx  the basis by verification grid
 app/src/Deck.tsx        the seven-slide presentation, rendered from the intake
+demo/                   one worked Discovery pass, invented, with its deck as a PDF
 failure-modes.md        the classical and agentic failure modes this kit is built against
 scripts/gate.sh         the deterministic quality gate
 ```
