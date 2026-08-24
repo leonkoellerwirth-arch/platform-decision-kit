@@ -3,6 +3,32 @@
 Session handoffs, **newest entry first**. Written by `/session-stop` (via
 `scripts/session-snapshot.sh`). Read the top entry at `/session-start`.
 
+## 2026-08-24 — Session 3 (one source · discovery · the deck)
+
+_HEAD 455aec9 · gate PASS · fixtures: 3/3 green · 27 tests_
+
+- **Done — the three open app items:**
+  1. `app/src/themes.ts` is now a loader over `intake/themes.json`, not a second copy.
+     Verified: the bundle carries the question text and no `fetch(`.
+  2. Discovery mode is real — all 55 questions, plus Entscheidungskopf, mini data inventory,
+     stop conditions, and hypotheses (English, explicitly marked).
+  3. Presentation view: the seven-slide skeleton (Output B) projected verbatim from the form,
+     with a print stylesheet for PDF. Layout vocabulary after Presenton (Apache-2.0); its
+     runtime (backend + LLM) deliberately stays out, per INV-10.
+- **Source change:** `red_flags` and `stop_conditions` are bilingual now. Deviates from
+  ARCHITECTURE-SPEC §3.2 on purpose; recorded in BIBLE.
+- **Still open:**
+  1. **Step 11 — tag v0.1.0 + GitHub release.** Outward-facing, needs an explicit go.
+     Briefing deadline: 2026-08-25 evening.
+  2. The deck is a *skeleton*, by design: structure and evidence, no narration. If a fully
+     designed deck is wanted, that is a separate decision — and the honest place for it is
+     after v0.1.0.
+  3. `app/` has no test suite; `verify:ci` is typecheck + build only. The Python side carries
+     the 27 tests.
+- **Next:** decide the release.
+- **Continuity warnings:** `./start.sh --app --host` for the web instrument. The dev server
+  needs `server.fs.allow: ['..']` because the question set lives outside the app root.
+
 ## 2026-08-24 — Session 2 (the instrument itself)
 
 _HEAD faab537 · gate PASS · fixtures: 3/3 green · 27 tests_
