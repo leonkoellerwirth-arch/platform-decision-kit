@@ -23,13 +23,17 @@ _HEAD 9bfcc8a · auf GitHub · gate PASS (15) · fixtures 3/3 · 27 Tests_
   `gh release create` mit „tag_name already exists" fehl; der richtige Weg ist
   `gh release edit --notes-file` plus `gh release upload`. Angehängt sind zusätzlich die
   klickbare Einzeldatei (886 KB) und das Demo-Deck als PDF (956 KB).
-- **Demo-Fall veröffentlicht, anonymisiert.** `demo/` enthält einen vollständigen
-  Discovery-Durchgang für „Demo-Firma", einen erfundenen mittelgroßen Energieversorger: gefüllte
-  Erhebung in beiden Fragesprachen und das Deck als PDF. Der Text nannte nie eine Firma, aber
-  zweimal „konzerneigenes Rechenzentrum" — das ist raus. Nachgeprüft über den gepushten Baum, die
-  Exporte, den Store, das PDF und die Einzeldatei: kein Treffer auf reale Firmen- oder Ortsnamen.
-  Die 55/55-Beantwortung ist Absicht: auch dann kommt keine Empfehlung heraus, und genau das
-  zeigt das Beispiel.
+- **Demo-Fall veröffentlicht.** `demo/` enthält einen vollständigen Discovery-Durchgang für
+  „Demo-Firma", einen erfundenen regionalen Energieversorger — Verteilnetzbetreiber mit Vertrieb,
+  rund 450.000 Zählpunkte, Zähler- und Marktdatenplattform von 2011: gefüllte Erhebung in beiden
+  Fragesprachen und das Deck als PDF. Das Unternehmen ist erfunden, der Rahmen nicht (EnWG, MsbG,
+  DSGVO, §8a BSIG, IT-Sicherheitskatalog nach §11 Abs. 1a EnWG). Die 55/55-Beantwortung ist
+  Absicht: auch dann kommt keine Empfehlung heraus, und genau das zeigt das Beispiel.
+- **Regel für jeden künftigen Demo-Fall:** kein realer Firmen-, Orts- oder Konzernname, in keiner
+  Antwort und in keinem Beleg. Die erste Fassung war firmenfrei, nannte aber zweimal einen echten
+  Standort in einer Antwort. Vor dem Push über **alles** greppen, was veröffentlicht wird — Baum,
+  beide Exporte, Store, PDF, Einzeldatei **und dieses HANDOFF**: eine Prüfliste, die die gesuchten
+  Namen aufzählt, veröffentlicht sie selbst.
 - **Nebenbefund:** zwei Dependabot-PRs (gitleaks-action 3.0.0, action-gh-release 3.0.2) haben
   rote CI. Nicht angefasst.
 
