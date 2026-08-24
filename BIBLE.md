@@ -55,6 +55,16 @@ to-verify — and lets an agent draft a discovery brief and a presentation skele
 
 Newest first. Each: date · decision · why · (superseded by …).
 
+- **2026-08-24 — `./start.sh` is the single local entry point, and Docker is the reference
+  environment for the gate.** Adopted from the house pattern (`razbiram-anki`,
+  `leonkoellerwirth.de`): one launcher, port offset from the sibling projects (5281 web
+  instrument, 5282 preview), `--free-port` opt-in, `--host` escape hatch. *Why:* the release
+  hangs on a sentence — "fixtures: 3/3 green" — and that sentence is only worth anything if the
+  verdict is reproducible. On the host the gate silently *skips* shellcheck when it is not
+  installed; in the container it is always enforced, so the reported result is the same
+  everywhere. *The limit, stated honestly:* the container has no gitleaks and falls back to the
+  regex secret scan; the full history scan runs on the host and in CI.
+
 - **2026-08-24 — English is the canonical language; two wordings stay verbatim German.** The
   repository, question texts, and briefs are English; German question texts ship as marked
   translations. The confidentiality rule and the human sign-off line are reproduced **verbatim in

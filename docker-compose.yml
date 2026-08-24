@@ -1,0 +1,82 @@
+# Local test stack — same ergonomics as the sibling projects under ~/dev, driven by ./start.sh.
+#
+# Two surfaces, deliberately separate:
+#   gate     the deterministic checks in a fixed environment (the release condition)
+#   app      the web instrument (Phase 2) — plain node image, no build step of its own
+#
+# Ports are OFFSET from the sibling projects so everything runs side by side, zero clash
+# (5173 studywithme-bg · 5273 puls_cafe · 5275 monirahlihel.com · 5277 leonkoellerwirth.de):
+#   web instrument 5281 · static preview 5282
+#
+#   ./start.sh              run the gate (and the web instrument once app/ exists)
+#   ./start.sh --gate       only the deterministic gate
+#   ./start.sh --app        only the web instrument   → http://localhost:5281
+#   docker compose run --rm gate                      # the same gate, without the launcher
+#   docker compose down                               # stop everything
+#
+# LOCAL ONLY. Nothing here is deployed: the repository ships documents and two small tools,
+# and the web instrument is a static bundle uploaded by hand.
+name: platform-decision-kit
+
+services:
+  # The deterministic gate, in the environment the release notes refer to.
+  gate:
+    build:
+      context: .
+      target: tools
+    working_dir: /kit
+    volumes:
+      - .:/kit
+      # Shadow the host virtualenv: its binaries are macOS builds and scripts/gate.sh would
+      # prefer them over the interpreter installed in this image.
+      - /kit/.venv
+      - /kit/.pytest_cache
+      - /kit/.ruff_cache
+    command: ["bash", "scripts/gate.sh"]
+
+  # An interactive shell in the same environment — for running a single tool by hand.
+  tools:
+    build:
+      context: .
+      target: tools
+    working_dir: /kit
+    volumes:
+      - .:/kit
+      - /kit/.venv
+      - /kit/.pytest_cache
+      - /kit/.ruff_cache
+    command: ["bash"]
+    stdin_open: true
+    tty: true
+    profiles: ["manual"]
+
+  # The web instrument (Phase 2). No custom image: it is a Vite app with no build-time
+  # dependency worth pinning, and node_modules is kept inside the container so a macOS host
+  # tree and a Linux container never share native binaries.
+  app:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    ports:
+      - "5281:5281"
+    command: >
+      sh -c "npm install --no-audit --no-fund &&
+             npm run dev -- --host 0.0.0.0 --port 5281 --strictPort"
+    profiles: ["web"]
+
+  # The production bundle, served exactly as it will be served from the hosting.
+  preview:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    ports:
+      - "5282:5282"
+    command: >
+      sh -c "npm install --no-audit --no-fund &&
+             npm run build &&
+             npm run preview -- --host 0.0.0.0 --port 5282 --strictPort"
+    profiles: ["web-preview"]
