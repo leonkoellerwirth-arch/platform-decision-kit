@@ -18,8 +18,20 @@ _HEAD 9bfcc8a · auf GitHub · gate PASS (15) · fixtures 3/3 · 27 Tests_
 - **Repo-Beschreibung und Topics gesetzt** (architecture-decision-records, discovery,
   offline-first, governance) — ein leeres Beschreibungsfeld ist an einem öffentlichen Repo eine
   kleine Peinlichkeit.
-- **Offen:** Schritt 11 — `v0.1.0` taggen und ein GitHub-Release anlegen. Weiter nicht getan,
-  weil Leon dafür ausdrücklich zustimmen wollte. Der Code ist jetzt oben; der Tag fehlt.
+- **Schritt 11 erledigt: `v0.1.0` getaggt, Release steht.** Der Tag löst `release.yml` aus, das
+  Wheel, sdist und SBOM anhängt und das Release selbst anlegt — deshalb schlug
+  `gh release create` mit „tag_name already exists" fehl; der richtige Weg ist
+  `gh release edit --notes-file` plus `gh release upload`. Angehängt sind zusätzlich die
+  klickbare Einzeldatei (886 KB) und das Demo-Deck als PDF (956 KB).
+- **Demo-Fall veröffentlicht, anonymisiert.** `demo/` enthält einen vollständigen
+  Discovery-Durchgang für „Demo-Firma", einen erfundenen mittelgroßen Energieversorger: gefüllte
+  Erhebung in beiden Fragesprachen und das Deck als PDF. Der Text nannte nie eine Firma, aber
+  zweimal „konzerneigenes Rechenzentrum" — das ist raus. Nachgeprüft über den gepushten Baum, die
+  Exporte, den Store, das PDF und die Einzeldatei: kein Treffer auf reale Firmen- oder Ortsnamen.
+  Die 55/55-Beantwortung ist Absicht: auch dann kommt keine Empfehlung heraus, und genau das
+  zeigt das Beispiel.
+- **Nebenbefund:** zwei Dependabot-PRs (gitleaks-action 3.0.0, action-gh-release 3.0.2) haben
+  rote CI. Nicht angefasst.
 
 
 Session handoffs, **newest entry first**. Written by `/session-stop` (via
