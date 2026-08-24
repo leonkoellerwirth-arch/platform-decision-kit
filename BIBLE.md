@@ -51,6 +51,30 @@ to-verify — and lets an agent draft a discovery brief and a presentation skele
   persistence. Optional `localStorage` only, with the "data stays in this browser" notice shown,
   because that notice is the trust argument the kit sells.
 
+## Working rules
+
+Not invariants of the artefact but of how it is built. They bind an agent working in this repo
+exactly as the invariants above do.
+
+- **WR-1 — Nothing is pushed before Leon has tested and accepted it.** Commit locally as often
+  as the work needs; `git push`, tags, releases, release assets and anything else that leaves
+  this machine wait for an explicit go on the actual change. A green gate is evidence that the
+  work is consistent, not that it is what he wanted, and the two are different questions. This
+  holds for every repository, not only this one.
+
+  It exists because it was broken: on 2026-08-24 a whole afternoon of UI work went to a public
+  repository on a general "push everything", and two defects were then found *after* publishing
+  — a mode that was set but not persisted, and a worked example whose thirty-three facts had all
+  lost their sources. Both were cheap to fix locally and expensive to fix in public.
+
+- **WR-2 — Show the machine output, not a summary of it.** Claims about the state of the work
+  carry the command and its result. "The gate passes" without `GATE: PASS` on screen is a
+  report, not evidence.
+
+- **WR-3 — Verify in the artefact the user will actually open.** A headless run proves the code
+  path; it does not prove what he sees. The reload bug and the missing sources both survived
+  green scripted runs and appeared the moment the case was loaded into a fresh browser.
+
 ## Decision register
 
 Newest first. Each: date · decision · why · (superseded by …).
