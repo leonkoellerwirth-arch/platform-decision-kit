@@ -238,6 +238,14 @@ is long. They are allowed to, because a slide may cost an extra page but may not
 All examples in this repository are fictional. Nothing here describes a real client, employer or
 institution.
 
+This kit carries no regulatory checklist, and that is deliberate: inside a discovery instrument a
+checklist is read as an assessment, which is the one thing the kit refuses to produce (F-9 in
+[`failure-modes.md`](failure-modes.md)). Block 7 scopes the regulatory question instead of answering
+it. The sister repositories draw the same line one layer further in — what an article requires can
+be mapped, whether it applies to a given system cannot, and how well an organisation meets it is not
+scored: [what this maps, and what it does
+not](https://github.com/leonkoellerwirth-arch/agentic-ai-governance-toolkit/blob/main/docs/00-scope/regulatory-scope.md).
+
 ## Backlog
 
 Not built, recorded so it is not re-invented:
