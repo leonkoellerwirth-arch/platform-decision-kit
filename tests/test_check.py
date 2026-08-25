@@ -23,10 +23,16 @@ def test_qid_pattern_ignores_quarters_and_bare_ids():
     assert QID_PATTERN.findall("Q3 2026, Q10, [Q11.1], Q1.1") == []
 
 
-def test_known_qids_cover_all_fifty_five_questions():
+def test_known_qids_cover_the_whole_question_set():
+    """58 since the technical block grew: load profile, runtime topology, runtime deps.
+
+    The count is asserted rather than derived so that a question cannot be lost in a
+    refactor without somebody noticing; the two boundary IDs pin the numbering scheme,
+    which `QID_PATTERN` depends on.
+    """
     ids = check.known_qids()
-    assert len(ids) == 55
-    assert "Q1.1" in ids and "Q10.6" in ids
+    assert len(ids) == 58
+    assert "Q1.1" in ids and "Q10.7" in ids
 
 
 def test_all_three_fixtures_are_green(examples):

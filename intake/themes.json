@@ -505,6 +505,21 @@
             "en": "A percentage with its date, or say that nobody measures it.",
             "de": "Eine Prozentzahl mit Datum, oder: es misst niemand."
           }
+        },
+        {
+          "id": "Q4.7",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "Which external services or systems must be reachable at runtime for the platform to function — and what happens to it when each one is unavailable?",
+            "de": "Welche externen Dienste oder Systeme müssen zur Laufzeit erreichbar sein, damit die Plattform funktioniert — und was passiert mit ihr, wenn eines davon ausfällt?"
+          },
+          "hint": {
+            "en": "Each runtime dependency by name, and the observed behaviour when it goes away — degraded, queued, or down.",
+            "de": "Jede Laufzeitabhängigkeit mit Namen, und das beobachtete Verhalten bei Ausfall — degradiert, gepuffert, oder aus."
+          }
         }
       ],
       "hypotheses": [
@@ -628,6 +643,21 @@
           "hint": {
             "en": "One name per consumer, or say the person cannot be reached.",
             "de": "Ein Name je Konsument, oder: die Person ist nicht erreichbar."
+          }
+        },
+        {
+          "id": "Q5.6",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": false,
+          "text": {
+            "en": "What load does the platform actually carry today — volume per day, the peak and when it occurs — and what growth is expected over the horizon of this decision?",
+            "de": "Welche Last trägt die Plattform heute tatsächlich — Volumen pro Tag, die Spitze und wann sie auftritt — und welches Wachstum wird über den Horizont dieser Entscheidung erwartet?"
+          },
+          "hint": {
+            "en": "Transactions or messages per day, the measured peak and its hour, and the expected growth — or say the figures are not measured.",
+            "de": "Transaktionen oder Nachrichten pro Tag, die gemessene Spitze und ihre Stunde, und das erwartete Wachstum — oder: die Zahlen werden nicht gemessen."
           }
         }
       ],
@@ -1290,6 +1320,21 @@
           "hint": {
             "en": "Encryption at rest and in transit, and where the keys are kept.",
             "de": "Verschlüsselung im Ruhezustand und im Transport, und wo die Schlüssel liegen."
+          }
+        },
+        {
+          "id": "Q10.7",
+          "mode": [
+            "discovery"
+          ],
+          "no_defaults": true,
+          "text": {
+            "en": "Where does the platform actually run — deployment targets, network zones, and which zone boundaries its traffic crosses?",
+            "de": "Wo läuft die Plattform tatsächlich — Deployment-Ziele, Netzzonen, und welche Zonengrenzen ihr Verkehr überschreitet?"
+          },
+          "hint": {
+            "en": "The data centre or region, the zones involved, and every boundary a request crosses.",
+            "de": "Rechenzentrum oder Region, die beteiligten Zonen, und jede Grenze, die eine Anfrage überschreitet."
           }
         }
       ],

@@ -1,7 +1,7 @@
 {
   "name": "platform-decision-kit-web",
   "version": "0.1.0",
-  "description": "The web instrument — the ten theme blocks as a guided intake, entirely in the browser.",
+  "description": "The web instrument \u2014 the ten theme blocks as a guided intake, entirely in the browser.",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +9,9 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "verify:ci": "npm run typecheck && npm run build"
+    "verify:ci": "npm run typecheck && npm run demo:check && npm run build",
+    "demo:build": "node scripts/build-demo.mjs",
+    "demo:check": "node scripts/build-demo.mjs --check"
   },
   "dependencies": {
     "@heroui/react": "^3.2.4",

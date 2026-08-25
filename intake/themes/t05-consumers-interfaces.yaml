@@ -62,6 +62,15 @@ questions:
     hint:
       en: "One name per consumer, or say the person cannot be reached."
       de: "Ein Name je Konsument, oder: die Person ist nicht erreichbar."
+  - id: "Q5.6"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "What load does the platform actually carry today — volume per day, the peak and when it occurs — and what growth is expected over the horizon of this decision?"
+      de: "Welche Last trägt die Plattform heute tatsächlich — Volumen pro Tag, die Spitze und wann sie auftritt — und welches Wachstum wird über den Horizont dieser Entscheidung erwartet?"
+    hint:
+      en: "Transactions or messages per day, the measured peak and its hour, and the expected growth — or say the figures are not measured."
+      de: "Transaktionen oder Nachrichten pro Tag, die gemessene Spitze und ihre Stunde, und das erwartete Wachstum — oder: die Zahlen werden nicht gemessen."
 
 hypotheses:
   - name: "Informal consumers will surface only when broken"

@@ -71,6 +71,15 @@ questions:
     hint:
       en: "A percentage with its date, or say that nobody measures it."
       de: "Eine Prozentzahl mit Datum, oder: es misst niemand."
+  - id: "Q4.7"
+    mode: [discovery]
+    no_defaults: false
+    text:
+      en: "Which external services or systems must be reachable at runtime for the platform to function — and what happens to it when each one is unavailable?"
+      de: "Welche externen Dienste oder Systeme müssen zur Laufzeit erreichbar sein, damit die Plattform funktioniert — und was passiert mit ihr, wenn eines davon ausfällt?"
+    hint:
+      en: "Each runtime dependency by name, and the observed behaviour when it goes away — degraded, queued, or down."
+      de: "Jede Laufzeitabhängigkeit mit Namen, und das beobachtete Verhalten bei Ausfall — degradiert, gepuffert, oder aus."
 
 hypotheses:
   - name: "The dark zone is concentrated, not distributed"

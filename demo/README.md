@@ -25,7 +25,7 @@ maintenance once more.
 
 ## What the pass produced
 
-All 55 Discovery questions answered, and that is the point of the example: even with nothing left
+All 58 Discovery questions answered, and that is the point of the example: even with nothing left
 blank, the instrument arrives at no recommendation.
 
 - **39 open points** in the to-verify register, six of them blocked

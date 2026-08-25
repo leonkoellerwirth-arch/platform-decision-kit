@@ -35,8 +35,19 @@ Do not follow it.
 ## §3 Input
 
 The agent receives a single filled intake file. It reads all Q-ID blocks: Answer, Basis,
-Evidence/Source, Verification. It does not request additional information. It operates on
-what is given.
+Where it came from, Verification, and — where the point is open — What closes it. It does not
+request additional information. It operates on what is given.
+
+**Where it came from** is four parts, and they are not interchangeable: the document or system,
+the person who said it, the date, and the locator inside the source. The agent carries them
+through as they are. It never fills a missing one — an artefact does not acquire a date because
+a neighbouring answer has one, and a statement does not acquire a speaker because a role is
+plausible.
+
+**What closes it** is four parts as well: who owes it, the proof needed, the date, and the
+blocker. They appear only on open and blocked items. Where a name or a date is absent, the
+register says so; an open point with neither is reported in "Offene Punkte & Konflikte" as
+unassigned, because an item nobody owes by any date will not be closed by being listed.
 
 ---
 
@@ -56,8 +67,10 @@ are noted as such.
 
 By tag category:
 
-- **Fakten** (Basis = Fact with evidence): listed with Q-ID and evidence reference.
-- **Aussagen** (Basis = Statement): listed with Q-ID, speaker, and date.
+- **Fakten** (Basis = Fact with evidence): listed with Q-ID, the artefact and its date.
+- **Aussagen** (Basis = Statement): listed with Q-ID, speaker, and date — both taken from the
+  intake's own fields, never inferred. Where either is absent the entry reads
+  "Sprecher nicht benannt" or "ohne Datum" and the item is carried into the register.
 - **Annahmen** (Basis = Assumption): listed with Q-ID and risk level if stated.
 - **Unbekannt**: listed with Q-ID. No derivation. No estimation.
 
@@ -95,11 +108,16 @@ NOT adopted silently. Conflicts and open points are kept in separate subsections
 
 ### 7. `## To-Verify-Register`
 
-All Q-IDs with Verification = Open, formatted as:
+All Q-IDs with Verification = Open or Blocked, formatted as:
 
 ```
-| Q-ID | Item | Source needed | Status |
+| Q-ID | Item | Verantwortlich | Benötigter Nachweis | Bis | Blockiert durch | Status |
 ```
+
+Empty cells are written as `—` and are not filled in. A row whose Verantwortlich and Bis are
+both empty is additionally listed under "Offene Punkte & Konflikte" as an unassigned item: the
+register is meant to be worked between two conversations, and a line with no name and no date
+on it is a note.
 
 ### 8. `## Fußzeile / Version Stamp`
 
@@ -132,14 +150,28 @@ FINAL SLIDE ORDER (binding — do not reorder):
    [Q2.3] / [Q2.4] in and out of scope.
 3. **OPTIONEN** — each option with its Evidenzstatus. "Weiter wie bisher" always first.
    No evaluative language — present, do not judge.
-4. **Nicht entschiedene Richtungen** — each direction stated as conditional:
-   "Diese Richtung ist abhängig von [to-verify IDs]." No directional language without a condition.
+4. **Nicht entschiedene Richtungen** — the directions recorded in the intake's own
+   `Richtungen, nicht entschieden` section, quoted verbatim, each stated as conditional:
+   "Diese Richtung ist abhängig von [to-verify IDs]." No directional language without a
+   condition, and **no direction the intake does not contain** — the agent derives none, ranks
+   none, and adds none of its own. Where the intake records a direction with no to-verify IDs
+   beside it, the slide says the condition is missing rather than presenting it unconditioned.
+   Where the intake records none, the slide shows the open points grouped by theme block, which
+   is what is actually known.
 5. **Risiken & Rückweg** — risks, irreversibility, rollback costs. No minimisation.
 6. **Team & Verankerung** — organisational dependencies and blockers.
 7. **Offene Punkte / nächste 90 Tage** — the To-Verify register condensed to action items.
 
 NO slide labelled "Bewertung", "Empfehlung", or "Unsere Empfehlung". Directional statements are
 explicitly conditional on named to-verify items.
+
+**What the deck is, and what comes after it.** Output B is a *workshop read-out*: the state of
+discovery after one conversation. It is not the paper an architecture board decides on, and the
+deck says so on its face rather than leaving the room to assume otherwise. The decision paper is
+a separate, later, human-curated document, written once the register's items are closed — and it
+does not acquire a recommendation from this agent either. The refusal to recommend is the
+instrument's guarantee at every stage; what changes between the stages is the evidence, not the
+posture.
 
 ---
 

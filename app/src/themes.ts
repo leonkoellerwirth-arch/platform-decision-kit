@@ -19,12 +19,87 @@ export type Basis = "fact" | "statement" | "assumption" | "unknown";
 /**
  * One filled-in answer. Lives here rather than in App because the deck reads the same
  * structure: the presentation is a projection of these fields, never a rewriting of them.
+ *
+ * Two groups sit beside the answer itself, and both exist because a reviewer read the
+ * instrument as an enterprise architect would and found the same two holes:
+ *
+ *   - **Where it came from.** The agent specification asks for "speaker and date" beside
+ *     every statement, and a single free-text line cannot reliably produce that: the field
+ *     held a document name, or a person, or nothing, and no reader could tell which. The
+ *     free line stays as the locator — the page, the quote, the ticket — and the artefact,
+ *     the person and the date are captured as themselves.
+ *   - **What closes it.** An open point with no owner and no date is a note, not a task.
+ *     `owner`, `evidence`, `due` and `blocker` are what turn the register from a list of
+ *     doubts into work somebody has agreed to do.
+ *
+ * Older records carry none of these. `hydrate` fills them in on read, so an intake saved
+ * before this shape existed still opens — with its old free-text source intact.
  */
 export interface Answer {
   text: string;
   basis: Basis | null;
+  /** The locator: the quotation, the page, the ticket line. Free text on purpose. */
   source: string;
+  /** The document, link or system the answer came out of. */
+  artifact: string;
+  /** The person who said it — the "speaker" the presentation agent asks for. */
+  speaker: string;
+  /** The date it was said or the artefact was current. Free text: "2026-03-11", "Q1 2026". */
+  sourceDate: string;
   verification: Verification;
+  /** Who owes the proof. A role is enough; a name is better. */
+  owner: string;
+  /** What would actually close it — the document, log, test or written confirmation. */
+  evidence: string;
+  /** The date by which it is expected. */
+  due: string;
+  /** What has to happen first, or who is in the way. */
+  blocker: string;
+}
+
+/** An answer nobody has touched. The one place the empty shape is written down. */
+export const EMPTY_ANSWER: Answer = {
+  text: "",
+  basis: null,
+  source: "",
+  artifact: "",
+  speaker: "",
+  sourceDate: "",
+  verification: "none",
+  owner: "",
+  evidence: "",
+  due: "",
+  blocker: "",
+};
+
+/**
+ * Read one stored answer into the current shape.
+ *
+ * `localStorage` and `demo/case.json` both hold records written against older shapes, and
+ * TypeScript cannot help there: the value arrives as `any` from `JSON.parse` and every new
+ * field would be `undefined` at runtime, which reaches the UI as an uncontrolled input and
+ * the export as the string "undefined". Spreading over the empty shape is the whole fix,
+ * and it is applied on read rather than on write so a record only has to survive being
+ * opened once.
+ */
+export function hydrate(a: Partial<Answer> | null | undefined): Answer {
+  return a ? { ...EMPTY_ANSWER, ...a } : EMPTY_ANSWER;
+}
+
+/**
+ * A direction as it was said in the room, with the open points it hangs on.
+ *
+ * The deck's fourth slide is specified as "Nicht entschiedene Richtungen", each one stated
+ * conditionally — "this direction depends on [Q3.2]". Nothing in the intake could carry
+ * such a sentence, so the slide fell back to listing open Q-IDs by theme: honest, but not
+ * what the specification asks for. This is the missing field, and it is typed by the
+ * architect, never generated: INV-7 does not stop applying because a renderer would find it
+ * convenient. `dependsOn` is what keeps INV-1 true — a direction with no open point behind
+ * it would read as a recommendation, so the deck says so instead of hiding it.
+ */
+export interface Direction {
+  text: string;
+  dependsOn: string[];
 }
 
 /** The Entscheidungskopf, keyed by the field slots below. */

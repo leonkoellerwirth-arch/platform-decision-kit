@@ -519,6 +519,24 @@
 
 ---
 
+#### Q4.7 — Which external services or systems must be reachable at runtime for the platform to function — and what happens to it when each one is unavailable?
+
+*[DE] Welche externen Dienste oder Systeme müssen zur Laufzeit erreichbar sein, damit die Plattform funktioniert — und was passiert mit ihr, wenn eines davon ausfällt?*
+
+> e.g. Each runtime dependency by name, and the observed behaviour when it goes away — degraded, queued, or down.
+
+**Answer:** [free text]
+
+**Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
+
+**Evidence / Source:** [link, document ID, or "Name · Date"]
+*(Required when Basis = Fact. Leave blank when Basis = Unknown.)*
+
+**Verification:** ( ) None  ( ) Open  ( ) Blocked
+*(Automatically enters the To-Verify register when marked "Open".)*
+
+---
+
 ---
 
 ## Theme 5 — Consumers & Interfaces / Konsumenten & Schnittstellen
@@ -614,6 +632,24 @@
 *[DE] Wer hat die Befugnis, im Namen jedes Konsumenten eine brechende Schnittstellenänderung zu akzeptieren — und ist diese Person erreichbar?*
 
 > e.g. One name per consumer, or say the person cannot be reached.
+
+**Answer:** [free text]
+
+**Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
+
+**Evidence / Source:** [link, document ID, or "Name · Date"]
+*(Required when Basis = Fact. Leave blank when Basis = Unknown.)*
+
+**Verification:** ( ) None  ( ) Open  ( ) Blocked
+*(Automatically enters the To-Verify register when marked "Open".)*
+
+---
+
+#### Q5.6 — What load does the platform actually carry today — volume per day, the peak and when it occurs — and what growth is expected over the horizon of this decision?
+
+*[DE] Welche Last trägt die Plattform heute tatsächlich — Volumen pro Tag, die Spitze und wann sie auftritt — und welches Wachstum wird über den Horizont dieser Entscheidung erwartet?*
+
+> e.g. Transactions or messages per day, the measured peak and its hour, and the expected growth — or say the figures are not measured.
 
 **Answer:** [free text]
 
@@ -1248,6 +1284,28 @@
 *[DE] Welche Verschlüsselung ist im Ruhezustand und beim Transport vorhanden — und werden kryptografische Schlüssel separat von den Daten verwaltet, die sie schützen?*
 
 > e.g. Encryption at rest and in transit, and where the keys are kept.
+
+**Answer:** [free text]
+
+**Basis:** ( ) Fact  ( ) Statement  ( ) Assumption  ( ) Unknown
+
+**Evidence / Source:** [link, document ID, or "Name · Date"]
+*(Required when Basis = Fact. Leave blank when Basis = Unknown.)*
+
+> **NOTE:** This field has no defaults. If the information is not available,
+> mark Basis as "Unknown" and Verification as "Open". Do not estimate or assume.
+
+
+**Verification:** ( ) None  ( ) Open  ( ) Blocked
+*(Automatically enters the To-Verify register when marked "Open".)*
+
+---
+
+#### Q10.7 — Where does the platform actually run — deployment targets, network zones, and which zone boundaries its traffic crosses?
+
+*[DE] Wo läuft die Plattform tatsächlich — Deployment-Ziele, Netzzonen, und welche Zonengrenzen ihr Verkehr überschreitet?*
+
+> e.g. The data centre or region, the zones involved, and every boundary a request crosses.
 
 **Answer:** [free text]
 

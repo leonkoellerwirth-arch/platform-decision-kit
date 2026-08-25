@@ -24,10 +24,12 @@ import { t, UI } from "./i18n";
 import {
   DECISION_HEAD_FIELDS,
   pick,
+  hydrate,
   type Answer,
   type Basis,
   type Verification,
   type DecisionHead,
+  type Direction,
   type Lang,
   type Mode,
   type Text,
@@ -48,6 +50,7 @@ interface DeckProps {
   answers: Record<string, Answer>;
   head: DecisionHead;
   rows: string[][];
+  directions: Direction[];
 }
 
 /** One answered question, flattened to what a slide needs. */
@@ -61,23 +64,46 @@ interface Item {
       write "Annahme" but not draw a triangle in brass. */
   basisKey: Basis | null;
   verification: Verification;
+  /** The attribution, already assembled for reading: a slide has no room for four labels. */
   source: string;
+  /** The follow-up, for the register on the last slide. Empty means nobody owes it. */
+  owner: string;
+  due: string;
+  evidence: string;
   open: boolean;
 }
 
-export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
+/**
+ * The four attribution fields as one readable string.
+ *
+ * A slide cannot carry four labelled fields per row, and it does not have to: what a reader
+ * needs from a source line is who or what, and when. The parts that are empty are left out
+ * rather than printed as dashes, so a well-sourced line reads as a citation and a thin one
+ * reads as thin.
+ */
+function attribution(a: Answer): string {
+  return [a.artifact, a.speaker, a.sourceDate, a.source]
+    .map((v) => v.trim())
+    .filter((v) => v !== "")
+    .join(" · ");
+}
+
+export function Deck({ lang, mode, themes, answers, head, rows, directions }: DeckProps) {
   const items: Item[] = themes.flatMap((th) =>
     th.questions.map((q) => {
-      const a = answers[q.id];
+      const a = hydrate(answers[q.id]);
       return {
         id: q.id,
         question: q.text,
-        text: a?.text.trim() ?? "",
-        basis: a?.basis ? t(UI.basisLabels[a.basis], lang) : null,
-        basisKey: a?.basis ?? null,
-        verification: a?.verification ?? "none",
-        source: a?.source.trim() ?? "",
-        open: a?.verification === "open" || a?.verification === "blocked",
+        text: a.text.trim(),
+        basis: a.basis ? t(UI.basisLabels[a.basis], lang) : null,
+        basisKey: a.basis,
+        verification: a.verification,
+        source: attribution(a),
+        owner: a.owner.trim(),
+        due: a.due.trim(),
+        evidence: a.evidence.trim(),
+        open: a.verification === "open" || a.verification === "blocked",
       };
     }),
   );
@@ -116,6 +142,9 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
       </section>
     );
   }
+
+  /** Only the directions somebody actually wrote. An empty box is not a direction. */
+  const written = directions.filter((d) => d.text.trim() !== "");
 
   /** Cost is quoted from the intake or declared unquoted. It is never computed here. */
   const cost = (id: string): string => {
@@ -233,7 +262,37 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
         </Cards>
       </Slide>
 
+      {/* The specification asks this slide for directions stated conditionally — "diese
+          Richtung ist abhängig von [Q…]" — and for a long time it could not deliver them,
+          because nothing in the intake held a direction. It showed the open points by theme
+          instead: true, and not the slide that was specified. Now it shows the directions
+          the architect wrote down, each with the points it waits on, and keeps the theme map
+          underneath as the ground they stand on. Where nothing was written, the map is the
+          whole slide, as before — the instrument invents no direction of its own. */}
       <Slide n={4} lang={lang} title={t(UI.deckTitles.s4, lang)}>
+        {written.length > 0 && (
+          <ul className="dirs">
+            {written.map((d, i) => (
+              // eslint-disable-next-line react/no-array-index-key -- directions have no id
+              <li key={i} className={d.dependsOn.length === 0 ? "dir unconditioned" : "dir"}>
+                <p className="dir-text">{d.text.trim()}</p>
+                <p className="dir-dep">
+                  {t(UI.conditionalOn, lang)}
+                  {d.dependsOn.length === 0 ? (
+                    <span className="dir-none"> — {t(UI.directionUnconditioned, lang)}</span>
+                  ) : (
+                    d.dependsOn.map((id) => (
+                      <code key={id} className="dir-qid">
+                        {id}
+                      </code>
+                    ))
+                  )}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+
         {openItems.length === 0 ? (
           <p className="muted">{t(UI.noOpenDirections, lang)}</p>
         ) : (
@@ -294,10 +353,18 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
             grey italics after thirty-nine table rows, where nobody in the room ever read
             it. The wording is unchanged; the gate asserts it verbatim. */}
         <p className="signoff">{t(UI.deckSignoff, lang)}</p>
+        <p className="readout-line">
+          <span className="readout-chip">{t(UI.readOut, lang)}</span>
+          {t(UI.readOutNote, lang)}
+        </p>
         {openItems.length === 0 ? (
           <p className="muted">{t(UI.noOpenDirections, lang)}</p>
         ) : (
-          <table className="reg">
+          /* Four columns now, not three. An open point that leaves the room without a name
+             and a date on it comes back in the next workshop unchanged, so the two fields
+             that make it work somebody owes are on the sheet the room takes away — and where
+             they are missing, the cell says so rather than staying blank. */
+          <table className="reg reg-owned">
             <tbody>
               {openItems.map((i) => (
                 <tr key={i.id}>
@@ -305,7 +372,16 @@ export function Deck({ lang, mode, themes, answers, head, rows }: DeckProps) {
                     <code>{i.id}</code>
                   </td>
                   <td>{pick(i.question, lang)}</td>
-                  <td className="muted">{i.text || "—"}</td>
+                  <td className="muted">
+                    {i.text || "—"}
+                    {i.evidence && <span className="reg-ev"> · {i.evidence}</span>}
+                  </td>
+                  <td className={i.owner ? "reg-owner" : "reg-owner none"}>
+                    {i.owner || t(UI.decisionHeadEmptyField, lang)}
+                  </td>
+                  <td className={i.due ? "reg-due" : "reg-due none"}>
+                    {i.due || t(UI.decisionHeadEmptyField, lang)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -466,6 +542,16 @@ function Presenter({
           </Button>
         </div>
       </div>
+
+      {/* What this deck is, said on the deck.
+          The refusal to recommend is the right posture for a first conversation and only
+          becomes a problem when a room expects the sheet in front of it to be the paper the
+          architecture board decides on. Nobody reads that expectation out of a footer, so it
+          is stated where the expectation is actually set. */}
+      <p className="deck-readout">
+        <span className="readout-chip">{t(UI.readOut, lang)}</span>
+        {t(UI.readOutNote, lang)}
+      </p>
 
       <p className="deck-note">{t(UI.deckNote, lang)}</p>
 

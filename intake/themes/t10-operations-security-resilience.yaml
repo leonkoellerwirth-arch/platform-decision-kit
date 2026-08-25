@@ -70,6 +70,15 @@ questions:
     hint:
       en: "Encryption at rest and in transit, and where the keys are kept."
       de: "Verschlüsselung im Ruhezustand und im Transport, und wo die Schlüssel liegen."
+  - id: "Q10.7"
+    mode: [discovery]
+    no_defaults: true
+    text:
+      en: "Where does the platform actually run — deployment targets, network zones, and which zone boundaries its traffic crosses?"
+      de: "Wo läuft die Plattform tatsächlich — Deployment-Ziele, Netzzonen, und welche Zonengrenzen ihr Verkehr überschreitet?"
+    hint:
+      en: "The data centre or region, the zones involved, and every boundary a request crosses."
+      de: "Rechenzentrum oder Region, die beteiligten Zonen, und jede Grenze, die eine Anfrage überschreitet."
 
 hypotheses:
   - name: "Operational posture was sufficient for the current system but will not transfer"

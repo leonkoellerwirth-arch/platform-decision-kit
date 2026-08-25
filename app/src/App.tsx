@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Deck } from "./Deck";
+import { exportMarkdown } from "./export";
 import { Button, Chip, Tabs, TextArea, ToggleButton, ToggleButtonGroup } from "@heroui/react";
 import { EvidenceGrid, GridSummary } from "./EvidenceGrid";
 import { HELP, blockHelp, questionHelp } from "./help";
@@ -8,11 +9,13 @@ import { t, UI } from "./i18n";
 import {
   COLUMN_HINTS,
   DECISION_HEAD_FIELDS,
+  hydrate,
   pick,
   THEMES,
   type Answer,
   type Basis,
   type DecisionHead,
+  type Direction,
   type Lang,
   type Mode,
   type Question,
@@ -37,12 +40,13 @@ type DemoCase = {
   mode: Mode;
   head: DecisionHead;
   rows: string[][];
-  answers: Record<string, Answer>;
+  answers: Record<string, Partial<Answer>>;
+  /** Optional: a case written before directions existed simply has none. */
+  directions?: Direction[];
 };
 
 type View = "intake" | "register" | "deck";
 
-const EMPTY: Answer = { text: "", basis: null, source: "", verification: "none" };
 const BASES: Basis[] = ["fact", "statement", "assumption", "unknown"];
 const VERIFICATIONS: Verification[] = ["none", "open", "blocked"];
 
@@ -55,12 +59,50 @@ const VERIFICATIONS: Verification[] = ["none", "open", "blocked"];
  *   - "unknown" drops the free text and forces verification to open (INV-4).
  */
 function normalise(a: Answer): Answer {
-  if (a.basis === "unknown") return { ...a, text: "", source: "", verification: "open" };
+  if (a.basis === "unknown")
+    return {
+      ...a,
+      text: "",
+      source: "",
+      artifact: "",
+      speaker: "",
+      sourceDate: "",
+      verification: "open",
+    };
   return a;
 }
 
 const isOpen = (a: Answer) => a.verification === "open" || a.verification === "blocked";
-const missingSource = (a: Answer) => a.basis === "fact" && a.source.trim() === "";
+
+/** Anything at all that says where the answer came from. */
+const hasSource = (a: Answer) =>
+  [a.source, a.artifact, a.speaker, a.sourceDate].some((v) => v.trim() !== "");
+
+/**
+ * INV-3, unchanged in substance: a fact with nothing behind it is not a fact.
+ *
+ * Deliberately satisfied by any of the four fields, including the old free line. Tightening
+ * it to the structured ones would have turned every record written before them into a wall
+ * of defects — which is exactly what the published worked example looked like the day its
+ * sources went missing, and the reason that is a rule here rather than a preference.
+ */
+const missingSource = (a: Answer) => a.basis === "fact" && !hasSource(a);
+
+/**
+ * Traceable in the sense the agent specification means: a date, and something that names
+ * where it came from. A softer rule than INV-3 and a separate one — a fact can have a source
+ * and still be untraceable, because "the runbook" without a date cannot be checked against
+ * the system a year later.
+ */
+const traceable = (a: Answer) =>
+  a.sourceDate.trim() !== "" && (a.artifact.trim() !== "" || a.speaker.trim() !== "");
+
+const untraceable = (a: Answer) =>
+  (a.basis === "fact" || a.basis === "statement") && a.text.trim() !== "" && !traceable(a);
+
+/** An open point that nobody owes by any date is a note. This is what counts them. */
+const unsteerable = (a: Answer) =>
+  isOpen(a) && (a.owner.trim() === "" || a.due.trim() === "");
 
 /**
  * A field that grows with its answer.
@@ -162,11 +204,23 @@ export default function App() {
   const [gloss, setGloss] = useState<boolean>(initialGloss);
   const [mode, setMode] = useState<Mode>(initialMode);
   const [view, setView] = useState<View>("intake");
-  const [answers, setAnswers] = useState<Record<string, Answer>>(() =>
-    stored<Record<string, Answer>>("pdk.answers", {}),
-  );
+  const [answers, setAnswers] = useState<Record<string, Answer>>(() => {
+    // Hydrated once, on the way in. A record written before the attribution and follow-up
+    // fields existed parses without complaint and arrives with eight fields `undefined`,
+    // which React turns into uncontrolled inputs and the export writes out as the word
+    // "undefined". The compiler cannot see this — the value comes back from JSON.parse as
+    // whatever the file says it is — so it is fixed at the one place the outside gets in.
+    const raw = stored<Record<string, Partial<Answer>>>("pdk.answers", {});
+    return Object.fromEntries(Object.entries(raw).map(([id, a]) => [id, hydrate(a)]));
+  });
   const [head, setHead] = useState<DecisionHead>(() => stored<DecisionHead>("pdk.head", {}));
   const [rows, setRows] = useState<string[][]>(() => stored<string[][]>("pdk.rows", []));
+  const [directions, setDirections] = useState<Direction[]>(() =>
+    stored<Direction[]>("pdk.directions", []).map((d) => ({
+      text: d?.text ?? "",
+      dependsOn: Array.isArray(d?.dependsOn) ? d.dependsOn : [],
+    })),
+  );
   const [exported, setExported] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [info, setInfo] = useState(false);
@@ -179,9 +233,10 @@ export default function App() {
   /** Fill the instrument with the worked example. Replaces whatever is there. */
   const loadDemo = useCallback(() => {
     const c = demoCase as unknown as DemoCase;
-    setAnswers(c.answers);
+    setAnswers(Object.fromEntries(Object.entries(c.answers).map(([id, a]) => [id, hydrate(a)])));
     setHead(c.head);
     setRows(c.rows);
+    setDirections(c.directions ?? []);
     // The mode has to be persisted, not just set: a bare setMode left `pdk.mode` at
     // triage, and a reload dropped forty-five of the example's answers from view.
     setMode(c.mode);
@@ -201,6 +256,7 @@ export default function App() {
     setAnswers({});
     setHead({});
     setRows([]);
+    setDirections([]);
     setActiveBlock(0);
     setActiveQId(null);
     setExported(null);
@@ -271,14 +327,22 @@ export default function App() {
     }
   }, [rows]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem("pdk.directions", JSON.stringify(directions));
+    } catch {
+      /* private windows */
+    }
+  }, [directions]);
+
   // ── Core state helpers ────────────────────────────────────────────────────
 
-  const get = (id: string): Answer => answers[id] ?? EMPTY;
+  const get = (id: string): Answer => hydrate(answers[id]);
 
   const set = useCallback((id: string, patch: Partial<Answer>) => {
     setAnswers((prev) => ({
       ...prev,
-      [id]: normalise({ ...(prev[id] ?? EMPTY), ...patch }),
+      [id]: normalise({ ...hydrate(prev[id]), ...patch }),
     }));
     setExported(null);
     setCopied(false);
@@ -335,6 +399,7 @@ export default function App() {
   const answered = allQuestions.filter((q) => get(q.id).basis !== null).length;
   const register = allQuestions.filter((q) => isOpen(get(q.id)));
   const defects = allQuestions.filter((q) => missingSource(get(q.id)));
+  const unattributed = allQuestions.filter((q) => untraceable(get(q.id)));
 
   // Clamp block index to valid range after mode change
   const safeBlock = Math.min(activeBlock, Math.max(0, visible.length - 1));
@@ -383,47 +448,10 @@ export default function App() {
 
   // ── Markdown export ───────────────────────────────────────────────────────
 
-  const exportMarkdown = () => {
-    const modeName = mode === "triage" ? "Triage" : "Discovery";
-    const lines: string[] = [
-      `# ${t(UI.exportTitle, lang)} — ${modeName}`,
-      "",
-      `> ${t(UI.exportNote, lang)}`,
-      `> ${t(UI.exportLangNote, lang)}`,
-      "",
-    ];
-    for (const th of visible) {
-      lines.push(`## ${th.id}. ${pick(th.title, lang)}`, "");
-      for (const q of th.questions) {
-        const a = get(q.id);
-        lines.push(
-          `### ${q.id}  ${pick(q.text, lang)}`,
-          `${t(UI.exportAnswer, lang)}: ${a.text.trim() || "—"}`,
-          `${t(UI.exportBasis, lang)}: ${a.basis ? t(UI.basisLabels[a.basis], lang) : "—"}`,
-          `${t(UI.exportSource, lang)}: ${a.source.trim() || "—"}`,
-          `${t(UI.exportVerification, lang)}: ${t(
-            UI.verificationLabels[a.verification],
-            lang,
-          )}`,
-          "",
-        );
-      }
-    }
-    lines.push(`## ${t(UI.registerTitle, lang)}`, "");
-    if (register.length === 0) {
-      lines.push(t(UI.exportRegisterEmpty, lang));
-    } else {
-      for (const q of register) {
-        lines.push(
-          `- [${q.id}] ${pick(q.text, lang)} — ${t(UI.exportVerification, lang)}: ${t(
-            UI.verificationLabels[get(q.id).verification],
-            lang,
-          )}`,
-        );
-      }
-    }
-    lines.push("");
-    setExported(lines.join("\n"));
+  const runExport = () => {
+    setExported(
+      exportMarkdown({ lang, mode, themes: visible, answers, head, directions }),
+    );
     setCopied(false);
   };
 
@@ -537,6 +565,14 @@ export default function App() {
                 · <b>{defects.length}</b> {t(UI.factWithoutSource, lang)}
               </span>
             )}
+            {/* A softer count than the defect one, and separate from it on purpose: a fact
+                can carry a source and still not be traceable, because a document without a
+                date cannot be checked against the system a year from now. */}
+            {unattributed.length > 0 && (
+              <span className="weak">
+                · <b>{unattributed.length}</b> {t(UI.untraceableCount, lang)}
+              </span>
+            )}
           </span>
         </div>
 
@@ -548,7 +584,7 @@ export default function App() {
           size="sm"
           isIconOnly
           aria-label={t(UI.exportButton, lang)}
-          onPress={exportMarkdown}
+          onPress={runExport}
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -628,6 +664,7 @@ export default function App() {
             answers={answers}
             head={head}
             rows={rows}
+            directions={directions}
           />
         </div>
       )}
@@ -635,9 +672,15 @@ export default function App() {
       {/* ── Register view ──────────────────────────────────────────────── */}
       {view === "register" && (
         <div className="main">
-          <RegisterView lang={lang} register={register} answers={answers} />
+          <RegisterView
+            lang={lang}
+            register={register}
+            answers={answers}
+            directions={directions}
+            onDirections={setDirections}
+          />
           <div className="actions" style={{ marginTop: "2rem" }}>
-            <button onClick={exportMarkdown}>{t(UI.exportButton, lang)}</button>
+            <button onClick={runExport}>{t(UI.exportButton, lang)}</button>
             {exported && (
               <button
                 className="ghost"
@@ -658,6 +701,14 @@ export default function App() {
       {/* ── Intake view ────────────────────────────────────────────────── */}
       {view === "intake" && currentTheme && (
         <div className="main main-intake">
+          {/* The decision head stands above the blocks, in both modes.
+              It used to sit inside block 2, which in triage is four cards deep: you could
+              work the whole twenty minutes, see the situation clearly, and never learn who
+              has to decide or by when. It is the frame the other answers are measured
+              against, so it goes first and stays visible — folded to one line once the
+              question, the owner and the deadline are all there. */}
+          <DecisionHeadBlock lang={lang} head={head} onChange={setHead} />
+
           {/* Active block */}
           <section className="block-view">
             <div className="block-header">
@@ -745,11 +796,6 @@ export default function App() {
             </div>
 
             <p className="why">{pick(currentTheme.why, lang)}</p>
-
-            {/* Decision head (theme 2 — the Entscheidungskopf) */}
-            {currentTheme.hasDecisionHead && (
-              <DecisionHeadBlock lang={lang} head={head} onChange={setHead} />
-            )}
 
             {/* Questions for this block */}
             {currentTheme.questions.map((q) => (
@@ -1020,33 +1066,124 @@ function QuestionBlock({
           onChange={(e) => onChange({ text: e.target.value })}
         />
 
-        {/* Source reference (INV-3: a fact needs a source).
-            A field, not a line: a source is often two — a document plus the person and the
-            date it was confirmed — and a one-line box that scrolls sideways hides the second
-            one. It grows like the answer does. */}
+        {/* Where it came from (INV-3: a fact needs a source).
+            One free line used to carry the document, the person and the date together, and
+            it could not tell them apart — so a reader could not either, and "speaker and
+            date", which the agent specification asks for beside every statement, was not
+            reliably there. Three named fields and the locator, which still grows: a source
+            reference is often a quotation, and a one-line box that scrolls sideways hides
+            the half that matters. */}
         {!unknown && (
-          <div className="source-row">
-            <span className="source-label">{t(UI.source, lang)}</span>
-            <TextArea
-              ref={growSource}
-              className="source-field"
-              rows={1}
-              value={answer.source}
-              aria-label={t(UI.source, lang)}
-              placeholder={t(UI.sourcePlaceholder, lang)}
-              onChange={(e) => onChange({ source: e.target.value })}
-            />
-          </div>
+          <fieldset className="attrib">
+            <legend>{t(UI.attribution, lang)}</legend>
+            <div className="attrib-row">
+              <label className="attrib-field">
+                <span>{t(UI.artifact, lang)}</span>
+                <input
+                  type="text"
+                  value={answer.artifact}
+                  placeholder={t(UI.artifactPlaceholder, lang)}
+                  onChange={(e) => onChange({ artifact: e.target.value })}
+                />
+              </label>
+              <label className="attrib-field">
+                <span>{t(UI.speaker, lang)}</span>
+                <input
+                  type="text"
+                  value={answer.speaker}
+                  placeholder={t(UI.speakerPlaceholder, lang)}
+                  onChange={(e) => onChange({ speaker: e.target.value })}
+                />
+              </label>
+              <label className="attrib-field narrow">
+                <span>{t(UI.sourceDate, lang)}</span>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={answer.sourceDate}
+                  placeholder={t(UI.sourceDatePlaceholder, lang)}
+                  onChange={(e) => onChange({ sourceDate: e.target.value })}
+                />
+              </label>
+            </div>
+            <div className="source-row">
+              <span className="source-label">{t(UI.source, lang)}</span>
+              <TextArea
+                ref={growSource}
+                className="source-field"
+                rows={1}
+                value={answer.source}
+                aria-label={t(UI.source, lang)}
+                placeholder={t(UI.sourcePlaceholder, lang)}
+                onChange={(e) => onChange({ source: e.target.value })}
+              />
+            </div>
+          </fieldset>
         )}
 
         {missingSource(answer) && (
           <p className="hint flag">{t(UI.missingSource, lang)}</p>
+        )}
+        {!missingSource(answer) && untraceable(answer) && (
+          <p className="hint weak">{t(UI.untraceable, lang)}</p>
         )}
         {unknown && (
           <p className="hint">
             {t(UI.unknownHint, lang)}
             {q.noDefaults && ` ${t(UI.noDefaultsHint, lang)}`}
           </p>
+        )}
+
+        {/* What would close it. Shown only while the point is actually open — including for
+            an unknown, which is forced open and is exactly the kind of item that otherwise
+            leaves the room as a shrug. Four fields, because "open" on its own has never
+            caused anybody to go and find out. */}
+        {isOpen(answer) && (
+          <fieldset className={`followup${unsteerable(answer) ? " thin" : ""}`}>
+            <legend>{t(UI.followUp, lang)}</legend>
+            <div className="attrib-row">
+              <label className="attrib-field">
+                <span>{t(UI.owner, lang)}</span>
+                <input
+                  type="text"
+                  value={answer.owner}
+                  placeholder={t(UI.ownerPlaceholder, lang)}
+                  onChange={(e) => onChange({ owner: e.target.value })}
+                />
+              </label>
+              <label className="attrib-field narrow">
+                <span>{t(UI.due, lang)}</span>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={answer.due}
+                  placeholder={t(UI.duePlaceholder, lang)}
+                  onChange={(e) => onChange({ due: e.target.value })}
+                />
+              </label>
+            </div>
+            <div className="attrib-row">
+              <label className="attrib-field">
+                <span>{t(UI.evidenceNeeded, lang)}</span>
+                <input
+                  type="text"
+                  value={answer.evidence}
+                  placeholder={t(UI.evidenceNeededPlaceholder, lang)}
+                  onChange={(e) => onChange({ evidence: e.target.value })}
+                />
+              </label>
+              <label className="attrib-field">
+                <span>{t(UI.blocker, lang)}</span>
+                <input
+                  type="text"
+                  value={answer.blocker}
+                  placeholder={t(UI.blockerPlaceholder, lang)}
+                  onChange={(e) => onChange({ blocker: e.target.value })}
+                />
+              </label>
+            </div>
+            {unsteerable(answer) && <p className="hint weak">{t(UI.unsteerable, lang)}</p>}
+          </fieldset>
         )}
       </div>
 
@@ -1073,16 +1210,29 @@ function RegisterView({
   lang,
   register,
   answers,
+  directions,
+  onDirections,
 }: {
   lang: Lang;
   register: Question[];
   answers: Record<string, Answer>;
+  directions: Direction[];
+  onDirections: (d: Direction[]) => void;
 }) {
+  const openIds = register.map((q) => q.id);
+  const unowned = register.filter((q) => unsteerable(hydrate(answers[q.id]))).length;
+
   return (
     <section className="register-view">
       <div className="register-header">
         <h2>{t(UI.registerTitle, lang)}</h2>
         <p className="register-payoff">{t(UI.registerPayoff, lang)}</p>
+        {/* The count that makes the register steerable rather than merely honest. */}
+        {unowned > 0 && (
+          <p className="register-unowned">
+            <b>{unowned}</b> {t(UI.unsteerableCount, lang)}
+          </p>
+        )}
       </div>
 
       {register.length === 0 ? (
@@ -1090,7 +1240,14 @@ function RegisterView({
       ) : (
         <ul className="register-list">
           {register.map((q) => {
-            const a = answers[q.id] ?? EMPTY;
+            const a = hydrate(answers[q.id]);
+            const parts: [string, string][] = [
+              [t(UI.owner, lang), a.owner],
+              [t(UI.evidenceNeeded, lang), a.evidence],
+              [t(UI.due, lang), a.due],
+              [t(UI.blocker, lang), a.blocker],
+            ];
+            const filled = parts.filter(([, v]) => v.trim() !== "");
             return (
               <li key={q.id} className={`register-item v-${a.verification}`}>
                 <div className="register-item-head">
@@ -1108,11 +1265,126 @@ function RegisterView({
                 {a.text && (
                   <p className="register-answer">{a.text}</p>
                 )}
+
+                {/* The nacharbeit, on the screen the architect turns towards the client.
+                    This is the whole point of the four fields: read from a metre away, an
+                    item either has a name and a date on it or it visibly does not. */}
+                {filled.length > 0 ? (
+                  <dl className="register-follow">
+                    {filled.map(([label, value]) => (
+                      <div key={label}>
+                        <dt>{label}</dt>
+                        <dd>{value.trim()}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : (
+                  <p className="register-follow-missing">{t(UI.unsteerable, lang)}</p>
+                )}
               </li>
             );
           })}
         </ul>
       )}
+
+      <DirectionsBlock
+        lang={lang}
+        openIds={openIds}
+        directions={directions}
+        onChange={onDirections}
+      />
+    </section>
+  );
+}
+
+// ── DirectionsBlock ───────────────────────────────────────────────────────────
+
+/**
+ * "Nicht entschiedene Richtungen" — the fourth slide, captured where it belongs.
+ *
+ * It sits under the register rather than in a theme block because a direction is defined by
+ * what it waits for, and what it waits for is on this screen. The instrument writes none of
+ * these: the architect types the sentence that was said in the room, and ticks the open
+ * points it hangs on. A direction with no open point behind it reads as a recommendation,
+ * which INV-1 forbids, so the block says so out loud instead of quietly rendering it.
+ */
+function DirectionsBlock({
+  lang,
+  openIds,
+  directions,
+  onChange,
+}: {
+  lang: Lang;
+  openIds: string[];
+  directions: Direction[];
+  onChange: (d: Direction[]) => void;
+}) {
+  const patch = (i: number, next: Partial<Direction>) =>
+    onChange(directions.map((d, k) => (k === i ? { ...d, ...next } : d)));
+
+  const toggle = (i: number, id: string) => {
+    const cur = directions[i].dependsOn;
+    patch(i, {
+      dependsOn: cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id],
+    });
+  };
+
+  return (
+    <section className="directions">
+      <h3>{t(UI.directionsTitle, lang)}</h3>
+      <p className="why">{t(UI.directionsNote, lang)}</p>
+
+      {directions.length === 0 && <p className="muted">{t(UI.directionsEmpty, lang)}</p>}
+
+      {directions.map((d, i) => (
+        // eslint-disable-next-line react/no-array-index-key -- directions have no stable identity
+        <div className="direction" key={i}>
+          <div className="direction-head">
+            <textarea
+              className="direction-text"
+              rows={2}
+              value={d.text}
+              aria-label={t(UI.directionsTitle, lang)}
+              placeholder={t(UI.directionPlaceholder, lang)}
+              onChange={(e) => patch(i, { text: e.target.value })}
+            />
+            <button
+              className="tag"
+              aria-label={t(UI.directionRemove, lang)}
+              onClick={() => onChange(directions.filter((_, k) => k !== i))}
+            >
+              {t(UI.removeRow, lang)}
+            </button>
+          </div>
+
+          <span className="direction-label">{t(UI.directionDependsPick, lang)}</span>
+          {openIds.length === 0 ? (
+            <p className="hint weak">{t(UI.registerEmpty, lang)}</p>
+          ) : (
+            <div className="direction-deps">
+              {openIds.map((id) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={`dep${d.dependsOn.includes(id) ? " on" : ""}`}
+                  aria-pressed={d.dependsOn.includes(id)}
+                  onClick={() => toggle(i, id)}
+                >
+                  {id}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {d.text.trim() !== "" && d.dependsOn.length === 0 && (
+            <p className="hint flag">{t(UI.directionUnconditioned, lang)}</p>
+          )}
+        </div>
+      ))}
+
+      <button className="tag" onClick={() => onChange([...directions, { text: "", dependsOn: [] }])}>
+        {t(UI.directionAdd, lang)}
+      </button>
     </section>
   );
 }
@@ -1123,6 +1395,9 @@ function RegisterView({
  * The Entscheidungskopf (theme 2).
  * The frame everything else is measured against. Sits above the block's questions.
  */
+/** The three that decide whether the frame is set at all: the question, the owner, the date. */
+const HEAD_ESSENTIALS = ["decision_question", "decision_owner", "deadline"] as const;
+
 function DecisionHeadBlock({
   lang,
   head,
@@ -1132,25 +1407,61 @@ function DecisionHeadBlock({
   head: DecisionHead;
   onChange: (h: DecisionHead) => void;
 }) {
+  const complete = HEAD_ESSENTIALS.every((k) => (head[k] ?? "").trim() !== "");
+  // Open until the frame is set, and openable again afterwards. Nobody has to remember to
+  // open it; the one case where it matters is the one where it opens itself.
+  const [open, setOpen] = useState(!complete);
+  useEffect(() => {
+    if (!complete) setOpen(true);
+  }, [complete]);
+
+  const summary = (key: string) => (head[key] ?? "").trim() || t(UI.decisionHeadEmptyField, lang);
+
   return (
-    <div className="head-block">
-      <span className="head-block-title">{t(UI.decisionHead, lang)}</span>
-      <p className="why" style={{ marginTop: 0, marginBottom: "0.75rem" }}>
-        {t(UI.decisionHeadNote, lang)}
-      </p>
-      {DECISION_HEAD_FIELDS.map((f) => (
-        <div className="row" key={f.key}>
-          <span className="label wide">{pick(f.label, lang)}</span>
-          <input
-            type="text"
-            style={{ flex: "1 1 18rem" }}
-            placeholder={`${t(UI.forExample, lang)} ${pick(f.hint, lang)}`}
-            value={head[f.key] ?? ""}
-            onChange={(e) => onChange({ ...head, [f.key]: e.target.value })}
-          />
+    <section className={`head-block head-lead${complete ? " done" : " open-frame"}`}>
+      <button
+        type="button"
+        className="head-block-bar"
+        aria-expanded={open}
+        aria-label={t(open ? UI.decisionHeadFold : UI.decisionHeadOpen, lang)}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="head-block-title">{t(UI.decisionHead, lang)}</span>
+        {!open && (
+          <span className="head-line">
+            {summary("decision_question")}
+            <span className="head-line-sep">·</span>
+            {summary("decision_owner")}
+            <span className="head-line-sep">·</span>
+            {summary("deadline")}
+          </span>
+        )}
+        {!complete && <span className="head-warn">{t(UI.decisionHeadIncomplete, lang)}</span>}
+        <span className="head-chev" aria-hidden="true">
+          {open ? "\u2227" : "\u2228"}
+        </span>
+      </button>
+
+      {open && (
+        <div className="head-block-body">
+          <p className="why" style={{ marginTop: 0, marginBottom: "0.75rem" }}>
+            {t(UI.decisionHeadNote, lang)}
+          </p>
+          {DECISION_HEAD_FIELDS.map((f) => (
+            <div className="row" key={f.key}>
+              <span className="label wide">{pick(f.label, lang)}</span>
+              <input
+                type="text"
+                style={{ flex: "1 1 18rem" }}
+                placeholder={`${t(UI.forExample, lang)} ${pick(f.hint, lang)}`}
+                value={head[f.key] ?? ""}
+                onChange={(e) => onChange({ ...head, [f.key]: e.target.value })}
+              />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+    </section>
   );
 }
 

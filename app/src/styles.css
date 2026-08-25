@@ -2233,3 +2233,308 @@ pre.export {
   .help { padding: 1.2rem 1.2rem 3rem; }
   .help-head { margin: -1.2rem -1.2rem 0; padding: 0.9rem 1.2rem 0.8rem; }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Attribution and follow-up — the two groups a reviewer found missing
+   One free line could not carry a document, a person and a date at once, and an
+   open point with no owner and no date is a note rather than a task. Both are
+   secondary to the answer and are drawn that way: no card of their own, a rule
+   above them, small captions, and the fields at the answer's own width.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.attrib,
+.followup {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 0.9rem 0 0;
+  padding: 0.7rem 0 0;
+  min-width: 0;
+}
+
+.attrib legend,
+.followup legend {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0;
+}
+
+/* The follow-up is work somebody owes, so it carries the same warn edge the open
+   verification cell does — and goes red where nobody owes it yet. */
+.followup {
+  border-left: 2px solid var(--warn);
+  border-top: 1px solid var(--line);
+  padding-left: 0.75rem;
+}
+
+.followup.thin { border-left-color: var(--danger); }
+.followup legend { color: var(--warn); padding-left: 0.75rem; }
+.followup.thin legend { color: var(--danger); }
+
+.attrib-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.attrib-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1 1 11rem;
+  min-width: 0;
+}
+
+.attrib-field.narrow { flex: 0 1 8rem; }
+
+.attrib-field > span {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.attrib-field input[type="text"] { font-size: 0.86rem; padding: 0.45rem 0.6rem; }
+
+/* Two severities, and they are not the same finding. A fact with nothing behind it
+   breaks INV-3 and is red; an answer that has a source but no date is merely not
+   yet traceable, and says so in the warn colour. */
+.hint.weak { color: var(--muted); }
+.appbar-stats .weak b { color: var(--warn); font-weight: 600; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   The decision head as a standing header
+   Above the blocks in both modes, folded to one line once the question, the owner
+   and the deadline are all there. Open, it is the block it always was.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.head-lead {
+  padding: 0;
+  margin-bottom: 0.85rem;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.head-lead.open-frame { border-color: var(--warn); }
+
+.head-block-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: none;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.head-block-bar:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+.head-block-bar .head-block-title { margin-bottom: 0; flex-shrink: 0; }
+
+.head-line {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.head-line-sep { color: var(--muted); margin: 0 0.45rem; }
+
+.head-warn {
+  font-size: 0.75rem;
+  color: var(--warn);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.head-chev { color: var(--muted); font-size: 0.7rem; margin-left: auto; }
+.head-warn + .head-chev { margin-left: 0.6rem; }
+.head-block-body { padding: 0 1rem 0.9rem; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   The register, made steerable
+   The follow-up on the screen the architect turns towards the client: from a metre
+   away an item either has a name and a date on it, or it visibly does not.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.register-unowned {
+  font-size: 0.85rem;
+  color: var(--warn);
+  margin-top: 0.35rem;
+}
+
+.register-unowned b { font-family: var(--font-mono); }
+
+.register-follow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin: 0.7rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.register-follow > div { min-width: 0; }
+
+.register-follow dt {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.register-follow dd { margin: 0; font-size: 0.88rem; color: var(--text); }
+
+.register-follow-missing {
+  margin: 0.7rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--danger);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Directions — captured here, shown on slide 4
+   A direction is defined by what it waits for, and what it waits for is on this
+   screen. The Q-ID chips are the condition; without one the direction is flagged,
+   because a direction with no condition reads as a recommendation (INV-1).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.directions {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.directions h3 { font-size: 1rem; margin: 0 0 0.35rem; }
+
+.direction {
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  box-shadow: inset 0 1px 0 0 var(--edge-light), var(--shadow-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 0.9rem 1.1rem;
+  margin: 0.85rem 0;
+}
+
+.direction-head { display: flex; align-items: flex-start; gap: 0.7rem; }
+.direction-text { flex: 1 1 auto; min-width: 0; resize: vertical; overflow: auto; }
+.direction-head .tag { flex-shrink: 0; }
+
+.direction-label {
+  display: block;
+  margin-top: 0.8rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.direction-deps { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
+
+.dep {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+
+.dep:hover { border-color: var(--brass); color: var(--text); }
+.dep.on { background: var(--accent-soft); color: var(--accent-strong); border-color: var(--accent); }
+.dep:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Slide 4 — the directions, stated conditionally
+   The condition is the point, so the Q-IDs are marks rather than prose. A
+   direction with none is drawn in the danger colour: on this deck an
+   unconditioned direction is a defect, not a stronger claim (INV-1).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.dirs { list-style: none; margin: 0 0 1.1rem; padding: 0; display: grid; gap: 0.6rem; }
+
+.dir {
+  border-left: 3px solid var(--accent);
+  padding: 0.5rem 0 0.5rem 0.9rem;
+}
+
+.dir.unconditioned { border-left-color: var(--danger); }
+
+.dir-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.dir-dep { margin: 0.3rem 0 0; font-size: 0.8rem; color: var(--muted); }
+.dir-none { color: var(--danger); }
+
+.dir-qid {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+/* The register on slide 7 carries the owner and the date, because an open point that
+   leaves the room without them comes back to the next workshop unchanged. */
+.reg-owned td:nth-child(4) { width: 9rem; }
+.reg-owned td:nth-child(5) { width: 6rem; }
+.reg-owner, .reg-due { font-size: 0.8rem; color: var(--text-soft); white-space: nowrap; }
+.reg-owner.none, .reg-due.none { color: var(--danger); font-style: italic; }
+.reg-ev { color: var(--muted); }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   What the deck is
+   The refusal to recommend is right for a first conversation, and only becomes a
+   problem when a room expects the sheet to be the paper a board decides on. Said
+   on screen and printed on the last sheet, where the expectation is actually set.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.deck-readout,
+.readout-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+  margin: 0 0 0.8rem;
+}
+
+.readout-line { font-size: 0.8rem; margin: 0 0 1rem; }
+
+.readout-chip {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.18rem 0.5rem;
+  border-radius: var(--r-sm);
+  background: var(--accent2-soft);
+  color: var(--accent2-strong);
+  border: 1px solid var(--line);
+}

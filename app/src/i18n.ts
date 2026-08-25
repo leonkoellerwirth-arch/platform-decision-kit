@@ -67,9 +67,58 @@ export const UI = {
   source: { en: "Source", de: "Beleg/Quelle" },
   verification: { en: "Verification", de: "Verifikation" },
   sourcePlaceholder: {
-    en: 'Link, document ID, or "name · date"',
-    de: 'Link, Dok-ID oder „Name · Datum"',
+    en: "The quotation, the page, the ticket line",
+    de: "Das Zitat, die Seite, die Ticketzeile",
   },
+
+  // --- Where an answer came from ---
+  //
+  // One free line used to carry all of it, and it could not: the field held a document
+  // name, or a person, or nothing, and no reader could tell which of the three they were
+  // looking at. The agent specification asks for "speaker and date" beside every statement,
+  // so the three parts that make an answer traceable are captured as themselves and the
+  // free line keeps its real job — the locator inside the source.
+  attribution: { en: "Where this came from", de: "Woher das stammt" },
+  artifact: { en: "Document or system", de: "Dokument oder System" },
+  artifactPlaceholder: {
+    en: "Runbook, ticket, dashboard, contract",
+    de: "Runbook, Ticket, Dashboard, Vertrag",
+  },
+  speaker: { en: "Who said it", de: "Wer es gesagt hat" },
+  speakerPlaceholder: { en: "Name and role", de: "Name und Rolle" },
+  sourceDate: { en: "Date", de: "Datum" },
+  sourceDatePlaceholder: { en: "2026-03-11", de: "11.03.2026" },
+  untraceable: {
+    en: "Not traceable yet: this needs a date, and a document or a person.",
+    de: "Noch nicht nachvollziehbar: hier fehlt ein Datum und ein Dokument oder eine Person.",
+  },
+  untraceableCount: { en: "not traceable", de: "ohne Zuordnung" },
+
+  // --- What would close an open point ---
+  //
+  // An open point with no owner and no date is a note, not a task; the register was a list
+  // of doubts that nobody had agreed to resolve. These four fields are what make it work
+  // somebody owes: who, what proof, by when, and what is in the way.
+  followUp: { en: "What closes this", de: "Was das schließt" },
+  owner: { en: "Owed by", de: "Verantwortlich" },
+  ownerPlaceholder: { en: "Role, or a name", de: "Rolle, oder ein Name" },
+  evidenceNeeded: { en: "Proof needed", de: "Benötigter Nachweis" },
+  evidenceNeededPlaceholder: {
+    en: "The document, log, test or written confirmation",
+    de: "Das Dokument, Log, der Test oder die schriftliche Bestätigung",
+  },
+  due: { en: "By", de: "Bis" },
+  duePlaceholder: { en: "2026-09-30", de: "30.09.2026" },
+  blocker: { en: "Blocked by", de: "Blockiert durch" },
+  blockerPlaceholder: {
+    en: "What has to happen first, or who is in the way",
+    de: "Was zuerst passieren muss, oder wer im Weg steht",
+  },
+  unsteerable: {
+    en: "No owner and no date: this is a note, not a task.",
+    de: "Ohne Verantwortliche und ohne Termin: das ist eine Notiz, keine Aufgabe.",
+  },
+  unsteerableCount: { en: "without an owner or a date", de: "ohne Eigner oder Termin" },
   missingSource: {
     en: "A fact needs a source reference. Without one this is a statement, not a fact.",
     de: "Ein Fakt braucht eine Beleg-Referenz. Ohne sie ist das eine Aussage, kein Fakt.",
@@ -102,6 +151,72 @@ export const UI = {
   scopeOfValidity: { en: "Holds when", de: "Gilt, wenn" },
   falsifiableBy: { en: "Refuted by", de: "Widerlegt durch" },
   decisionHead: { en: "Decision head", de: "Entscheidungskopf" },
+
+  // --- The decision head as a standing header ---
+  //
+  // Owner and deadline were always in the instrument, but they sat inside block 2, which in
+  // triage means four cards deep: a reader could work the whole twenty minutes and see the
+  // situation clearly without ever knowing who has to decide, or by when. It is the frame
+  // the other answers are measured against, so it stands above them and stays there,
+  // folded to one line once it is filled.
+  decisionHeadIncomplete: {
+    en: "Who decides, and by when — this is still open.",
+    de: "Wer entscheidet, und bis wann — das ist noch offen.",
+  },
+  decisionHeadOpen: { en: "Open the decision head", de: "Entscheidungskopf öffnen" },
+  decisionHeadFold: { en: "Fold the decision head away", de: "Entscheidungskopf einklappen" },
+  decisionHeadEmptyField: { en: "not stated", de: "nicht benannt" },
+
+  // --- Directions, on slide 4 ---
+  //
+  // The fourth slide is specified as "Nicht entschiedene Richtungen", each stated
+  // conditionally. Nothing in the intake could carry such a sentence, so the slide listed
+  // open Q-IDs by theme instead. This is where a direction is written down — by the
+  // architect, never by the instrument — together with the open points it hangs on.
+  directionsTitle: { en: "Directions, not decided", de: "Richtungen, nicht entschieden" },
+  directionsNote: {
+    en: "A direction that came up in the room, written as it was said. It carries the open points it depends on, and it never becomes a recommendation: the instrument does not rank them, does not judge them, and does not add any of its own.",
+    de: "Eine Richtung, die im Raum aufkam, so notiert, wie sie gesagt wurde. Sie trägt die offenen Punkte, von denen sie abhängt, und wird nie zur Empfehlung: das Instrument gewichtet nicht, urteilt nicht und fügt keine eigene hinzu.",
+  },
+  directionPlaceholder: {
+    en: "e.g. Move the settlement path first and leave the partner interfaces where they are.",
+    de: "z. B. Zuerst den Abrechnungspfad umziehen und die Partnerschnittstellen lassen, wo sie sind.",
+  },
+  directionAdd: { en: "Record a direction", de: "Richtung erfassen" },
+  directionRemove: { en: "Remove this direction", de: "Diese Richtung entfernen" },
+  directionDependsPick: {
+    en: "Which open points does it depend on?",
+    de: "Von welchen offenen Punkten hängt sie ab?",
+  },
+  directionUnconditioned: {
+    en: "No open point named. A direction with no condition on it reads as a recommendation — name what it is waiting for, or leave it out.",
+    de: "Kein offener Punkt benannt. Eine Richtung ohne Bedingung liest sich wie eine Empfehlung — benennen Sie, worauf sie wartet, oder lassen Sie sie weg.",
+  },
+  directionsEmpty: {
+    en: "No direction recorded. The slide then shows the open points by theme, which is what is actually known.",
+    de: "Keine Richtung erfasst. Die Folie zeigt dann die offenen Punkte nach Thema, also das, was tatsächlich bekannt ist.",
+  },
+
+  // --- What the deck is, said on the deck itself ---
+  //
+  // The reviewer's sharpest product point: the instrument is right to refuse a
+  // recommendation, and that only becomes a problem when a room expects the deck to be the
+  // paper the architecture board decides on. So the deck says what it is, in the room,
+  // where the expectation is actually set.
+  readOut: { en: "Workshop read-out", de: "Workshop-Read-out" },
+  readOutNote: {
+    en: "The state of discovery after this conversation, not a decision paper. A decision paper is the next step: a human curates it from this, after the open points are closed.",
+    de: "Der Discovery-Stand nach diesem Gespräch, keine Entscheidungsvorlage. Die Entscheidungsvorlage ist der nächste Schritt: ein Mensch kuratiert sie hieraus, nachdem die offenen Punkte geschlossen sind.",
+  },
+
+  // --- Export ---
+  exportAttribution: { en: "Where it came from", de: "Woher es stammt" },
+  exportFollowUp: { en: "What closes it", de: "Was es schließt" },
+  exportDirections: { en: "Directions, not decided", de: "Richtungen, nicht entschieden" },
+  exportDirectionsEmpty: {
+    en: "_No direction recorded._",
+    de: "_Keine Richtung erfasst._",
+  },
   decisionHeadNote: {
     en: "The frame the whole conversation hangs on. Fill it before the blocks, and revisit it if a block contradicts it.",
     de: "Der Rahmen, an dem das ganze Gespräch hängt. Vor den Blöcken ausfüllen, und erneut prüfen, wenn ein Block ihm widerspricht.",

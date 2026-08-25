@@ -67,10 +67,17 @@ export const HELP: Record<"intake" | "register" | "deck", Help> = {
             },
           },
           {
-            label: { en: "Add the source if there is one", de: "Den Beleg eintragen, falls es einen gibt" },
+            label: { en: "Say where it came from", de: "Eintragen, woher es stammt" },
             text: {
-              en: "A document ID, a link, or a name with a date. If there is no source, leave it empty and do not tag the answer as a fact. An empty source field is information.",
-              de: "Eine Dokument-ID, ein Link oder ein Name mit Datum. Gibt es keinen Beleg, lassen Sie das Feld leer und markieren die Antwort nicht als Fakt. Ein leeres Belegfeld ist eine Information.",
+              en: "Three fields and a locator: the document or system, the person who said it, the date, and the place inside the source. A statement wants a name and a date; a fact wants an artefact and a date. Leave what you do not have empty and do not tag the answer as a fact — an empty attribution is information.",
+              de: "Drei Felder und eine Fundstelle: das Dokument oder System, die Person, die es gesagt hat, das Datum, und die Stelle innerhalb der Quelle. Eine Aussage will einen Namen und ein Datum, ein Fakt ein Artefakt und ein Datum. Was Sie nicht haben, bleibt leer, und die Antwort wird dann nicht als Fakt markiert — eine leere Zuordnung ist eine Information.",
+            },
+          },
+          {
+            label: { en: "Name who owes an open point", de: "Benennen, wer einen offenen Punkt schuldet" },
+            text: {
+              en: "The moment a point is open, four more fields appear: who owes it, what proof would close it, by when, and what is in the way. Fill them in the room. An open point that leaves the room without a name and a date on it comes back to the next workshop unchanged.",
+              de: "Sobald ein Punkt offen ist, erscheinen vier weitere Felder: wer ihn schuldet, welcher Nachweis ihn schließt, bis wann, und was im Weg steht. Füllen Sie sie im Raum. Ein offener Punkt, der ohne Namen und Termin aus dem Raum geht, kommt unverändert in den nächsten Workshop.",
             },
           },
           {
@@ -528,12 +535,25 @@ export const SLIDE_HELP: Record<number, Help> = {
   4: {
     title: { en: "Slide 4 · Undecided directions", de: "Folie 4 · Nicht entschiedene Richtungen" },
     lede: {
-      en: "Every open point, grouped by the theme block it came from. This is the work that stands between the room and a decision it could defend.",
-      de: "Jeder offene Punkt, gruppiert nach dem Themenblock, aus dem er stammt. Das ist die Arbeit, die zwischen dem Raum und einer verteidigbaren Entscheidung steht.",
+      en: "The directions that came up in the room, each carrying the open points it waits on — and under them every open point, grouped by the theme block it came from.",
+      de: "Die Richtungen, die im Raum aufkamen, jede mit den offenen Punkten, auf die sie wartet — und darunter jeder offene Punkt, gruppiert nach dem Themenblock, aus dem er stammt.",
     },
     sections: [
       {
-        title: { en: "How to read it", de: "Wie Sie sie lesen" },
+        title: { en: "Where the directions come from", de: "Woher die Richtungen kommen" },
+        body: [
+          {
+            en: "You write them, in the register view, under the open points. The instrument records none of its own: it does not derive a direction from the answers, does not rank the ones you record, and does not prefer any of them. What it does is hold each one next to the IDs it depends on.",
+            de: "Sie schreiben sie, in der Registeransicht, unter den offenen Punkten. Das Instrument erfasst keine eigenen: es leitet keine Richtung aus den Antworten ab, gewichtet die erfassten nicht und bevorzugt keine. Was es tut, ist jede neben die IDs zu halten, von denen sie abhängt.",
+          },
+          {
+            en: "A direction with no open point beside it is marked as a defect here, not shown as a stronger claim. Without a condition it reads as a recommendation, and this deck does not make one.",
+            de: "Eine Richtung ohne offenen Punkt daneben wird hier als Mangel markiert, nicht als stärkere Aussage gezeigt. Ohne Bedingung liest sie sich wie eine Empfehlung, und dieses Deck spricht keine aus.",
+          },
+        ],
+      },
+      {
+        title: { en: "How to read the map", de: "Wie Sie die Karte lesen" },
         body: [
           {
             en: "Each block shows its number, its name, how many of its questions are open, and their IDs. The shape tells you where the platform is least known. A block with five open points is not worse than one with two; it is less examined, which is a different problem and often an easier one.",

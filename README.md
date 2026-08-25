@@ -24,7 +24,7 @@ product rather than a gap in it.
 |---|---|---|
 | Time | 20 minutes | 90+ minutes |
 | Partners | one | several roles, or follow-up conversations |
-| Questions | 10 core questions, one per theme block | the full set of 55 |
+| Questions | 10 core questions, one per theme block | the full set of 58 |
 | Output | situation picture, open points, red flags | discovery brief with an option space |
 | Recommendation right | none | none |
 
@@ -104,7 +104,7 @@ out, because the browser-only property is an invariant here.
 
 [`demo/`](demo/) holds one full Discovery pass for an invented regional energy utility: the
 filled intake in both question languages and the seven-slide deck as a PDF. The company does not
-exist; the regulatory frame around it (EnWG, MsbG, the KRITIS audit under §8a BSIG) does. All 55
+exist; the regulatory frame around it (EnWG, MsbG, the KRITIS audit under §8a BSIG) does. All 58
 questions are answered, and the instrument still arrives at no recommendation, which is the point
 of the example. A clickable version, the whole instrument in a single HTML file with the answers
 already in it, is attached to the v0.1.0 release.
