@@ -19,6 +19,16 @@ All notable changes to platform-decision-kit. Keep-a-Changelog style.
   Discovery only — triage stays ten questions.
 - `app/scripts/build-demo.mjs` and `npm run demo:build` / `demo:check`, the latter in
   `verify:ci`, so the published worked example cannot drift from `demo/case.json`.
+- **The example library**: four loadable cases in the bar under *Load example* — the worked
+  Demo-Firma pass and the three fixtures (RetailCore complete, LegacyHR gappy, PaymentHub
+  contradictory), converted from `examples/` by `tools/render_cases.py` into `demo/cases/`.
+  Loading asks before replacing your own entries, a banner says the screen holds example data,
+  and *Back to the empty form* is one click away. The gate diffs the cases against their fixtures.
+- **Contradictions**: an answer can be marked as holding two accounts that do not agree, and the
+  deck carries them on slide 7 under "Offene Punkte & Konflikte", above the register, verbatim
+  and unresolved. Also in the Markdown export, under the same German heading `check.py` uses.
+- The sign-off wording is now asserted against all three reference briefs, not only against the
+  specification the gate greps.
 
 ### Changed
 

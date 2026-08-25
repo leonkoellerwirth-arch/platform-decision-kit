@@ -110,6 +110,29 @@ questions are answered, and the instrument still arrives at no recommendation, w
 of the example. A clickable version, the whole instrument in a single HTML file with the answers
 already in it, is attached to the v0.1.0 release.
 
+## Training mode: the example library
+
+The instrument can fill itself with a finished pass. **Load example** in the bar offers four,
+and between them they show the three shapes a first conversation actually takes:
+
+| Case | What it is worth looking at for |
+|---|---|
+| **Demo-Firma** | The worked pass, with the attribution and follow-up fields filled. The one case that shows a register somebody owes. |
+| **RetailCore** — complete | Every question answered, every answer sourced. A short register is what it looks like when the room knows its platform. |
+| **LegacyHR** — gappy | A COBOL payroll module nobody understands. Sixteen answers tagged unknown, and that *is* the finding. |
+| **PaymentHub** — contradictory | Two records of the deadline disagree, and two of the dual-write duration. Both are carried verbatim into "Offene Punkte & Konflikte". Neither is adopted, nothing is averaged. |
+
+The point is not the content but the mechanic: how tags are set, how the to-verify register
+grows, and what the deck makes of a gap and of a contradiction.
+
+The three fixtures are not a second set of data. They are the same files `tools/check.py` holds
+the reference briefs against, converted by `tools/render_cases.py` into `demo/cases/`; the gate
+re-renders and diffs, so a fixture and the case the app loads cannot drift apart. Loading one
+never overwrites your own entries without asking, a banner says the screen is holding example
+data for as long as it is, and **Back to the empty form** is one click away.
+
+All four are invented. Nothing describes a real organisation, system or person.
+
 ## What it looks like
 
 The screenshots follow your system theme. The instrument ships two, `paper` and `ink`, and every
@@ -214,6 +237,17 @@ is long. They are allowed to, because a slide may cost an extra page but may not
 
 All examples in this repository are fictional. Nothing here describes a real client, employer or
 institution.
+
+## Backlog
+
+Not built, recorded so it is not re-invented:
+
+- **The example library could grow from public sources.** Court-of-audit reports on large public
+  IT programmes, published incident post-mortems, and written migration retrospectives all
+  describe *situations*, which is what a scenario needs. Each such case would carry a citable
+  source per claim, so the fact-tag discipline the kit demands of its users holds inside its own
+  examples too. Explicitly not: awesome-lists or raw datasets — they carry data, not situations,
+  and a situation is the thing this instrument takes as input.
 
 ## Licence
 

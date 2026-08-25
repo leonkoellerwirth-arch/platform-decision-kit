@@ -377,7 +377,55 @@ export const UI = {
   themeToggle: { en: "Switch theme", de: "Theme wechseln" },
   versionLabel: { en: "Build", de: "Build" },
   infoToggle: { en: "About this page", de: "Hinweis zu dieser Seite" },
-  loadDemo: { en: "Load the worked example", de: "Beispiel laden" },
+  loadDemo: { en: "Load an example", de: "Beispiel laden" },
+
+  // --- The example library ---
+  //
+  // Four cases, and their job is teaching rather than filling: between them they show the
+  // three shapes a first pass takes — the room knew its platform, the room did not, two
+  // records of the same fact disagree — and what the tag mechanic and the deck make of each.
+  examplesLabel: { en: "Load example", de: "Beispiel laden" },
+  /** The same control on a narrow bar. The full wording stays on the accessible name. */
+  examplesLabelShort: { en: "Example", de: "Beispiel" },
+  examplesPurpose: {
+    en: "To learn the tag mechanic and what the deck projects from it.",
+    de: "Zum Kennenlernen der Tag-Mechanik und der Deck-Projektion.",
+  },
+  examplesFictional: {
+    en: "All four are invented. No real organisation, system or person is described.",
+    de: "Alle vier sind erfunden. Es wird keine reale Organisation, kein reales System und keine reale Person beschrieben.",
+  },
+  exampleBannerLead: { en: "Example data.", de: "Beispieldaten." },
+  exampleBannerRest: {
+    en: "This is a loaded scenario, not your own intake. Clearing it puts the empty form back.",
+    de: "Dies ist ein geladenes Szenario, nicht Ihre eigene Erhebung. Zurücksetzen stellt das leere Formular wieder her.",
+  },
+  exampleBannerClose: { en: "Hide this notice", de: "Hinweis ausblenden" },
+  exampleOverwrite: {
+    en: "You have entries of your own. Loading an example replaces all of them, and there is no undo. Continue?",
+    de: "Sie haben eigene Eingaben. Ein Beispiel zu laden ersetzt sie vollständig, und es gibt kein Zurück. Fortfahren?",
+  },
+  exampleReset: { en: "Back to the empty form", de: "Zurück zum leeren Formular" },
+
+  // --- Contradictions ---
+  //
+  // The specification keeps a section for these and the deck had nowhere to put them, so a
+  // contradiction recorded in the room arrived on the slides as an ordinary open point.
+  conflictMark: { en: "Two accounts disagree", de: "Zwei Darstellungen widersprechen sich" },
+  conflictHint: {
+    en: "Record both, as they were said, with their sources. Neither is adopted here, and nothing is averaged.",
+    de: "Beide erfassen, so wie sie gesagt wurden, mit ihren Quellen. Keine wird hier übernommen, und es wird nichts gemittelt.",
+  },
+  conflictsTitle: {
+    en: "Open points & conflicts:",
+    de: "Offene Punkte & Konflikte:",
+  },
+  conflictsNote: {
+    en: "Both accounts stand as they were recorded. The instrument does not resolve them, does not average them, and does not adopt either one.",
+    de: "Beide Darstellungen stehen, wie sie erfasst wurden. Das Instrument löst sie nicht auf, mittelt sie nicht und übernimmt keine von beiden.",
+  },
+  exportConflicts: { en: "Open points & conflicts", de: "Offene Punkte & Konflikte" },
+  conflictsCount: { en: "in conflict", de: "im Widerspruch" },
   loadDemoHint: {
     en: "Nothing recorded yet. You can load the worked example, an invented energy utility, to see what a finished pass looks like.",
     de: "Noch nichts erfasst. Sie können das Beispiel laden, einen erfundenen Energieversorger, um zu sehen, wie ein fertiger Durchgang aussieht.",

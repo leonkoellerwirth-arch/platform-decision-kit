@@ -79,6 +79,29 @@ exactly as the invariants above do.
 
 Newest first. Each: date · decision · why · (superseded by …).
 
+- **2026-08-25 — The example library is the fixtures, converted, not copied.** The app can load
+  four cases: the worked Demo-Firma pass and the three fixtures `tools/check.py` already holds the
+  reference briefs against — complete, gappy, contradictory. `tools/render_cases.py` parses
+  `examples/*/intake-filled.md` into `demo/cases/*.json`; the gate re-renders and diffs, so a
+  fixture and the case the app loads cannot disagree. *Why:* a second set of example data is a
+  second thing to maintain and a second thing to drift, and the three shapes a first pass takes
+  are already written down. *Deliberately a raw conversion:* the fixtures predate the attribution
+  and follow-up fields, and those arrive empty rather than guessed — an open point does not
+  acquire an owner because the register would read tidier. *The visible consequence:* the three
+  loaded fixtures show every answer as "not traceable", because their source lines carry no
+  separate date. That is true of them, and inventing dates to make the meter quiet would be the
+  exact failure the meter exists to catch.
+
+- **2026-08-25 — A contradiction is a mark on the answer, not a fourth basis.** `Answer.conflict`
+  is set by hand and never detected; the deck carries the marked answers on slide 7 under
+  "Offene Punkte & Konflikte", above the register, with both accounts verbatim and neither
+  adopted. *Why:* §4.6 of the agent specification has kept this section from the start and the
+  deck had nowhere to put one, so a contradiction recorded in the room arrived on the slides as an
+  ordinary open point — which is the one thing it must not be. *Not a fourth basis and not a third
+  axis (INV-2):* it says nothing about the kind of knowledge or the outstanding work, and both
+  axes stay what they were. *Above the register on purpose:* slide 7 is the one slide that
+  overflows by nature, and a contradiction below the fold of a long table is one nobody reads.
+
 - **2026-08-25 — An answer carries where it came from and what closes it; the deck carries the
   directions somebody actually said.** An enterprise-architect review found the instrument sound
   as a Brownfield-Discovery instrument and named five holes. Four became changes: the `Answer`

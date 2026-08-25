@@ -55,6 +55,16 @@ export interface Answer {
   due: string;
   /** What has to happen first, or who is in the way. */
   blocker: string;
+  /**
+   * This answer holds two accounts that do not agree.
+   *
+   * Set by hand, never detected. The agent specification keeps a section for exactly this
+   * — "Offene Punkte & Konflikte", quoted verbatim, not resolved, not averaged, not silently
+   * adopted — and the deck had nowhere to put it, so a contradiction recorded in the room
+   * arrived on the slides as an ordinary open point. Both accounts go in `text` as they were
+   * said; this flag is what makes the deck carry them under their own heading.
+   */
+  conflict: boolean;
 }
 
 /** An answer nobody has touched. The one place the empty shape is written down. */
@@ -70,6 +80,7 @@ export const EMPTY_ANSWER: Answer = {
   evidence: "",
   due: "",
   blocker: "",
+  conflict: false,
 };
 
 /**

@@ -28,22 +28,14 @@ import {
 const VERSION = `v${__APP_VERSION__}${__APP_COMMIT__ ? ` · ${__APP_COMMIT__}` : ""}`;
 
 /**
- * The worked example, as data.
+ * The example library.
  *
- * It sits in `demo/case.json` next to the prose that explains it, and is imported the same way
- * the question set is: inlined at build time, so loading it makes no network call. One source —
- * the file the repository publishes is the file the button loads.
+ * Four cases, imported the same way the question set is: inlined at build time, so loading
+ * one makes no network call. Three of them are the fixtures `tools/check.py` already holds
+ * the reference briefs against — one canonical source, converted rather than copied, so the
+ * app and the gate cannot come to disagree about what a case says.
  */
-import demoCase from "../../demo/case.json";
-
-type DemoCase = {
-  mode: Mode;
-  head: DecisionHead;
-  rows: string[][];
-  answers: Record<string, Partial<Answer>>;
-  /** Optional: a case written before directions existed simply has none. */
-  directions?: Direction[];
-};
+import { CASES, type ExampleCase } from "./cases";
 
 type View = "intake" | "register" | "deck";
 
@@ -221,6 +213,16 @@ export default function App() {
       dependsOn: Array.isArray(d?.dependsOn) ? d.dependsOn : [],
     })),
   );
+  /** The case on screen, if it is one of the library's. Drives the banner, nothing else. */
+  const [example, setExample] = useState<string | null>(() => {
+    try {
+      const id = localStorage.getItem("pdk.example");
+      return CASES.some((c) => c.id === id) ? id : null;
+    } catch {
+      return null;
+    }
+  });
+  const [bannerOff, setBannerOff] = useState(false);
   const [exported, setExported] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [info, setInfo] = useState(false);
@@ -230,25 +232,45 @@ export default function App() {
   const [activeBlock, setActiveBlock] = useState(0);
   const [activeQId, setActiveQId] = useState<string | null>(null);
 
-  /** Fill the instrument with the worked example. Replaces whatever is there. */
-  const loadDemo = useCallback(() => {
-    const c = demoCase as unknown as DemoCase;
-    setAnswers(Object.fromEntries(Object.entries(c.answers).map(([id, a]) => [id, hydrate(a)])));
-    setHead(c.head);
-    setRows(c.rows);
-    setDirections(c.directions ?? []);
-    // The mode has to be persisted, not just set: a bare setMode left `pdk.mode` at
-    // triage, and a reload dropped forty-five of the example's answers from view.
-    setMode(c.mode);
-    try {
-      localStorage.setItem("pdk.mode", c.mode);
-    } catch {
-      /* private windows */
-    }
-    setActiveBlock(0);
-    setActiveQId(null);
-    setExported(null);
-  }, []);
+  /**
+   * Load one of the library's cases.
+   *
+   * It replaces everything, so it asks first — unless what it would replace is another
+   * loaded example, which is nobody's work. The confirm is the whole overwrite protection
+   * and it is deliberately the browser's own: there is no undo behind it, and a dialog that
+   * looks like part of the page is a dialog people dismiss without reading.
+   */
+  const loadExample = useCallback(
+    (c: ExampleCase) => {
+      const mine = example === null && (
+        Object.keys(answersRef.current).length > 0 ||
+        Object.values(headRef.current).some((v) => v.trim() !== "")
+      );
+      if (mine && !window.confirm(t(UI.exampleOverwrite, langRef.current))) return;
+
+      setAnswers(
+        Object.fromEntries(Object.entries(c.answers).map(([id, a]) => [id, hydrate(a)])),
+      );
+      setHead(c.head);
+      setRows(c.rows);
+      setDirections(c.directions ?? []);
+      // The mode has to be persisted, not just set: a bare setMode left `pdk.mode` at
+      // triage, and a reload dropped forty-five of the example's answers from view.
+      setMode(c.mode);
+      setExample(c.id);
+      setBannerOff(false);
+      try {
+        localStorage.setItem("pdk.mode", c.mode);
+        localStorage.setItem("pdk.example", c.id);
+      } catch {
+        /* private windows */
+      }
+      setActiveBlock(0);
+      setActiveQId(null);
+      setExported(null);
+    },
+    [example],
+  );
 
   /** Back to an empty instrument. Confirmed, because there is no undo. */
   const clearAll = useCallback(() => {
@@ -257,6 +279,12 @@ export default function App() {
     setHead({});
     setRows([]);
     setDirections([]);
+    setExample(null);
+    try {
+      localStorage.removeItem("pdk.example");
+    } catch {
+      /* private windows */
+    }
     setActiveBlock(0);
     setActiveQId(null);
     setExported(null);
@@ -265,8 +293,12 @@ export default function App() {
   // Refs for keyboard handler — avoids stale closures with empty-dep effect
   const activeQIdRef = useRef<string | null>(null);
   const answersRef = useRef<Record<string, Answer>>({});
+  const headRef = useRef<DecisionHead>({});
+  const langRef = useRef<Lang>("en");
   activeQIdRef.current = activeQId;
   answersRef.current = answers;
+  headRef.current = head;
+  langRef.current = lang;
 
   // ── Effects ───────────────────────────────────────────────────────────────
 
@@ -348,6 +380,7 @@ export default function App() {
     setCopied(false);
   }, []);
 
+
   // ── Keyboard shortcut handler ─────────────────────────────────────────────
   // Bare keys 1-4 set basis, Q/W/E set verification.
   // Bail out if the event target is a text field (architect is typing).
@@ -400,6 +433,8 @@ export default function App() {
   const register = allQuestions.filter((q) => isOpen(get(q.id)));
   const defects = allQuestions.filter((q) => missingSource(get(q.id)));
   const unattributed = allQuestions.filter((q) => untraceable(get(q.id)));
+  /** Marked by hand on the answer, never detected. */
+  const conflicted = allQuestions.filter((q) => get(q.id).conflict);
 
   // Clamp block index to valid range after mode change
   const safeBlock = Math.min(activeBlock, Math.max(0, visible.length - 1));
@@ -512,6 +547,8 @@ export default function App() {
           <ToggleButton id="discovery">{t(UI.discoveryMode, lang)}</ToggleButton>
         </ToggleButtonGroup>
 
+        <ExampleMenu lang={lang} current={example} onLoad={loadExample} onClear={clearAll} />
+
         <Tabs
           className="view-tabs"
           selectedKey={view}
@@ -571,6 +608,11 @@ export default function App() {
             {unattributed.length > 0 && (
               <span className="weak">
                 · <b>{unattributed.length}</b> {t(UI.untraceableCount, lang)}
+              </span>
+            )}
+            {conflicted.length > 0 && (
+              <span className="conflicted">
+                · <b>{conflicted.length}</b> {t(UI.conflictsCount, lang)}
               </span>
             )}
           </span>
@@ -651,6 +693,32 @@ export default function App() {
           <ToggleButton id="de">DE</ToggleButton>
         </ToggleButtonGroup>
       </header>
+
+      {/* Example data, said plainly and once.
+          A loaded scenario looks exactly like a filled intake, and the one thing a reader
+          must not do is mistake somebody's teaching case for their own conversation notes —
+          or for a client's. It sits under the bar in every view, and it can be put away,
+          because a person who has read it twice has read it. */}
+      {example !== null && !bannerOff && (
+        <div className="example-banner" role="status">
+          <span className="example-chip">{t(UI.exampleBannerLead, lang)}</span>
+          <span className="example-banner-text">
+            {t(UI.exampleBannerRest, lang)}{" "}
+            <b>{pick(CASES.find((c) => c.id === example)?.title ?? { en: "", de: "" }, lang)}</b>
+          </span>
+          <Button variant="ghost" size="sm" onPress={clearAll}>
+            {t(UI.exampleReset, lang)}
+          </Button>
+          <button
+            type="button"
+            className="example-banner-close"
+            aria-label={t(UI.exampleBannerClose, lang)}
+            onClick={() => setBannerOff(true)}
+          >
+            ×
+          </button>
+        </div>
+      )}
 
       {/* ── Deck view ──────────────────────────────────────────────────── */}
       {/* Wide: a slide is landscape, and the intake's reading width is the wrong
@@ -893,9 +961,7 @@ export default function App() {
           {answered === 0 && (
             <div className="demo-hint">
               <p>{t(UI.loadDemoHint, lang)}</p>
-              <Button variant="outline" size="sm" onPress={loadDemo}>
-                {t(UI.loadDemo, lang)}
-              </Button>
+              <ExamplePicker lang={lang} onLoad={loadExample} />
             </div>
           )}
 
@@ -952,11 +1018,8 @@ export default function App() {
             </p>
             <p className="muted">{t(UI.footer, lang)}</p>
             <div className="footer-actions">
-              <Button variant="outline" size="sm" onPress={loadDemo}>
-                {t(UI.loadDemo, lang)}
-              </Button>
               <Button variant="ghost" size="sm" onPress={clearAll}>
-                {t(UI.clearAll, lang)}
+                {t(UI.exampleReset, lang)}
               </Button>
             </div>
           </div>
@@ -976,6 +1039,107 @@ export default function App() {
   );
 }
 
+
+// ── The example library ───────────────────────────────────────────────────────
+
+/**
+ * The cases, listed with what each is worth looking at for.
+ *
+ * Shown on an empty instrument, where a first-time reader is. A list rather than a select:
+ * with four entries the names alone do not say what a case teaches, and the sentence beside
+ * each one is the reason it is in the library at all.
+ */
+function ExamplePicker({
+  lang,
+  onLoad,
+}: {
+  lang: Lang;
+  onLoad: (c: ExampleCase) => void;
+}) {
+  return (
+    <div className="examples">
+      <p className="examples-purpose">{t(UI.examplesPurpose, lang)}</p>
+      <ul className="examples-list">
+        {CASES.map((c) => (
+          <li key={c.id}>
+            <button type="button" className="example-card" onClick={() => onLoad(c)}>
+              <span className="example-title">{pick(c.title, lang)}</span>
+              <span className="example-note">{pick(c.note, lang)}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <p className="examples-fictional">{t(UI.examplesFictional, lang)}</p>
+    </div>
+  );
+}
+
+/**
+ * The same library as a menu in the bar, for the reader who is already working.
+ *
+ * A native `<details>` rather than a component: it closes on Escape and on a click outside
+ * without a line of state, and this is a menu that gets opened once a session.
+ */
+function ExampleMenu({
+  lang,
+  current,
+  onLoad,
+  onClear,
+}: {
+  lang: Lang;
+  current: string | null;
+  onLoad: (c: ExampleCase) => void;
+  onClear: () => void;
+}) {
+  const ref = useRef<HTMLDetailsElement>(null);
+  const close = () => ref.current?.removeAttribute("open");
+
+  return (
+    <details className="example-menu" ref={ref}>
+      <summary aria-label={t(UI.examplesLabel, lang)} title={t(UI.examplesLabel, lang)}>
+        {/* Two spellings of one label. The bar is dense and this control cost it a second
+            row at 1280px; the full wording stays on the accessible name and the tooltip, so
+            nothing is lost to a screen reader or to a hovering cursor. */}
+        <span className="example-menu-long">{t(UI.examplesLabel, lang)}</span>
+        <span className="example-menu-short">{t(UI.examplesLabelShort, lang)}</span>
+        <span className="example-menu-chev" aria-hidden="true">
+          &#8964;
+        </span>
+      </summary>
+      <div className="example-menu-body">
+        <p className="examples-purpose">{t(UI.examplesPurpose, lang)}</p>
+        <ul className="examples-list">
+          {CASES.map((c) => (
+            <li key={c.id}>
+              <button
+                type="button"
+                className={`example-card${current === c.id ? " on" : ""}`}
+                onClick={() => {
+                  close();
+                  onLoad(c);
+                }}
+              >
+                <span className="example-title">{pick(c.title, lang)}</span>
+                <span className="example-note">{pick(c.note, lang)}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <p className="examples-fictional">{t(UI.examplesFictional, lang)}</p>
+        <button
+          type="button"
+          className="tag example-menu-reset"
+          onClick={() => {
+            close();
+            onClear();
+          }}
+        >
+          {t(UI.exampleReset, lang)}
+        </button>
+      </div>
+    </details>
+  );
+}
 
 // ── QuestionBlock ─────────────────────────────────────────────────────────────
 
@@ -1195,6 +1359,23 @@ function QuestionBlock({
           value={{ basis: answer.basis, verification: answer.verification }}
           onChange={onChange}
         />
+
+        {/* A third mark, and deliberately not a third axis: it does not say what kind of
+            knowledge this is or what work is outstanding, it says the answer holds two
+            accounts that do not agree. The specification keeps a section for exactly that,
+            and until now the deck had nowhere to put one. */}
+        <button
+          type="button"
+          className={`conflict-mark${answer.conflict ? " on" : ""}`}
+          aria-pressed={answer.conflict}
+          onClick={() => onChange({ conflict: !answer.conflict })}
+        >
+          <span className="conflict-glyph" aria-hidden="true">
+            &#8802;
+          </span>
+          {t(UI.conflictMark, lang)}
+        </button>
+        {answer.conflict && <p className="conflict-hint">{t(UI.conflictHint, lang)}</p>}
       </aside>
     </div>
   );

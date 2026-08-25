@@ -2538,3 +2538,216 @@ pre.export {
   color: var(--accent2-strong);
   border: 1px solid var(--line);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   The example library
+   Four cases, each with the sentence that says what it teaches. The names alone
+   do not carry that, so the list is cards rather than a select — and the same
+   list serves the empty instrument and the menu in the bar.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.examples-purpose { font-size: 0.85rem; color: var(--text-soft); margin: 0 0 0.15rem; }
+
+.examples-fictional {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 0.6rem 0 0;
+}
+
+.examples-list {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.example-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  box-shadow: inset 0 1px 0 0 var(--edge-light);
+  color: var(--text);
+  transition: border-color var(--dur-1) var(--ease);
+}
+
+.example-card:hover { border-color: var(--brass); }
+.example-card:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+.example-card.on { border-color: var(--accent); background: var(--accent-soft); }
+.example-title { font-weight: 600; font-size: 0.88rem; }
+.example-note { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
+
+/* ── The same library as a menu in the bar ── */
+
+.example-menu { position: relative; flex-shrink: 0; }
+
+.example-menu > summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+
+.example-menu > summary::-webkit-details-marker { display: none; }
+.example-menu > summary:hover { border-color: var(--brass); color: var(--text); }
+.example-menu > summary:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+.example-menu-chev { color: var(--muted); font-size: 0.7rem; }
+
+.example-menu-body {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  width: min(30rem, 90vw);
+  padding: 0.9rem 1rem;
+  background-color: var(--surface);
+  background-image: var(--relief-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: inset 0 1px 0 0 var(--edge-light), var(--shadow-2);
+}
+
+.example-menu-reset { margin-top: 0.7rem; }
+
+/* ── Example data, said under the bar ── */
+
+.example-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  padding: 0.45rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--accent2-soft);
+  color: var(--text-soft);
+  font-size: 0.82rem;
+}
+
+.example-chip {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--accent2-strong);
+  border: 1px solid var(--line);
+}
+
+.example-banner-text { min-width: 0; }
+.example-banner-text b { color: var(--text); font-weight: 600; }
+.example-banner .button { margin-left: auto; }
+
+.example-banner-close {
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 0 0.2rem;
+}
+
+.example-banner-close:hover { color: var(--text); }
+.example-banner-close:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Two accounts that do not agree
+   Not a third axis on the grid — it says nothing about the kind of knowledge or
+   the outstanding work. It says the answer holds a contradiction, which the
+   specification keeps its own section for and the deck now carries.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.conflict-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+  font-size: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  border: 1px dashed var(--line-2);
+  border-radius: var(--r-sm);
+  background: none;
+  color: var(--muted);
+  transition: border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+
+.conflict-mark:hover { border-color: var(--signal); color: var(--text); }
+.conflict-mark:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+
+.conflict-mark.on {
+  border-style: solid;
+  border-color: var(--signal);
+  color: var(--signal);
+  font-weight: 600;
+}
+
+.conflict-glyph { font-size: 0.95rem; line-height: 1; }
+.conflict-hint { font-size: 0.72rem; color: var(--muted); margin: 0.35rem 0 0; line-height: 1.45; }
+.appbar-stats .conflicted b { color: var(--signal); font-weight: 600; }
+
+/* The conflicts table on the last slide: the one place the signal colour is spent
+   on the deck, because a contradiction is exactly the focal point it is meant for. */
+.reg-sub.conflicts { color: var(--signal); }
+.reg.conflict td:first-child code { color: var(--signal); }
+
+/* The bar gained a menu and a third counter, and at 1440px it broke onto a second row —
+   two hundred pixels of chrome before a question is visible, which is the shape this bar
+   was rebuilt to get away from. The meters give way first: they are a reading, and a
+   reading may be clipped where a control may not. */
+.appbar-meters { min-width: 0; flex: 0 1 auto; overflow: hidden; }
+.appbar-stats { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.appbar .example-menu { flex-shrink: 0; }
+
+/* Below a wide desktop the two soft readings step back: they are the ones that also stand
+   on the register and the last slide, where they are read properly rather than counted in
+   passing. The two that cannot step back stay — answered, and a fact with nothing behind
+   it — because those are the ones that say the intake is wrong rather than thin. */
+@media (max-width: 1560px) {
+  .appbar-stats .weak,
+  .appbar-stats .conflicted { display: none; }
+}
+
+/* Narrower still, the numbers give way to the grid, which says the same thing in a shape
+   that costs 40 pixels instead of 300. */
+@media (max-width: 1200px) {
+  .appbar-stats { display: none; }
+}
+
+.example-menu-short { display: none; }
+
+@media (max-width: 1400px) {
+  .example-menu-long { display: none; }
+  .example-menu-short { display: inline; }
+}
+
+/* The build stamp steps out of a narrow bar. It is not a control and it is not lost: the
+   footer carries it in full on every view, which is where a screenshot picks it up anyway. */
+@media (max-width: 1400px) {
+  .brand-version { display: none; }
+}

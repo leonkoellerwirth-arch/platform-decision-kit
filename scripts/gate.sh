@@ -94,6 +94,7 @@ if [ -f tools/render_intake.py ]; then
   PY=".venv/bin/python"; [ -x "$PY" ] || PY="python3"
   check "intake forms match the theme source (no drift)" "$PY tools/render_intake.py --check"
   check "fixtures 3/3 green (offline assertions)"        "$PY tools/check.py fixtures"
+  check "loadable cases match their fixtures (no drift)" "$PY tools/render_cases.py --check"
   check "confidentiality wording verbatim in README.md" \
     "grep -qF 'Kunden-Rohdaten dürfen nur nach dokumentierter menschlicher Freigabe in einen Agenten eingegeben werden. Standard ist manuell-first — die Struktur IST das Werkzeug.' README.md"
   check "sign-off wording verbatim in pipeline/presentation-agent.md" \

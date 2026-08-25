@@ -132,6 +132,23 @@ export function exportMarkdown({
   }
   lines.push("");
 
+  // Named as §4.6 names it. `check.py` locates the section on a brief by this exact
+  // German string, and an export a human pastes into one should carry the same heading.
+  const conflicts = themes.flatMap((th) => th.questions).filter((q) => get(q.id).conflict);
+  if (conflicts.length > 0) {
+    lines.push(`## ${t(UI.exportConflicts, lang)}`, "");
+    for (const q of conflicts) {
+      const a = get(q.id);
+      lines.push(
+        `- [${q.id}] ${pick(q.text, lang)}`,
+        `  ${a.text.trim() || "—"}`,
+        `  ${t(UI.exportBasis, lang)}: ${a.basis ? t(UI.basisLabels[a.basis], lang) : "—"} · ` +
+          `${t(UI.exportAttribution, lang)}: ${attributionLine(a, lang)}`,
+      );
+    }
+    lines.push("", `_${t(UI.conflictsNote, lang)}_`, "");
+  }
+
   lines.push(`## ${t(UI.exportDirections, lang)}`, "");
   const written = directions.filter((d) => d.text.trim() !== "");
   if (written.length === 0) {

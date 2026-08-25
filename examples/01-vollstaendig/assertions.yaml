@@ -36,6 +36,12 @@ required_strings:
   - string: "Entscheidung vertagen"
     section: "## Options-Raum"
 
+  # The sign-off is the guarantee the person signing is given, and it is binding
+  # verbatim. The gate greps the specification for it; without this it was never
+  # checked against a brief, which is the document somebody actually signs.
+  - string: "Discovery-Brief, keine Empfehlung; alle Richtungsformulierungen mit offenen to-verify-IDs sind nicht entscheidungsreif. Gesehen: ___"
+    section: "## Sign-Off"
+
 version_stamp:
   required_fields: ["intake_version", "prompt_version", "model"]
   model_value: "hand-authored reference"

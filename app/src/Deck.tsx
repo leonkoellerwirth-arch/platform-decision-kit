@@ -66,6 +66,8 @@ interface Item {
   verification: Verification;
   /** The attribution, already assembled for reading: a slide has no room for four labels. */
   source: string;
+  /** Two accounts that do not agree, marked by hand in the intake. */
+  conflict: boolean;
   /** The follow-up, for the register on the last slide. Empty means nobody owes it. */
   owner: string;
   due: string;
@@ -100,6 +102,7 @@ export function Deck({ lang, mode, themes, answers, head, rows, directions }: De
         basisKey: a.basis,
         verification: a.verification,
         source: attribution(a),
+        conflict: a.conflict,
         owner: a.owner.trim(),
         due: a.due.trim(),
         evidence: a.evidence.trim(),
@@ -127,6 +130,13 @@ export function Deck({ lang, mode, themes, answers, head, rows, directions }: De
     return i && (i.text !== "" || i.basis !== null) ? i : null;
   };
   const openItems = items.filter((i) => i.open);
+  /**
+   * §4.6 of the specification keeps a section for these, and the deck had none: a
+   * contradiction recorded in the room arrived on the slides as an ordinary open point,
+   * which is the one thing it must not be. Both accounts stand as they were written. The
+   * renderer resolves nothing, averages nothing and adopts neither.
+   */
+  const conflicts = items.filter((i) => i.conflict && (i.text !== "" || i.basis !== null));
   const assumptions = items.filter(
     (i) => i.basis === t(UI.basisLabels.assumption, lang) && i.text !== "",
   );
@@ -357,6 +367,37 @@ export function Deck({ lang, mode, themes, answers, head, rows, directions }: De
           <span className="readout-chip">{t(UI.readOut, lang)}</span>
           {t(UI.readOutNote, lang)}
         </p>
+
+        {/* Before the register, not after it. §4.6 orders the brief that way, and this
+            is the one slide that overflows by nature — a contradiction that lands below
+            the fold of a long open-points table is a contradiction nobody in the room
+            reads. */}
+        {conflicts.length > 0 && (
+          <>
+            <h4 className="reg-sub conflicts">
+              {t(UI.conflictsTitle, lang)} <b>{conflicts.length}</b>
+            </h4>
+            <p className="reg-sub-note">{t(UI.conflictsNote, lang)}</p>
+            <table className="reg conflict">
+              <tbody>
+                {conflicts.map((i) => (
+                  <tr key={i.id}>
+                    <td>
+                      <code>{i.id}</code>
+                    </td>
+                    <td>{pick(i.question, lang)}</td>
+                    <td className="muted">
+                      {i.text || "—"}
+                      <Tag item={i} />
+                      {i.source && <span className="src"> · {i.source}</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+
         {openItems.length === 0 ? (
           <p className="muted">{t(UI.noOpenDirections, lang)}</p>
         ) : (
