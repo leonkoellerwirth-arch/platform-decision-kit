@@ -1269,7 +1269,7 @@ function RegisterView({
                 {/* The nacharbeit, on the screen the architect turns towards the client.
                     This is the whole point of the four fields: read from a metre away, an
                     item either has a name and a date on it or it visibly does not. */}
-                {filled.length > 0 ? (
+                {filled.length > 0 && (
                   <dl className="register-follow">
                     {filled.map(([label, value]) => (
                       <div key={label}>
@@ -1278,7 +1278,12 @@ function RegisterView({
                       </div>
                     ))}
                   </dl>
-                ) : (
+                )}
+                {/* Said whenever the item is not steerable, not only when the whole group is
+                    empty. An item that names the proof it needs but nobody to fetch it and no
+                    date to fetch it by looked complete here, which is the failure this whole
+                    block exists to make visible. */}
+                {unsteerable(a) && (
                   <p className="register-follow-missing">{t(UI.unsteerable, lang)}</p>
                 )}
               </li>
@@ -1408,11 +1413,13 @@ function DecisionHeadBlock({
   onChange: (h: DecisionHead) => void;
 }) {
   const complete = HEAD_ESSENTIALS.every((k) => (head[k] ?? "").trim() !== "");
-  // Open until the frame is set, and openable again afterwards. Nobody has to remember to
-  // open it; the one case where it matters is the one where it opens itself.
+  // It follows completeness: open while the frame is not set, folded once it is. A manual
+  // toggle wins until completeness changes again, so opening it to edit a filled head is not
+  // undone under the cursor. Nobody has to remember to open it — the one case where it
+  // matters is the case where it opens itself.
   const [open, setOpen] = useState(!complete);
   useEffect(() => {
-    if (!complete) setOpen(true);
+    setOpen(!complete);
   }, [complete]);
 
   const summary = (key: string) => (head[key] ?? "").trim() || t(UI.decisionHeadEmptyField, lang);

@@ -76,7 +76,8 @@ hand during the conversation, then hand the filled file to an agent configured p
 
 The same question set in the browser, with three views.
 
-**Intake** is the guided form. Each question takes a written answer, an optional source, and one
+**Intake** is the guided form. Each question takes a written answer, an attribution — the
+document or system, the person who said it, the date, the locator inside the source — and one
 cell in a four by three grid: basis across, verification down. Clicking a cell sets both axes at
 once. The unknown column is struck through except in the open row, because an unknown answer is
 always open and the rule is drawn rather than silently enforced. Keyboard: 1 to 4 for the basis,
@@ -116,7 +117,7 @@ colour in both comes from one token file.
 
 ### Intake
 
-One theme block at a time. Each question takes a written answer, an optional source, and one cell
+One theme block at a time. Each question takes a written answer, its attribution, and one cell
 in a four by three grid: basis across, verification down. Clicking a cell sets both axes at once.
 The grey text in an empty field is an example of the shape a usable answer has.
 
@@ -180,7 +181,7 @@ sheet shows what the room saw.
 ## Layout
 
 ```
-intake/themes/          canonical theme source, 10 YAML files, stable question IDs Q1.1 … Q10.6
+intake/themes/          canonical theme source, 10 YAML files, stable question IDs Q1.1 … Q10.7
 intake/00-triage.md     generated: the 10-question triage form
 intake/01-discovery.md  generated: the full discovery form
 intake/themes.json      generated: structured export for the web instrument

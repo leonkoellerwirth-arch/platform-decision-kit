@@ -543,17 +543,13 @@ function Presenter({
         </div>
       </div>
 
-      {/* What this deck is, said on the deck.
-          The refusal to recommend is the right posture for a first conversation and only
-          becomes a problem when a room expects the sheet in front of it to be the paper the
-          architecture board decides on. Nobody reads that expectation out of a footer, so it
-          is stated where the expectation is actually set. */}
+      {/* The chip only. The sentence itself stands on the last slide, beside the sign-off,
+          because that is the sheet the room takes away — repeating it here put the same two
+          lines twice within a hand's width on screen. */}
       <p className="deck-readout">
         <span className="readout-chip">{t(UI.readOut, lang)}</span>
-        {t(UI.readOutNote, lang)}
+        {t(UI.deckNote, lang)}
       </p>
-
-      <p className="deck-note">{t(UI.deckNote, lang)}</p>
 
       {/* Hidden on screen, printed on paper. */}
       <div className="deck-stack">{slides}</div>

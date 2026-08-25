@@ -2,6 +2,34 @@
 
 All notable changes to platform-decision-kit. Keep-a-Changelog style.
 
+## Unreleased
+
+### Added
+
+- **Every to-verify item carries who owes it, what proof closes it, by when, and what blocks
+  it.** Counted as "without an owner or a date" in the register, on slide 7 and in the export.
+- **Where an answer came from is four fields**: the document or system, the person who said it,
+  the date, and the locator inside the source. A soft "not traceable yet" count sits beside the
+  hard `fact without a source` one; INV-3 is unchanged and any of the four satisfies it.
+- **Directions, not decided** — recorded by the architect in the register view with the open
+  points each depends on, and rendered on slide 4 as §5 of the agent specification asks. The
+  instrument derives none, ranks none, and marks an unconditioned direction as a defect.
+- **Three questions** for the technical drivers the set did not ask: load and growth profile
+  (Q5.6), deployment and network topology (Q10.7), critical runtime dependencies (Q4.7).
+  Discovery only — triage stays ten questions.
+- `app/scripts/build-demo.mjs` and `npm run demo:build` / `demo:check`, the latter in
+  `verify:ci`, so the published worked example cannot drift from `demo/case.json`.
+
+### Changed
+
+- The Entscheidungskopf stands above the blocks in both modes, folded to one line once the
+  question, the owner and the deadline are set. It used to sit inside block 2.
+- The deck says on its face that it is a workshop read-out, not a decision paper.
+- The Markdown export moved from `App.tsx` into `app/src/export.ts`, and the register in it is a
+  table with the four follow-up columns.
+- The worked example carries the new fields throughout: 58 answers, 42 open, 38 with an owner and
+  a date, 4 deliberately without, 2 recorded directions.
+
 ## [Unreleased]
 
 ### Added

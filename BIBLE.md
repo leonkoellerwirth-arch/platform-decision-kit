@@ -79,6 +79,34 @@ exactly as the invariants above do.
 
 Newest first. Each: date · decision · why · (superseded by …).
 
+- **2026-08-25 — An answer carries where it came from and what closes it; the deck carries the
+  directions somebody actually said.** An enterprise-architect review found the instrument sound
+  as a Brownfield-Discovery instrument and named five holes. Four became changes: the `Answer`
+  shape gained an attribution (artefact · speaker · date · locator) and, for open points, a
+  follow-up (owner · proof needed · due · blocker); the Entscheidungskopf moved above the blocks
+  in both modes; slide 4 renders directions recorded by the architect with the to-verify IDs each
+  depends on; and three questions were added for load and growth profile (Q5.6), deployment and
+  network topology (Q10.7) and critical runtime dependencies (Q4.7), Discovery only. *Why:* the
+  register was honest and unsteerable — "open" with no name and no date on it is a note — and the
+  agent specification asked for "speaker and date" beside every statement while the data model
+  could produce neither reliably. *INV-3 is unchanged in substance:* any of the four attribution
+  fields satisfies it, the old free line included, so no record written before this becomes a wall
+  of defects. *INV-1 holds by construction:* the instrument records no direction of its own, ranks
+  none, and marks an unconditioned one as a defect rather than showing it as a stronger claim.
+  *The limit, stated honestly:* the fifth point — that the deck is a discovery read-out and not
+  the paper an architecture board decides on — is answered by saying so on the deck and in the
+  specification, not by building the second, human-curated decision document. That stays a human
+  step, and it does not acquire a recommendation from this kit either.
+
+- **2026-08-25 — The Markdown export is one function, and `demo/` is built from it.**
+  `app/src/export.ts` is called by the app's export button and by `app/scripts/build-demo.mjs`,
+  which loads it through Vite's own SSR loader rather than a second toolchain. `npm run
+  demo:check` is in `verify:ci` and fails if the committed demo files have drifted from
+  `demo/case.json`. *Why:* the same argument as INV-5, one level up. For one release the published
+  worked example was produced by a script beside the repository, and it drifted — all thirty-three
+  facts lost their sources, so the instrument flagged thirty-three defects on the very case meant
+  to show a careful pass.
+
 - **2026-08-24 — `./start.sh` is the single local entry point, and Docker is the reference
   environment for the gate.** Adopted from the house pattern (`razbiram-anki`,
   `leonkoellerwirth.de`): one launcher, port offset from the sibling projects (5281 web
